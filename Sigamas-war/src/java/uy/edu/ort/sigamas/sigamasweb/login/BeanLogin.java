@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package uy.edu.ort.sigamas.sigamasweb.login;
-
+//COMENTARIO
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
