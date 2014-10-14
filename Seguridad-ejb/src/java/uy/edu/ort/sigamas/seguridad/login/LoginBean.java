@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package uy.edu.ort.sigamas.seguridad.login;
-
+//hola
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
