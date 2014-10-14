@@ -1,0 +1,42 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package uy.edu.ort.sigamas.seguridad.login;
+
+import java.util.Map;
+import javax.ejb.Stateless;
+import uy.edu.ort.sigamas.seguridad.login.excepciones.ClaveInvalidaException;
+import uy.edu.ort.sigamas.seguridad.login.excepciones.UsuarioInvalidoException;
+
+/**
+ *
+ * @author anieves
+ */
+@Stateless
+public class LoginBean implements LoginBeanLocal {
+/**
+ * @param nombreUsuario
+ * @param claveUsuario
+ * @return
+ * @throws ClaveInvalidaException
+ * @throws UsuarioInvalidoException 
+ */
+    @Override
+    public boolean verificarUsuario(String nombreUsuario, String claveUsuario) throws ClaveInvalidaException, UsuarioInvalidoException {
+        if (nombreUsuario.equals("usuario")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Add business logic below. (Right-click in editor and choose
+    // "Insert Code > Add Business Method")
+    @Override
+    public Map<Integer, String> obtenerCuentas(String nombreUsuario) throws ClaveInvalidaException, UsuarioInvalidoException {
+        return null;
+    }
+
+}
