@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uy.edu.ort.sigamas.seguridad.login.entidades;
+package uy.edu.ort.sigamas.seguridad.entidades;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -18,8 +18,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -27,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Pikachuss
  */
 @Entity
-@Table(name = "login")
+@Table(name = "login", catalog = "sigamas", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Login.findAll", query = "SELECT l FROM Login l"),
@@ -38,18 +36,15 @@ public class Login implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "id_login")
+    @Column(name = "id_login", nullable = false)
     private Integer idLogin;
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "fecha")
+    @Column(name = "fecha", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
-    @Size(max = 45)
-    @Column(name = "ip")
+    @Column(name = "ip", length = 45)
     private String ip;
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", nullable = false)
     @ManyToOne(optional = false)
     private Usuario idUsuario;
 
@@ -119,7 +114,7 @@ public class Login implements Serializable {
 
     @Override
     public String toString() {
-        return "uy.edu.ort.sigamas.seguridad.login.entidades.Login[ idLogin=" + idLogin + " ]";
+        return "uy.edu.ort.sigamas.seguridad.entidades.Login[ idLogin=" + idLogin + " ]";
     }
     
 }

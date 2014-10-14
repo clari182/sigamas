@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import uy.edu.ort.sigamas.seguridad.login.entidades.Cuenta;
-import uy.edu.ort.sigamas.seguridad.login.entidades.Usuario;
+import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
+import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
 
 import uy.edu.ort.sigamas.seguridad.login.excepciones.ClaveInvalidaException;
 import uy.edu.ort.sigamas.seguridad.login.excepciones.UsuarioInvalidoException;
@@ -40,12 +40,12 @@ public class UtilLogin {
         return true;
     }
 
-    public static Collection<Cuenta> obtenerCuentas(EntityManager em, String nombreUsuario) {
+    public static List<Cuenta> obtenerCuentas(EntityManager em, String nombreUsuario) {
         Query q = em.createNamedQuery("Usuario.findByNombreUsuario");
         List<Usuario> usuario = q.getResultList();
         Map<Integer, String> cuentasUsuario = new Hashtable<>();
         if (!usuario.isEmpty()){
-            return usuario.get(0).getCuentaCollection();
+            return usuario.get(0).getCuentaList();
             
         }        
         return null;

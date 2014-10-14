@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uy.edu.ort.sigamas.seguridad.login.entidades;
+package uy.edu.ort.sigamas.seguridad.entidades;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,8 +22,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -32,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Pikachuss
  */
 @Entity
-@Table(name = "usuario")
+@Table(name = "usuario", catalog = "sigamas", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
@@ -47,62 +45,50 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByTelefono", query = "SELECT u FROM Usuario u WHERE u.telefono = :telefono"),
     @NamedQuery(name = "Usuario.findByFechaNacimiento", query = "SELECT u FROM Usuario u WHERE u.fechaNacimiento = :fechaNacimiento"),
     @NamedQuery(name = "Usuario.findBySexo", query = "SELECT u FROM Usuario u WHERE u.sexo = :sexo"),
-    @NamedQuery(name = "Usuario.findByProfesion", query = "SELECT u FROM Usuario u WHERE u.profesion = :profesion")})
+    @NamedQuery(name = "Usuario.findByProfesion", query = "SELECT u FROM Usuario u WHERE u.profesion = :profesion"),
+    @NamedQuery(name = "Usuario.findByEsSuperUsuario", query = "SELECT u FROM Usuario u WHERE u.esSuperUsuario = :esSuperUsuario")})
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "id_usuario")
+    @Column(name = "id_usuario", nullable = false)
     private Integer idUsuario;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "nombre_usuario")
+    @Column(name = "nombre_usuario", nullable = false, length = 45)
     private String nombreUsuario;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "clave_usuario")
+    @Column(name = "clave_usuario", nullable = false, length = 45)
     private String claveUsuario;
-    @Size(max = 45)
-    @Column(name = "email_usuario")
+    @Column(name = "email_usuario", length = 45)
     private String emailUsuario;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "primer_nombre")
+    @Column(name = "primer_nombre", nullable = false, length = 45)
     private String primerNombre;
-    @Size(max = 45)
-    @Column(name = "segundo_nombre")
+    @Column(name = "segundo_nombre", length = 45)
     private String segundoNombre;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "primer_apellido")
+    @Column(name = "primer_apellido", nullable = false, length = 45)
     private String primerApellido;
-    @Size(max = 45)
-    @Column(name = "segundo_apellido")
+    @Column(name = "segundo_apellido", length = 45)
     private String segundoApellido;
-    @Size(max = 45)
-    @Column(name = "telefono")
+    @Column(name = "telefono", length = 45)
     private String telefono;
     @Column(name = "fecha_nacimiento")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaNacimiento;
-    @Size(max = 1)
-    @Column(name = "sexo")
+    @Column(name = "sexo", length = 1)
     private String sexo;
-    @Size(max = 45)
-    @Column(name = "profesion")
+    @Column(name = "profesion", length = 45)
     private String profesion;
-    @ManyToMany(mappedBy = "usuarioCollection")
-    private Collection<Cuenta> cuentaCollection;
+    @Column(name = "es_super_usuario")
+    private Integer esSuperUsuario;
+    @ManyToMany(mappedBy = "usuarioList")
+    private List<Cuenta> cuentaList;
     @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")
     @ManyToOne
     private Rol idRol;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
-    private Collection<Login> loginCollection;
+    private List<Login> loginList;
 
     public Usuario() {
     }
@@ -215,13 +201,21 @@ public class Usuario implements Serializable {
         this.profesion = profesion;
     }
 
-    @XmlTransient
-    public Collection<Cuenta> getCuentaCollection() {
-        return cuentaCollection;
+    public Integer getEsSuperUsuario() {
+        return esSuperUsuario;
     }
 
-    public void setCuentaCollection(Collection<Cuenta> cuentaCollection) {
-        this.cuentaCollection = cuentaCollection;
+    public void setEsSuperUsuario(Integer esSuperUsuario) {
+        this.esSuperUsuario = esSuperUsuario;
+    }
+
+    @XmlTransient
+    public List<Cuenta> getCuentaList() {
+        return cuentaList;
+    }
+
+    public void setCuentaList(List<Cuenta> cuentaList) {
+        this.cuentaList = cuentaList;
     }
 
     public Rol getIdRol() {
@@ -233,12 +227,12 @@ public class Usuario implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Login> getLoginCollection() {
-        return loginCollection;
+    public List<Login> getLoginList() {
+        return loginList;
     }
 
-    public void setLoginCollection(Collection<Login> loginCollection) {
-        this.loginCollection = loginCollection;
+    public void setLoginList(List<Login> loginList) {
+        this.loginList = loginList;
     }
 
     @Override
@@ -263,7 +257,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "uy.edu.ort.sigamas.seguridad.login.entidades.Usuario[ idUsuario=" + idUsuario + " ]";
+        return "uy.edu.ort.sigamas.seguridad.entidades.Usuario[ idUsuario=" + idUsuario + " ]";
     }
     
 }

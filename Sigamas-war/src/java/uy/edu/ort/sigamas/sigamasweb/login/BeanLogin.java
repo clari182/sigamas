@@ -7,13 +7,12 @@ package uy.edu.ort.sigamas.sigamasweb.login;
 //COMENTARIO
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.model.SelectItem;
+import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.login.LoginBeanLocal;
-import uy.edu.ort.sigamas.seguridad.login.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.login.excepciones.ClaveInvalidaException;
 import uy.edu.ort.sigamas.seguridad.login.excepciones.UsuarioInvalidoException;
 import uy.edu.ort.sigamas.sigamasweb.utils.UtilsMensajes;
@@ -39,7 +38,7 @@ public class BeanLogin {
     private String claveUsuario;
     private String cuenta;
     private List<SelectItem> usuarios;
-    private Collection<Cuenta> cuentas;    
+    private List<Cuenta> cuentas;    
 
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -74,7 +73,7 @@ public class BeanLogin {
     /**
      * @return the cuentas
      */
-    public Collection<Cuenta> getCuentas() {
+    public List<Cuenta> getCuentas() {
         return cuentas;
     }
     

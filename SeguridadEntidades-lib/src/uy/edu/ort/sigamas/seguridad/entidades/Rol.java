@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uy.edu.ort.sigamas.seguridad.login.entidades;
+package uy.edu.ort.sigamas.seguridad.entidades;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +15,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -25,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Pikachuss
  */
 @Entity
-@Table(name = "rol")
+@Table(name = "rol", catalog = "sigamas", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r"),
@@ -35,16 +33,13 @@ public class Rol implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "id_rol")
+    @Column(name = "id_rol", nullable = false)
     private Integer idRol;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false, length = 45)
     private String nombre;
     @OneToMany(mappedBy = "idRol")
-    private Collection<Usuario> usuarioCollection;
+    private List<Usuario> usuarioList;
 
     public Rol() {
     }
@@ -75,12 +70,12 @@ public class Rol implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Usuario> getUsuarioCollection() {
-        return usuarioCollection;
+    public List<Usuario> getUsuarioList() {
+        return usuarioList;
     }
 
-    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
-        this.usuarioCollection = usuarioCollection;
+    public void setUsuarioList(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
     }
 
     @Override
@@ -105,7 +100,7 @@ public class Rol implements Serializable {
 
     @Override
     public String toString() {
-        return "uy.edu.ort.sigamas.seguridad.login.entidades.Rol[ idRol=" + idRol + " ]";
+        return "uy.edu.ort.sigamas.seguridad.entidades.Rol[ idRol=" + idRol + " ]";
     }
     
 }
