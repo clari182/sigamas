@@ -5,8 +5,7 @@
  */
 package uy.edu.ort.sigamas.seguridad.login.utils;
 
-import java.util.Collection;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManager;
@@ -43,7 +42,7 @@ public class UtilLogin {
     public static List<Cuenta> obtenerCuentas(EntityManager em, String nombreUsuario) {
         Query q = em.createNamedQuery("Usuario.findByNombreUsuario");
         List<Usuario> usuario = q.getResultList();
-        Map<Integer, String> cuentasUsuario = new Hashtable<>();
+        Map<Integer, String> cuentasUsuario = new HashMap<>();
         if (!usuario.isEmpty()){
             return usuario.get(0).getCuentaList();
             
