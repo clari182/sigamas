@@ -9,9 +9,8 @@
 
 
     <ui:define name="content">
-        <h:form>
-            
-                <p:dataTable var="cuenta" value="#{beanLogin.cuentas}" editable="true" editMode="cell" style="width:50%">
+        <h:form>            
+                <p:dataTable var="cuenta" value="#{beanCuenta.cuentas}" editable="true" editMode="cell" style="width:50%">
                     <p:column headerText="Nombre">
                         <h:outputText value="#{cuenta.nombre}" />
                     </p:column>
@@ -24,26 +23,20 @@
                         <h:outputText value="#{cuenta.rut}" />
                     </p:column>
                 </p:dataTable>  
-
                 <p:commandButton value="Crear una nueva cuenta" type="button" onclick="PF('dlg2').show();" />            
             <p:dialog header="Crear une nueva cuenta" widgetVar="dlg2" modal="true" height="100%">
-
-
                 <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
                     <h:outputLabel for="nombreCuenta" value="Nombre de la cuenta:" />
                     <p:inputText id="nombreCuenta" value="#{beanCuenta.nombre}" required="true" label="text"/>
 
                     <h:outputLabel for="nombreEmpresa" value="Nombre de la empresa asociada:" />
-                    <p:inputText id="nombreEmpresa" value="#{beanCuenta.nombreEmpresa}" required="true" label="text" />                    
+                    <p:inputText id="nombreEmpresa" value="#{beanCuenta.empresa}" required="true" label="text" />                    
 
                     <h:outputLabel for="rut" value="Rut de la empresa:"/>
                     <p:inputText id="rut" value="#{beanCuenta.rut}" label="text" /> 
-
                 </h:panelGrid>
-                <p:button style="float:right" value="Guardar">                       
-                </p:button>
-
-
+                <p:commandButton style="float:right" value="Guardar" actionListener="#{beanCuenta.CrearCuenta()}">                       
+                </p:commandButton>
             </p:dialog>
         </h:form>
     </ui:define>

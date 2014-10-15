@@ -6,12 +6,14 @@
 package uy.edu.ort.sigamas.seguridad.cuenta;
 
 import javax.ejb.Local;
+import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CreacionCuentaInvalidaException;
+import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 
 /**
  *
  * @author Pikachuss
  */
 @Local
-public interface LoginCuentaLocal {
-    
+public interface CuentaBeanLocal {
+    Cuenta crearCuenta(String nombre, String empresa, String rut) throws CreacionCuentaInvalidaException;
 }
