@@ -10,26 +10,81 @@
 
     <ui:define name="content">
         <h:form id="form">                               
-            <p:dataTable var="usuario" value="#{beanLogin.usuarios}" editable="true" editMode="cell" style="width:50%">
+            <p:dataTable var="usuario" value="#{beanUsuario.usuarios}" editable="true" editMode="cell" style="width:50%">
                 <p:column headerText="Nombre de usuario">
                     <h:outputText value="#{usuario.nombreUsuario}" />
                 </p:column>
 
                 <p:column headerText="Nombre">
-                    <h:outputText value="#{usuario.nombre}" />
+                    <h:outputText value="#{usuario.primerNombre}" />
                 </p:column>
 
                 <p:column headerText="Apellido">
-                    <h:outputText value="#{usuario.apellido}" />
+                    <h:outputText value="#{usuario.primerApellido}" />
                 </p:column>
 
                 <p:column headerText="Mail">
-                    <h:outputText value="#{usuario.Mail}" />
+                    <h:outputText value="#{usuario.emailUsuario}" />
                 </p:column>
                 <p:column style="width:32px">
-                    <img src="../ressources/img/edit-icon.png"/>
+                    <p:commandButton actionListener="#{beanUsuario.editarUsuario()}" icon="ui-icon-edit" />  
                 </p:column>
-            </p:dataTable>      
+            </p:dataTable>   
+
+            <p:commandButton value="Crear un nuevo usuario" type="button" onclick="PF('dlg_usuario').show();" />            
+            <p:dialog header="Crear un nuevo usuario" widgetVar="dlg_usuario" modal="true" height="100%">
+                <p:growl id="msgs" showDetail="true" />
+                <input type="hidden" id="crearUsuario" value="1"/>                
+                    <p:fieldset legend="Información de ingreso" toggleable="true" toggleSpeed="500">
+                        <p:ajax event="toggle" listener="#{fieldsetView.handleToggle}" update="msgs" />
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel for="nombreUsuario" value="Nombre del usuario:" />
+                            <p:inputText id="nombreUsuario" value="#{beanUsuario.nombreUsuario}" required="true" label="text"/>
+
+                            <h:outputLabel for="claveUsuario" value="Nombre del usuario:" />
+                            <p:inputText id="claveUsuario" value="#{beanUsuario.claveUsuario}" required="true" label="text"/>
+
+                        </h:panelGrid>
+                    </p:fieldset>
+                    <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
+                        <p:fieldset legend="Información personal" toggleable="true" toggleSpeed="500">
+                            <p:ajax event="toggle" listener="#{fieldsetView.handleToggle}" update="msgs" />
+                            
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputLabel for="primerNombre" value="Primer Nombre:" />
+                                <p:inputText id="primerNombre" value="#{beanUsuario.primerNombre}" required="true" label="text"/>
+
+                                <h:outputLabel for="segundoNombre" value="Segundo Nombre:" />
+                                <p:inputText id="segundoNombre" value="#{beanUsuario.segundoNombre}" label="text"/>
+
+                                <h:outputLabel for="primerApellido" value="Primer Apellido:" />
+                                <p:inputText id="primerApellido" value="#{beanUsuario.primerApellido}" required="true" label="text"/>
+
+                                <h:outputLabel for="segundoApellido" value="Segundo Apellido:" />
+                                <p:inputText id="segundoApellido" value="#{beanUsuario.segundoApellido}" label="text"/>
+
+                                <h:outputLabel for="email" value="Mail:" />
+                                <p:inputText id="email" value="#{beanUsuario.emailUsuario}" required="true" label="text"/>
+
+                                <h:outputLabel for="telefono" value="Teléfono:" />
+                                <p:inputText id="telefono" value="#{beanUsuario.telefono}" label="text"/>
+
+                                <h:outputLabel for="fechaNacimiento" value="Fecha de nacimiento:" />
+                                <p:inputText type="date" id="fechaNacimiento" value="#{beanUsuario.fechaNacimiento}" label="text"/>
+
+                                <h:outputLabel for="sexo" value="Sexo:" />
+                                <p:selectOneMenu id="sexo" value="#{beanUsuario.sexo}" style="width:150px">                                    
+                                    <f:selectItem itemLabel="M" itemValue="M" />
+                                    <f:selectItem itemLabel="F" itemValue="F" />
+                                </p:selectOneMenu>
+
+                                <h:outputLabel for="profesion" value="Profesion:" />
+                                <p:inputText id="profesion" value="#{beanUsuario.profesion}" label="text"/>
+                            </h:panelGrid>
+                        </p:fieldset>
+                    </h:panelGrid>
+                    <p:commandButton style="float:right" value="Guardar"></p:commandButton>
+            </p:dialog>
         </h:form>
     </ui:define>
 

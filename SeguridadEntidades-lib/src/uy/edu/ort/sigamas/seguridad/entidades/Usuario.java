@@ -103,7 +103,7 @@ public class Usuario implements Serializable {
         this.claveUsuario = claveUsuario;
         this.primerNombre = primerNombre;
         this.primerApellido = primerApellido;
-    }
+    }        
 
     public Integer getIdUsuario() {
         return idUsuario;

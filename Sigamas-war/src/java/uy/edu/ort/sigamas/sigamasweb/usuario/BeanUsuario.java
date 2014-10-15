@@ -12,7 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import org.primefaces.context.RequestContext;
 import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
-import uy.edu.ort.sigamas.seguridad.usuario.UsuarioBean;
+import uy.edu.ort.sigamas.seguridad.usuario.UsuarioBeanLocal;
 
 /**
  *
@@ -23,7 +23,14 @@ import uy.edu.ort.sigamas.seguridad.usuario.UsuarioBean;
 public class BeanUsuario {
 
     @EJB
-    private UsuarioBean usuarioBeanLocal;
+    private UsuarioBeanLocal usuarioSessionBean;
+
+    /**
+     * Creates a new instance of BeanUsuario
+     */
+    public BeanUsuario() {
+    }
+
     private String nombreUsuario;
     private String claveUsuario;
     private String primerNombre;
@@ -37,14 +44,152 @@ public class BeanUsuario {
     private String telefono;
     private List<Usuario> usuarios;
 
+// <editor-fold defaultstate="collapsed" desc="Gets y Sets">
     /**
-     * Creates a new instance of BeanUsuario
+     * @return the nombreUsuario
      */
-    public BeanUsuario() {
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 
-    public boolean crearUsuario() {
-        return usuarioBeanLocal.crearUsuario(nombreUsuario, claveUsuario, primerNombre, primerApellido, segundoNombre, segundoApellido, emailUsuario, fechaNacimiento, profesion, sexo, telefono);
+    /**
+     * @param nombreUsuario the nombreUsuario to set
+     */
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    /**
+     * @return the claveUsuario
+     */
+    public String getClaveUsuario() {
+        return claveUsuario;
+    }
+
+    /**
+     * @param claveUsuario the claveUsuario to set
+     */
+    public void setClaveUsuario(String claveUsuario) {
+        this.claveUsuario = claveUsuario;
+    }
+
+    /**
+     * @return the primerNombre
+     */
+    public String getPrimerNombre() {
+        return primerNombre;
+    }
+
+    /**
+     * @param primerNombre the primerNombre to set
+     */
+    public void setPrimerNombre(String primerNombre) {
+        this.primerNombre = primerNombre;
+    }
+
+    /**
+     * @return the segundoNombre
+     */
+    public String getSegundoNombre() {
+        return segundoNombre;
+    }
+
+    /**
+     * @param segundoNombre the segundoNombre to set
+     */
+    public void setSegundoNombre(String segundoNombre) {
+        this.segundoNombre = segundoNombre;
+    }
+
+    /**
+     * @return the primerApellido
+     */
+    public String getPrimerApellido() {
+        return primerApellido;
+    }
+
+    /**
+     * @param primerApellido the primerApellido to set
+     */
+    public void setPrimerApellido(String primerApellido) {
+        this.primerApellido = primerApellido;
+    }
+
+    /**
+     * @return the segundoApellido
+     */
+    public String getSegundoApellido() {
+        return segundoApellido;
+    }
+
+    /**
+     * @param segundoApellido the segundoApellido to set
+     */
+    public void setSegundoApellido(String segundoApellido) {
+        this.segundoApellido = segundoApellido;
+    }
+
+    /**
+     * @return the emailUsuario
+     */
+    public String getEmailUsuario() {
+        return emailUsuario;
+    }
+
+    /**
+     * @param emailUsuario the emailUsuario to set
+     */
+    public void setEmailUsuario(String emailUsuario) {
+        this.emailUsuario = emailUsuario;
+    }
+
+    /**
+     * @return the fechaNacimiento
+     */
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    /**
+     * @param fechaNacimiento the fechaNacimiento to set
+     */
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    /**
+     * @return the profesion
+     */
+    public String getProfesion() {
+        return profesion;
+    }
+
+    /**
+     * @param profesion the profesion to set
+     */
+    public void setProfesion(String profesion) {
+        this.profesion = profesion;
+    }
+
+    /**
+     * @return the sexo
+     */
+    public String getSexo() {
+        return sexo;
+    }
+
+    /**
+     * @param sexo the sexo to set
+     */
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    /**
+     * @return the telefono
+     */
+    public String getTelefono() {
+        return telefono;
     }
 
     /**
@@ -59,6 +204,18 @@ public class BeanUsuario {
      */
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
+    }
+
+    /**
+     * @param telefono the telefono to set
+     */
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+// </editor-fold>
+
+    public boolean crearUsuario() {
+        return usuarioSessionBean.crearUsuario(getNombreUsuario(), getClaveUsuario(), getPrimerNombre(), getPrimerApellido(), getSegundoNombre(), getSegundoApellido(), getEmailUsuario(), getFechaNacimiento(), getProfesion(), getSexo(), getTelefono());
     }
 
     public void editarUsuario() {
