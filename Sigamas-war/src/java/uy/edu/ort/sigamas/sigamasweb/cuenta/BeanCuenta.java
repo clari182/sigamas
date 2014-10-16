@@ -28,13 +28,15 @@ public class BeanCuenta {
     private String empresa;
     private String rut;
     private List<Cuenta> cuentas;
-    //private List<Cuenta> cuentas;
+    
+   
     /**
      * Creates a new instance of BeanCuenta
      */
     public BeanCuenta() {
+        
     }
-    
+     // <editor-fold defaultstate="collapsed" desc="Gets y Sets">
     /**
      * @return the nombre
      */
@@ -76,23 +78,8 @@ public class BeanCuenta {
     public void setRut(String rut) {
         this.rut = rut;
     }
-    /** CrearCuenta
-     * Permite la alta de una nueva cuenta
-     * @return boolean
-     */
-    public boolean CrearCuenta(){
-        try
-        {
-            Cuenta cuenta = cuentaBeanLocal.crearCuenta(nombre, empresa, rut);
-            getCuentas().add(cuenta);
-            return true;
-        }
-        catch(CreacionCuentaInvalidaException exp){
-            UtilsMensajes.mostrarMensajeError("Error", "Error durante la creación de la cuenta");
-            return false;
-        }
-    }
-
+    
+    
     /**
      * @return the cuentas
      */
@@ -106,6 +93,29 @@ public class BeanCuenta {
     public void setCuentas(List<Cuenta> cuentas) {
         this.cuentas = cuentas;
     }
-
+    // </editor-fold>
     
+    /** crearCuenta
+ Permite la alta de una nueva cuenta
+     * @return boolean
+     */
+    public boolean crearCuenta(){
+        try
+        {
+            Cuenta cuenta = cuentaBeanLocal.crearCuenta(nombre, empresa, rut);
+            getCuentas().add(cuenta);
+            return true;
+        }
+        catch(CreacionCuentaInvalidaException exp){
+            UtilsMensajes.mostrarMensajeError("Error", "Error durante la creación de la cuenta");
+            return false;
+        }
+    }
+    /** obtenerCuentas
+     *  Permite obtener todas las cuentas.     
+     */
+    public void obtenerCuentas(){
+        this.cuentas = cuentaBeanLocal.obtenerCuentas();
+    }
+
 }

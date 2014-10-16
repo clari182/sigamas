@@ -5,9 +5,11 @@
  */
 package uy.edu.ort.sigamas.seguridad.cuenta;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CreacionCuentaInvalidaException;
 import uy.edu.ort.sigamas.seguridad.cuenta.utils.UtilCuenta;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
@@ -25,5 +27,10 @@ public class CuentaBean implements CuentaBeanLocal {
     @Override
     public Cuenta crearCuenta(String nombre, String empresa, String rut) throws CreacionCuentaInvalidaException{
         return UtilCuenta.crearCuenta(em, nombre, empresa, rut);        
+    }
+    
+    @Override
+    public List<Cuenta> obtenerCuentas(){
+       return UtilCuenta.obtenerCuentas(em);
     }
 }

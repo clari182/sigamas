@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -45,11 +47,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByTelefono", query = "SELECT u FROM Usuario u WHERE u.telefono = :telefono"),
     @NamedQuery(name = "Usuario.findByFechaNacimiento", query = "SELECT u FROM Usuario u WHERE u.fechaNacimiento = :fechaNacimiento"),
     @NamedQuery(name = "Usuario.findBySexo", query = "SELECT u FROM Usuario u WHERE u.sexo = :sexo"),
-    @NamedQuery(name = "Usuario.findByProfesion", query = "SELECT u FROM Usuario u WHERE u.profesion = :profesion"),
-    @NamedQuery(name = "Usuario.findByEsSuperUsuario", query = "SELECT u FROM Usuario u WHERE u.esSuperUsuario = :esSuperUsuario")})
+    @NamedQuery(name = "Usuario.findByProfesion", query = "SELECT u FROM Usuario u WHERE u.profesion = :profesion")})
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_usuario", nullable = false)
     private Integer idUsuario;
@@ -80,8 +82,6 @@ public class Usuario implements Serializable {
     private String sexo;
     @Column(name = "profesion", length = 45)
     private String profesion;
-    @Column(name = "es_super_usuario")
-    private Integer esSuperUsuario;
     @ManyToMany(mappedBy = "usuarioList")
     private List<Cuenta> cuentaList;
     @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")
@@ -199,14 +199,6 @@ public class Usuario implements Serializable {
 
     public void setProfesion(String profesion) {
         this.profesion = profesion;
-    }
-
-    public Integer getEsSuperUsuario() {
-        return esSuperUsuario;
-    }
-
-    public void setEsSuperUsuario(Integer esSuperUsuario) {
-        this.esSuperUsuario = esSuperUsuario;
     }
 
     @XmlTransient

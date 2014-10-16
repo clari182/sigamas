@@ -5,7 +5,9 @@
  */
 package uy.edu.ort.sigamas.seguridad.cuenta.utils;
 
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 
 /**
@@ -19,5 +21,10 @@ public class UtilCuenta {
         cuenta.setRut(rut);
         em.persist(cuenta);
         return cuenta;
+    }
+    
+    public static List<Cuenta> obtenerCuentas(EntityManager em){
+        Query cuentas = em.createNamedQuery("Cuenta.findAll");
+        return cuentas.getResultList();
     }
 }
