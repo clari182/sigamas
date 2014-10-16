@@ -16,10 +16,8 @@ import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
  */
 public class UtilUsuario {
     
-    public static boolean crearUsuario(EntityManager em, String nombreUsuario, String claveUsuario, String primerNombre, String primerApellido, String segundoNombre, String segundoApellido, String emailUsuario, Date fechaNacimiento, String profesion, String sexo, String telefono){
-       Usuario usuario = new Usuario(null, nombreUsuario, claveUsuario, primerNombre, primerApellido);
-       usuario.setSegundoNombre(segundoNombre);
-       usuario.setSegundoApellido(segundoApellido);
+    public static boolean crearUsuario(EntityManager em, String nombreUsuario, String claveUsuario, String nombre, String apellidos, String emailUsuario, Date fechaNacimiento, String profesion, String sexo, String telefono){
+       Usuario usuario = new Usuario(null, nombreUsuario, claveUsuario, nombre, apellidos);
        usuario.setEmailUsuario(emailUsuario);
        usuario.setFechaNacimiento(fechaNacimiento);
        usuario.setSexo(sexo);

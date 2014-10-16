@@ -33,10 +33,8 @@ public class BeanUsuario {
 
     private String nombreUsuario;
     private String claveUsuario;
-    private String primerNombre;
-    private String segundoNombre;
-    private String primerApellido;
-    private String segundoApellido;
+    private String nombre;
+    private String apellidos;
     private String emailUsuario;
     private Date fechaNacimiento;
     private String profesion;
@@ -74,59 +72,31 @@ public class BeanUsuario {
     }
 
     /**
-     * @return the primerNombre
+     * @return the nombre
      */
-    public String getPrimerNombre() {
-        return primerNombre;
+    public String getNombre() {
+        return nombre;
     }
 
     /**
-     * @param primerNombre the primerNombre to set
+     * @param nombre the nombre to set
      */
-    public void setPrimerNombre(String primerNombre) {
-        this.primerNombre = primerNombre;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     /**
-     * @return the segundoNombre
+     * @return the apellidos
      */
-    public String getSegundoNombre() {
-        return segundoNombre;
+    public String getApellidos() {
+        return apellidos;
     }
 
     /**
-     * @param segundoNombre the segundoNombre to set
+     * @param apellidos the apellidos to set
      */
-    public void setSegundoNombre(String segundoNombre) {
-        this.segundoNombre = segundoNombre;
-    }
-
-    /**
-     * @return the primerApellido
-     */
-    public String getPrimerApellido() {
-        return primerApellido;
-    }
-
-    /**
-     * @param primerApellido the primerApellido to set
-     */
-    public void setPrimerApellido(String primerApellido) {
-        this.primerApellido = primerApellido;
-    }
-
-    /**
-     * @return the segundoApellido
-     */
-    public String getSegundoApellido() {
-        return segundoApellido;
-    }
-
-    /**
-     * @param segundoApellido the segundoApellido to set
-     */
-    public void setSegundoApellido(String segundoApellido) {
-        this.segundoApellido = segundoApellido;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     /**
@@ -193,6 +163,13 @@ public class BeanUsuario {
     }
 
     /**
+     * @param telefono the telefono to set
+     */
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    /**
      * @return the usuarios
      */
     public List<Usuario> getUsuarios() {
@@ -206,19 +183,18 @@ public class BeanUsuario {
         this.usuarios = usuarios;
     }
 
-    /**
-     * @param telefono the telefono to set
-     */
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
 // </editor-fold>
-
     public boolean crearUsuario() {
-        return usuarioSessionBean.crearUsuario(getNombreUsuario(), getClaveUsuario(), getPrimerNombre(), getPrimerApellido(), getSegundoNombre(), getSegundoApellido(), getEmailUsuario(), getFechaNacimiento(), getProfesion(), getSexo(), getTelefono());
+        String lala = "";
+        return usuarioSessionBean.crearUsuario(getNombreUsuario(), getClaveUsuario(), getNombre(), getApellidos(), getEmailUsuario(), getFechaNacimiento(), getProfesion(), getSexo(), getTelefono());
     }
 
     public void editarUsuario() {
         RequestContext.getCurrentInstance().execute("dlg_usuario.show();");
+    }
+
+    public String paginaCrearUsuario() {
+        String lala = "";
+        return "crearUsuario";
     }
 }

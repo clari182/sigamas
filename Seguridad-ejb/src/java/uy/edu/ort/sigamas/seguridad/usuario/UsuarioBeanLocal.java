@@ -15,7 +15,7 @@ import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
  */
 @Local
 public interface UsuarioBeanLocal {
-    boolean crearUsuario(String nombreUsuario, String claveUsuario, String primerNombre, String primerApellido, String segundoNombre, String segundoApellido, String emailUsuario, Date fechaNacimiento, String profesion, String sexo, String telefono);
+    boolean crearUsuario(String nombreUsuario, String claveUsuario, String nombre, String apellidos, String emailUsuario, Date fechaNacimiento, String profesion, String sexo, String telefono);
     
     Usuario modificarUsuario(Object nuevoUsuario);
     

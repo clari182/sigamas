@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -38,18 +40,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByNombreUsuario", query = "SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario"),
     @NamedQuery(name = "Usuario.findByClaveUsuario", query = "SELECT u FROM Usuario u WHERE u.claveUsuario = :claveUsuario"),
     @NamedQuery(name = "Usuario.findByEmailUsuario", query = "SELECT u FROM Usuario u WHERE u.emailUsuario = :emailUsuario"),
-    @NamedQuery(name = "Usuario.findByPrimerNombre", query = "SELECT u FROM Usuario u WHERE u.primerNombre = :primerNombre"),
-    @NamedQuery(name = "Usuario.findBySegundoNombre", query = "SELECT u FROM Usuario u WHERE u.segundoNombre = :segundoNombre"),
-    @NamedQuery(name = "Usuario.findByPrimerApellido", query = "SELECT u FROM Usuario u WHERE u.primerApellido = :primerApellido"),
-    @NamedQuery(name = "Usuario.findBySegundoApellido", query = "SELECT u FROM Usuario u WHERE u.segundoApellido = :segundoApellido"),
+    @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre"),
+    @NamedQuery(name = "Usuario.findByApellidos", query = "SELECT u FROM Usuario u WHERE u.apellidos = :apellidos"),
     @NamedQuery(name = "Usuario.findByTelefono", query = "SELECT u FROM Usuario u WHERE u.telefono = :telefono"),
     @NamedQuery(name = "Usuario.findByFechaNacimiento", query = "SELECT u FROM Usuario u WHERE u.fechaNacimiento = :fechaNacimiento"),
     @NamedQuery(name = "Usuario.findBySexo", query = "SELECT u FROM Usuario u WHERE u.sexo = :sexo"),
-    @NamedQuery(name = "Usuario.findByProfesion", query = "SELECT u FROM Usuario u WHERE u.profesion = :profesion"),
-    @NamedQuery(name = "Usuario.findByEsSuperUsuario", query = "SELECT u FROM Usuario u WHERE u.esSuperUsuario = :esSuperUsuario")})
+    @NamedQuery(name = "Usuario.findByProfesion", query = "SELECT u FROM Usuario u WHERE u.profesion = :profesion")})
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_usuario", nullable = false)
     private Integer idUsuario;
@@ -62,15 +62,11 @@ public class Usuario implements Serializable {
     @Column(name = "email_usuario", length = 45)
     private String emailUsuario;
     @Basic(optional = false)
-    @Column(name = "primer_nombre", nullable = false, length = 45)
-    private String primerNombre;
-    @Column(name = "segundo_nombre", length = 45)
-    private String segundoNombre;
+    @Column(name = "nombre", nullable = false, length = 45)
+    private String nombre;
     @Basic(optional = false)
-    @Column(name = "primer_apellido", nullable = false, length = 45)
-    private String primerApellido;
-    @Column(name = "segundo_apellido", length = 45)
-    private String segundoApellido;
+    @Column(name = "apellidos", nullable = false, length = 45)
+    private String apellidos;
     @Column(name = "telefono", length = 45)
     private String telefono;
     @Column(name = "fecha_nacimiento")
@@ -80,8 +76,6 @@ public class Usuario implements Serializable {
     private String sexo;
     @Column(name = "profesion", length = 45)
     private String profesion;
-    @Column(name = "es_super_usuario")
-    private Integer esSuperUsuario;
     @ManyToMany(mappedBy = "usuarioList")
     private List<Cuenta> cuentaList;
     @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")
@@ -97,13 +91,13 @@ public class Usuario implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(Integer idUsuario, String nombreUsuario, String claveUsuario, String primerNombre, String primerApellido) {
+    public Usuario(Integer idUsuario, String nombreUsuario, String claveUsuario, String nombre, String apellidos) {
         this.idUsuario = idUsuario;
         this.nombreUsuario = nombreUsuario;
         this.claveUsuario = claveUsuario;
-        this.primerNombre = primerNombre;
-        this.primerApellido = primerApellido;
-    }        
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+    }
 
     public Integer getIdUsuario() {
         return idUsuario;
@@ -137,36 +131,20 @@ public class Usuario implements Serializable {
         this.emailUsuario = emailUsuario;
     }
 
-    public String getPrimerNombre() {
-        return primerNombre;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setPrimerNombre(String primerNombre) {
-        this.primerNombre = primerNombre;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getSegundoNombre() {
-        return segundoNombre;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setSegundoNombre(String segundoNombre) {
-        this.segundoNombre = segundoNombre;
-    }
-
-    public String getPrimerApellido() {
-        return primerApellido;
-    }
-
-    public void setPrimerApellido(String primerApellido) {
-        this.primerApellido = primerApellido;
-    }
-
-    public String getSegundoApellido() {
-        return segundoApellido;
-    }
-
-    public void setSegundoApellido(String segundoApellido) {
-        this.segundoApellido = segundoApellido;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getTelefono() {
@@ -199,14 +177,6 @@ public class Usuario implements Serializable {
 
     public void setProfesion(String profesion) {
         this.profesion = profesion;
-    }
-
-    public Integer getEsSuperUsuario() {
-        return esSuperUsuario;
-    }
-
-    public void setEsSuperUsuario(Integer esSuperUsuario) {
-        this.esSuperUsuario = esSuperUsuario;
     }
 
     @XmlTransient

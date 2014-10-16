@@ -24,8 +24,8 @@ public class UsuarioBean implements UsuarioBeanLocal {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     @Override
-    public boolean crearUsuario(String nombreUsuario, String claveUsuario, String primerNombre, String primerApellido, String segundoNombre, String segundoApellido, String emailUsuario, Date fechaNacimiento, String profesion, String sexo, String telefono) {
-       return UtilUsuario.crearUsuario(em, nombreUsuario, claveUsuario, primerNombre, primerApellido, segundoNombre, segundoApellido, emailUsuario, fechaNacimiento, profesion, sexo, telefono);
+    public boolean crearUsuario(String nombreUsuario, String claveUsuario, String nombre, String apellidos, String emailUsuario, Date fechaNacimiento, String profesion, String sexo, String telefono) {
+       return UtilUsuario.crearUsuario(em, nombreUsuario, claveUsuario, nombre, apellidos, emailUsuario, fechaNacimiento, profesion, sexo, telefono);
     }
 
     @Override

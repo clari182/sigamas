@@ -2,8 +2,10 @@
 #top {
     position: relative;
     /*background-color: #036fab;*/
+    //background: rgba(0, 0, 0, 0.56);
+    width: 100%;
     color: white;
-    padding: 5px;
+    //padding: 5px;
     margin: 0px 0px 10px 0px;
 }
 
