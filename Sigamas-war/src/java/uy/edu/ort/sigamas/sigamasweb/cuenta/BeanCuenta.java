@@ -5,11 +5,14 @@
  */
 package uy.edu.ort.sigamas.sigamasweb.cuenta;
 
+import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import uy.edu.ort.sigamas.sigamasweb.utils.UtilsMensajes;
 import uy.edu.ort.sigamas.seguridad.cuenta.CuentaBeanLocal;
 import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CreacionCuentaInvalidaException;
+import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 
 /**
  *
@@ -19,10 +22,12 @@ import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CreacionCuentaInvalidaExc
 @RequestScoped
 public class BeanCuenta {
 
+    @EJB
     private CuentaBeanLocal cuentaBeanLocal;
     private String nombre;
     private String empresa;
     private String rut;
+    private List<Cuenta> cuentas;
     //private List<Cuenta> cuentas;
     /**
      * Creates a new instance of BeanCuenta
@@ -78,13 +83,28 @@ public class BeanCuenta {
     public boolean CrearCuenta(){
         try
         {
-            cuentaBeanLocal.crearCuenta(nombre, empresa, rut);
+            Cuenta cuenta = cuentaBeanLocal.crearCuenta(nombre, empresa, rut);
+            getCuentas().add(cuenta);
             return true;
         }
         catch(CreacionCuentaInvalidaException exp){
             UtilsMensajes.mostrarMensajeError("Error", "Error durante la creación de la cuenta");
             return false;
         }
+    }
+
+    /**
+     * @return the cuentas
+     */
+    public List<Cuenta> getCuentas() {
+        return cuentas;
+    }
+
+    /**
+     * @param cuentas the cuentas to set
+     */
+    public void setCuentas(List<Cuenta> cuentas) {
+        this.cuentas = cuentas;
     }
 
     
