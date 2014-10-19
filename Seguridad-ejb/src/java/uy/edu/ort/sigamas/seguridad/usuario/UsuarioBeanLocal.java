@@ -8,6 +8,7 @@ package uy.edu.ort.sigamas.seguridad.usuario;
 import java.util.Date;
 import javax.ejb.Local;
 import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
+import uy.edu.ort.sigamas.seguridad.usuario.excepciones.UsuarioExistenteException;
 
 /**
  *
@@ -15,7 +16,7 @@ import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
  */
 @Local
 public interface UsuarioBeanLocal {
-    boolean crearUsuario(String nombreUsuario, String claveUsuario, String nombre, String apellidos, String emailUsuario, Date fechaNacimiento, String profesion, String sexo, String telefono);
+    Usuario crearUsuario(String nombreUsuario, String claveUsuario, String nombre, String apellidos, String emailUsuario, Date fechaNacimiento, String profesion, String sexo, String telefono) throws UsuarioExistenteException;
     
     Usuario modificarUsuario(Object nuevoUsuario);
     

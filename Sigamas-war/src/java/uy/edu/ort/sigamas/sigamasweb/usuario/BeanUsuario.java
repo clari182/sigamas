@@ -11,8 +11,11 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.FlowEvent;
 import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
 import uy.edu.ort.sigamas.seguridad.usuario.UsuarioBeanLocal;
+import uy.edu.ort.sigamas.seguridad.usuario.excepciones.UsuarioExistenteException;
+import uy.edu.ort.sigamas.sigamasweb.utils.UtilsMensajes;
 
 /**
  *
@@ -185,8 +188,17 @@ public class BeanUsuario {
 
 // </editor-fold>
     public boolean crearUsuario() {
-        String lala = "";
-        return usuarioSessionBean.crearUsuario(getNombreUsuario(), getClaveUsuario(), getNombre(), getApellidos(), getEmailUsuario(), getFechaNacimiento(), getProfesion(), getSexo(), getTelefono());
+        try {
+            Usuario nuevoUsuario = usuarioSessionBean.crearUsuario(getNombreUsuario(), getClaveUsuario(), getNombre(), getApellidos(), getEmailUsuario(), getFechaNacimiento(), getProfesion(), getSexo(), getTelefono());
+            if (nuevoUsuario != null) {
+                usuarios.add(nuevoUsuario);
+                return true;
+            }
+            return false;
+        } catch (UsuarioExistenteException u) {
+            UtilsMensajes.mostrarMensajeError("Error de creación", "Ya existe un usuario con este nombre de usuario");
+            return false;
+        }
     }
 
     public void editarUsuario() {
@@ -196,5 +208,10 @@ public class BeanUsuario {
     public String paginaCrearUsuario() {
         String lala = "";
         return "crearUsuario";
+    }
+
+    public String progresoCreacion(FlowEvent event) {
+
+        return event.getNewStep();
     }
 }
