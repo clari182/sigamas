@@ -10,7 +10,7 @@
 
     <ui:define name="content">
         <h:form>            
-                <p:dataTable var="cuenta" value="#{beanCuenta.cuentas}" editable="true" editMode="cell" style="width:50%">
+            <p:dataTable id="gridCuenta" var="cuenta" value="#{beanCuenta.cuentas}" editable="true" editMode="cell" style="width:50%" rendered="true">
                     <p:column headerText="Nombre">
                         <h:outputText value="#{cuenta.nombre}" />
                     </p:column>
@@ -23,7 +23,7 @@
                         <h:outputText value="#{cuenta.rut}" />
                     </p:column>
                 </p:dataTable>  
-                <p:commandButton value="Crear una nueva cuenta" type="button" onclick="PF('dlg2').show();" />            
+            <p:commandButton value="Crear una nueva cuenta" type="button" onclick="PF('dlg2').show();" oncomplete="PF('dlg2').hide();" update=":form:gridCuenta"/>            
             <p:dialog header="Crear une nueva cuenta" widgetVar="dlg2" modal="true" height="100%">
                 <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
                     <h:outputLabel for="nombreCuenta" value="Nombre de la cuenta:" />

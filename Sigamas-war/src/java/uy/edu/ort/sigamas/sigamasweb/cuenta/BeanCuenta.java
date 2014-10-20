@@ -106,6 +106,7 @@ public class BeanCuenta {
         {
             Cuenta cuenta = cuentaBeanLocal.crearCuenta(nombre, empresa, rut);
             //cuentas.add(cuenta);
+            this.obtenerCuentas();
             return true;
         }
         catch(CreacionCuentaInvalidaException exp){
