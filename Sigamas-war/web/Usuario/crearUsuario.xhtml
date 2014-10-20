@@ -9,16 +9,16 @@
 
     <ui:define name="content">
         <h:form>
-            <p:growl id="msgs" sticky="true" showDetail="true" />
+            <p:growl id="growl" sticky="true" showDetail="true" />
             <p:wizard flowListener="#{beanUsuario.progresoCreacion}">
                 <p:tab id="ingreso" title="Ingreso">                  
-                        <p:panel id="custom" header="Información de ingreso" style="margin-bottom:20px;vertical-align: top">
-                            <p:ajax event="toggle" listener="#{fieldsetView.handleToggle}" update="msgs" />
+                        <p:panel id="custom" header="Información de ingreso" style="margin-bottom:20px;vertical-align: top">                            
+                            <p:messages></p:messages>
                             <h:panelGrid columns="2" cellpadding="5">
-                                <h:outputLabel for="nombreUsuario" value="Nombre del usuario: *" />
+                                <h:outputText value="Nombre del usuario: *" />
                                 <p:inputText id="nombreUsuario" value="#{beanUsuario.nombreUsuario}" required="true" label="text"/>
 
-                                <h:outputLabel for="claveUsuario" value="Contraseña: *" />
+                                <h:outputText value="Contraseña: *" />
                                 <p:password feedback="true" id="claveUsuario" value="#{beanUsuario.claveUsuario}" required="true" label="text"/>
 
                             </h:panelGrid>
@@ -26,6 +26,7 @@
                 </p:tab>
                 <p:tab id="personal" title="Personal">
                     <p:panel header="Información personal" style="margin-bottom:20px">
+                        <p:messages/>
                         <h:panelGrid columns="2" cellpadding="5">
                             <h:outputLabel for="nombre" value="Primer Nombre: *" />
                             <p:inputText id="primerNombre" value="#{beanUsuario.nombre}" required="true" label="text"/>
@@ -51,7 +52,7 @@
                             <h:outputLabel for="profesion" value="Profesion:" />
                             <p:inputText id="profesion" value="#{beanUsuario.profesion}" label="text"/>
                         </h:panelGrid>
-                        <p:commandButton style="float:right" value="Guardar" actionListener="#{beanUsuario.crearUsuario()}"></p:commandButton>
+                        <p:commandButton style="float:right" value="Guardar" actionListener="#{beanUsuario.crearUsuario()}" update="growl" process="@this"></p:commandButton>
                     </p:panel>
                 </p:tab>
                 
