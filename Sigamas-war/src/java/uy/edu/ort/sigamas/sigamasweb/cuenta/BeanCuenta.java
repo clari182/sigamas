@@ -13,6 +13,7 @@ import javax.faces.bean.RequestScoped;
 import uy.edu.ort.sigamas.sigamasweb.utils.UtilsMensajes;
 import uy.edu.ort.sigamas.seguridad.cuenta.CuentaBeanLocal;
 import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CreacionCuentaInvalidaException;
+import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CuentaExistenteException;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 
 /**
@@ -111,6 +112,10 @@ public class BeanCuenta {
         }
         catch(CreacionCuentaInvalidaException exp){
             UtilsMensajes.mostrarMensajeError("Error", "Error durante la creación de la cuenta");
+            return false;
+        }
+        catch (CuentaExistenteException exp){
+            UtilsMensajes.mostrarMensajeError("Error de creación", "Ya existe una cuenta con este nombre");
             return false;
         }
     }

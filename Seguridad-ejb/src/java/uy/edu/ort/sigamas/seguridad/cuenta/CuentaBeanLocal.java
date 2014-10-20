@@ -8,6 +8,7 @@ package uy.edu.ort.sigamas.seguridad.cuenta;
 import java.util.List;
 import javax.ejb.Local;
 import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CreacionCuentaInvalidaException;
+import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CuentaExistenteException;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 
 /**
@@ -16,7 +17,7 @@ import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
  */
 @Local
 public interface CuentaBeanLocal {
-    Cuenta crearCuenta(String nombre, String empresa, String rut) throws CreacionCuentaInvalidaException;
+    Cuenta crearCuenta(String nombre, String empresa, String rut) throws CreacionCuentaInvalidaException, CuentaExistenteException;
 
     List<Cuenta> obtenerCuentas();
 }

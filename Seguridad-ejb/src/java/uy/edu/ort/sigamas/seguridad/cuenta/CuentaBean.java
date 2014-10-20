@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CreacionCuentaInvalidaException;
+import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CuentaExistenteException;
 import uy.edu.ort.sigamas.seguridad.cuenta.utils.UtilCuenta;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 
@@ -25,7 +26,7 @@ public class CuentaBean implements CuentaBeanLocal {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     @Override
-    public Cuenta crearCuenta(String nombre, String empresa, String rut) throws CreacionCuentaInvalidaException{
+    public Cuenta crearCuenta(String nombre, String empresa, String rut) throws CreacionCuentaInvalidaException, CuentaExistenteException{
         return UtilCuenta.crearCuenta(em, nombre, empresa, rut);        
     }
     
