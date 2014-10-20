@@ -17,7 +17,7 @@ import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 public class UtilCuenta {
     public static Cuenta crearCuenta(EntityManager em, String nombre, String empresa, String rut){
         
-        Cuenta cuenta = new Cuenta(null, nombre, empresa);
+            Cuenta cuenta = new Cuenta(null, nombre, empresa);
         cuenta.setRut(rut);
         em.persist(cuenta);
         return cuenta;
