@@ -9,7 +9,8 @@
 
 
     <ui:define name="content">
-        <h:form>   
+        <h:form id="form">   
+            <p:messages id="msgs"/>
             <p:layout>
                 <p:commandButton value="Crear una nueva cuenta" type="button" action="#{beanCuenta.abrirCreacionCuenta}" icon="ui-icon-plus"/>            
                 <p:layoutUnit position="west" size="50%">
@@ -24,18 +25,20 @@
                     </p:dataTable>  
                 </p:layoutUnit>
                 <p:layoutUnit position="center">
-                    <h:outputLabel for="nombreSeleccionada" value="Nombre:" />
-                    <p:inplace id="nombreSeleccionada">
-                        <p:inputText value="#{beanCuenta.nombreSeleccionada}" />
-                    </p:inplace>
-                    <h:outputLabel for="empresaSeleccionada" value="Empresa:" />
-                    <p:inplace id="empresaSeleccionada">
-                        <p:inputText value="#{beanCuenta.empresaSeleccionada}" />
-                    </p:inplace>
-                    <h:outputLabel for="rutSeleccionada" value="Rut:" />
-                    <p:inplace id="rutSeleccionada">
-                        <p:inputText value="#{beanCuenta.rutSeleccionada}" />
-                    </p:inplace>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel for="nombreSeleccionada" value="Nombre:" />
+                        <p:inplace id="nombreSeleccionada">
+                            <p:inputText value="#{beanCuenta.nombreSeleccionada}" />
+                        </p:inplace>
+                        <h:outputLabel for="empresaSeleccionada" value="Empresa:" />
+                        <p:inplace id="empresaSeleccionada">
+                            <p:inputText value="#{beanCuenta.empresaSeleccionada}" />
+                        </p:inplace>
+                        <h:outputLabel for="rutSeleccionada" value="Rut:" />
+                        <p:inplace id="rutSeleccionada">
+                            <p:inputText value="#{beanCuenta.rutSeleccionada}" />
+                        </p:inplace>
+                    </h:panelGrid>
                 </p:layoutUnit>
             </p:layout>
 

@@ -13,15 +13,15 @@
         <h:form>   
             <p:growl id="growl" sticky="true" showDetail="true"/>
 
-            <p:wizard flowListener="#{userWizard.onFlowProcess}">
+            <p:wizard flowListener="#{beanCuenta.onFlowProcess}">
                 <p:tab id="cuenta" title="Cuenta">
                     <p:panel header="Información de la cuenta">
                         <p:messages />
                         <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
-                            <h:outputLabel for="nombreCuenta" value="Nombre de la cuenta:" />
+                            <h:outputLabel for="nombreCuenta" value="Nombre de la cuenta *:" />
                             <p:inputText id="nombreCuenta" value="#{beanCuenta.nombre}" required="true" label="text"/>
 
-                            <h:outputLabel for="nombreEmpresa" value="Nombre de la empresa asociada:" />
+                            <h:outputLabel for="nombreEmpresa" value="Nombre de la empresa asociada: *" />
                             <p:inputText id="nombreEmpresa" value="#{beanCuenta.empresa}" required="true" label="text" />                    
 
                             <h:outputLabel for="rut" value="Rut de la empresa:"/>
@@ -32,14 +32,14 @@
                 <p:tab id="usuarioAdmin" title="Usuario">
                     <p:panel header="Información del Usuario administrador">
                         <p:messages/>
-                        <h:panelGrid>
+                        <h:panelGrid columns="2">
                             <h:outputLabel for="nombreCuenta" value="Nombre del usuario:" />
                             <p:inputText id="nombreUsuario" value="#{beanCuenta.nombreUsuario}" required="true" label="text"/>
 
                             <h:outputLabel for="nombreEmpresa" value="Mail del usuario:" />
                             <p:inputText id="emailUsuario" value="#{beanCuenta.emailUsuario}" required="true" label="text" />                    
 
-                            <p:commandButton style="float:right" value="Guardar" actionListener="#{beanCuenta.crearCuenta()}"/>              
+                            <p:commandButton style="float:right" value="Guardar" actionListener="#{beanCuenta.crearCuenta}"/>              
                         </h:panelGrid>
                     </p:panel>
                 </p:tab>

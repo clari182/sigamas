@@ -6,14 +6,17 @@
 package uy.edu.ort.sigamas.sigamasweb.cuenta;
 
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import org.primefaces.event.FlowEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import uy.edu.ort.sigamas.sigamasweb.utils.UtilsMensajes;
 import uy.edu.ort.sigamas.seguridad.cuenta.CuentaBeanLocal;
 import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CreacionCuentaInvalidaException;
+import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CuentaExistenteException;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 
 /**
@@ -45,7 +48,6 @@ public class BeanCuenta {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Gets y Sets">
-
     /**
      * @return the nombre
      */
@@ -101,35 +103,8 @@ public class BeanCuenta {
     public void setCuentas(List<Cuenta> cuentas) {
         this.cuentas = cuentas;
     }
-    // </editor-fold>
-
-    /**
-     * crearCuenta Permite la alta de una nueva cuenta
-     *
-     * @return boolean
-     */
-    public boolean crearCuenta() {
-        try {
-            Cuenta cuenta = cuentaBeanLocal.crearCuenta(nombre, empresa, rut);
-            getCuentas().add(cuenta);
-            return true;
-        } catch (CreacionCuentaInvalidaException exp) {
-            UtilsMensajes.mostrarMensajeError("Error", "Error durante la creación de la cuenta");
-            return false;
-        }
-    }
-
-    /**
-     * obtenerCuentas Permite obtener todas las cuentas.
-     */
-    public void obtenerCuentas() {
-        this.cuentas = cuentaBeanLocal.obtenerCuentas();
-    }
-
-    public String abrirCreacionCuenta() {
-        return "crearCuenta";
-    }
-
+    
+    
     /**
      * @return the nombreUsuario
      */
@@ -214,12 +189,80 @@ public class BeanCuenta {
         this.cuentaSeleccionada = cuentaSeleccionada;
     }
 
-    public void onRowSelect(SelectEvent event) {
-        cuentaSeleccionada = (Cuenta)event.getObject();
+    // </editor-fold>
+
+    @PostConstruct
+    public void init(){
+        cuentas = cuentaBeanLocal.obtenerCuentas();
+    }
+    /**
+     * crearCuenta Permite la alta de una nueva cuenta
+     *
+     * @return boolean
+     */
+    public boolean crearCuenta() {
+        try {
+            Cuenta cuenta = cuentaBeanLocal.crearCuenta(nombre, empresa, rut);
+            getCuentas().add(cuenta);
+            return true;
+        } catch (CreacionCuentaInvalidaException exp) {
+            UtilsMensajes.mostrarMensajeError("Error", "Error durante la creación de la cuenta");
+            return false;
+        } catch (CuentaExistenteException exp){
+            UtilsMensajes.mostrarMensajeError("Error", "Error, ya existe una cuenta con este nombre");
+            return false;
+        }
     }
 
+    /**
+     * obtenerCuentas permite obtener todas las cuentas de la base de datos
+     */
+    public void obtenerCuentas() {
+        this.cuentas = cuentaBeanLocal.obtenerCuentas();
+    }
+    
+    /**
+     * abrirCreacionCuenta permite redirigir a la pagina de creacion de una nueva cuenta
+     * @return String
+     */
+    public String abrirCreacionCuenta() {
+        return "crearCuenta";
+    }
+
+    /**
+     * onRowSelect permite guardar la fila seleccionada en cuentaSeleccionada
+     * @param event 
+     */
+    public void onRowSelect(SelectEvent event) {
+        cuentaSeleccionada = (Cuenta) event.getObject();
+    }
+
+    /**
+     * onRowUnselect permite desvincular la cuentaSelecciona de la fila deseleccionada
+     * @param event 
+     */
     public void onRowUnselect(UnselectEvent event) {
         cuentaSeleccionada = null;
+
+    }
+
+    /**
+     * onFlowProcess controla el manejo del wizard para la creacion de cuenta
+     * @param event
+     * @return 
+     */
+    public String onFlowProcess(FlowEvent event) {
+
+        if ("cuenta".equals(event.getOldStep())) {
+            try {
+                cuentaBeanLocal.verificarNombreCuenta(getNombre());
+            } catch (CuentaExistenteException exp) {
+                UtilsMensajes.mostrarMensajeError("Error", "Ya existe una cuenta con este nombre");
+                return event.getOldStep();
+            }
+
+        }
+        return event.getNewStep();
 
     }
 }
