@@ -23,6 +23,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/Cuenta/crearCuenta.xhtml</welcome-file>
+        <welcome-file>faces/Cuenta/cuentasSuperUsuario.xhtml</welcome-file>
     </welcome-file-list>
 </web-app>

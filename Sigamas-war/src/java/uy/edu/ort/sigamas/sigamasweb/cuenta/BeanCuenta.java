@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
@@ -25,7 +26,7 @@ import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
  * @author Pikachuss
  */
 @ManagedBean(name = "beanCuenta")
-@RequestScoped
+@ViewScoped
 public class BeanCuenta {
 
     @EJB
@@ -40,13 +41,13 @@ public class BeanCuenta {
     private String empresaSeleccionada;
     private String rutSeleccionada;
     private Cuenta cuentaSeleccionada;
+    private boolean eliminarDeshabilidato = true;
 
     /**
      * Creates a new instance of BeanCuenta
      */
     public BeanCuenta() {
-        cuentas = new ArrayList<Cuenta>();
-        
+        cuentas = new ArrayList<>();
     }
 
     // <editor-fold defaultstate="collapsed" desc="Gets y Sets">
@@ -105,8 +106,7 @@ public class BeanCuenta {
     public void setCuentas(List<Cuenta> cuentas) {
         this.cuentas = cuentas;
     }
-    
-    
+
     /**
      * @return the nombreUsuario
      */
@@ -191,12 +191,26 @@ public class BeanCuenta {
         this.cuentaSeleccionada = cuentaSeleccionada;
     }
 
+    /**
+     * @return the eliminarDeshabilidato
+     */
+    public boolean isEliminarDeshabilidato() {
+        return eliminarDeshabilidato;
+    }
+
+    /**
+     * @param eliminarDeshabilidato the eliminarDeshabilidato to set
+     */
+    public void setEliminarDeshabilidato(boolean eliminarDeshabilidato) {
+        this.eliminarDeshabilidato = eliminarDeshabilidato;
+    }
     // </editor-fold>
 
     @PostConstruct
-    public void init(){
+    public void init() {
         cuentas = cuentaBeanLocal.obtenerCuentas();
     }
+
     /**
      * crearCuenta Permite la alta de una nueva cuenta
      *
@@ -205,14 +219,14 @@ public class BeanCuenta {
     public boolean crearCuenta() {
         try {
             Cuenta cuenta = cuentaBeanLocal.crearCuenta(nombre, empresa, rut);
-            //cuentas.add(cuenta);
-            this.obtenerCuentas();
+            // Mandar mail al usuario
+            //this.obtenerCuentas();
             return true;
         } catch (CreacionCuentaInvalidaException exp) {
             UtilsMensajes.mostrarMensajeError("Error", "Error durante la creación de la cuenta");
             return false;
-        } catch (CuentaExistenteException exp){
-            UtilsMensajes.mostrarMensajeError("Error", "Error, ya existe una cuenta con este nombre");
+        } catch (CuentaExistenteException exp) {
+            UtilsMensajes.mostrarMensajeError("Error", "Ya existe una cuenta con este nombre");
             return false;
         }
     }
@@ -223,9 +237,11 @@ public class BeanCuenta {
     public void obtenerCuentas() {
         this.cuentas = cuentaBeanLocal.obtenerCuentas();
     }
-    
+
     /**
-     * abrirCreacionCuenta permite redirigir a la pagina de creacion de una nueva cuenta
+     * abrirCreacionCuenta permite redirigir a la pagina de creacion de una
+     * nueva cuenta
+     *
      * @return String
      */
     public String abrirCreacionCuenta() {
@@ -234,25 +250,31 @@ public class BeanCuenta {
 
     /**
      * onRowSelect permite guardar la fila seleccionada en cuentaSeleccionada
-     * @param event 
+     *
+     * @param event
      */
     public void onRowSelect(SelectEvent event) {
         cuentaSeleccionada = (Cuenta) event.getObject();
+        setEliminarDeshabilidato(false);
     }
 
     /**
-     * onRowUnselect permite desvincular la cuentaSelecciona de la fila deseleccionada
-     * @param event 
+     * onRowUnselect permite desvincular la cuentaSelecciona de la fila
+     * deseleccionada
+     *
+     * @param event
      */
     public void onRowUnselect(UnselectEvent event) {
         cuentaSeleccionada = null;
+        setEliminarDeshabilidato(true);
 
     }
 
     /**
      * onFlowProcess controla el manejo del wizard para la creacion de cuenta
+     *
      * @param event
-     * @return 
+     * @return
      */
     public String onFlowProcess(FlowEvent event) {
 
@@ -268,4 +290,5 @@ public class BeanCuenta {
         return event.getNewStep();
 
     }
+
 }

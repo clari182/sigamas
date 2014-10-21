@@ -13,10 +13,10 @@
             <p:messages id="msgs"/>
             <p:layout>
                 <p:commandButton value="Crear una nueva cuenta" type="button" action="#{beanCuenta.abrirCreacionCuenta}" icon="ui-icon-plus"/>            
-                <p:layoutUnit position="west" size="50%">
+                <p:layoutUnit position="west" size="30%">
 
-                    <p:dataTable var="cuenta" value="#{beanCuenta.cuentas}" style="width:50%" selectionMode="single" rowKey="#{cuenta.nombre}">
-                        <p:ajax event="rowSelect" listener="#{beanCuenta.onRowSelect}" update=":form:msgs" />
+                    <p:dataTable var="cuenta" value="#{beanCuenta.cuentas}" style="width:80%" selectionMode="single" rowKey="#{cuenta.nombre}">
+                        <p:ajax event="rowSelect" listener="#{beanCuenta.onRowSelect}" update=":form:gridCuentaSeleccionada"/>
                         <p:ajax event="rowUnselect" listener="#{beancuenta.onRowUnselect}" update=":form:msgs" />
 
                         <p:column headerText="Nombre">
@@ -25,19 +25,19 @@
                     </p:dataTable>  
                 </p:layoutUnit>
                 <p:layoutUnit position="center">
-                    <h:panelGrid columns="2">
-                        <h:outputLabel for="nombreSeleccionada" value="Nombre:" />
-                        <p:inplace id="nombreSeleccionada">
-                            <p:inputText value="#{beanCuenta.nombreSeleccionada}" />
-                        </p:inplace>
+                    <h:panelGrid columns="2" id="gridCuentaSeleccionada">
+                        <h:outputLabel value="Nombre:" />
+                        <p:inputText value="#{beanCuenta.cuentaSeleccionada.nombre}" />
+
                         <h:outputLabel for="empresaSeleccionada" value="Empresa:" />
-                        <p:inplace id="empresaSeleccionada">
-                            <p:inputText value="#{beanCuenta.empresaSeleccionada}" />
+                        <p:inplace id="empresaSeleccionada" widgetVar="inplaceCuenta">
+                            <p:inputText value="#{beanCuenta.cuentaSeleccionada.empresa}" />
                         </p:inplace>
                         <h:outputLabel for="rutSeleccionada" value="Rut:" />
-                        <p:inplace id="rutSeleccionada">
-                            <p:inputText value="#{beanCuenta.rutSeleccionada}" />
+                        <p:inplace id="rutSeleccionada" widgetVar="inplaceCuenta">
+                            <p:inputText value="#{beanCuenta.cuentaSeleccionada.rut}" />
                         </p:inplace>
+                        <p:commandButton icon="ui-icon-pencil" action=""/>
                     </h:panelGrid>
                 </p:layoutUnit>
             </p:layout>
