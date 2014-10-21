@@ -9,35 +9,37 @@
 
 
     <ui:define name="content">
-        <h:form>            
-                <p:dataTable var="cuenta" value="#{beanCuenta.cuentas}" editable="true" editMode="cell" style="width:50%">
-                    <p:column headerText="Nombre">
-                        <h:outputText value="#{cuenta.nombre}" />
-                    </p:column>
+        <h:form>   
+            <p:layout>
+                <p:commandButton value="Crear una nueva cuenta" type="button" action="#{beanCuenta.abrirCreacionCuenta}" icon="ui-icon-plus"/>            
+                <p:layoutUnit position="west" size="50%">
 
-                    <p:column headerText="Empresa">
-                        <h:outputText value="#{cuenta.empresa}" />
-                    </p:column>
+                    <p:dataTable var="cuenta" value="#{beanCuenta.cuentas}" style="width:50%" selectionMode="single" rowKey="#{cuenta.nombre}">
+                        <p:ajax event="rowSelect" listener="#{beanCuenta.onRowSelect}" update=":form:msgs" />
+                        <p:ajax event="rowUnselect" listener="#{beancuenta.onRowUnselect}" update=":form:msgs" />
 
-                    <p:column headerText="RUT">
-                        <h:outputText value="#{cuenta.rut}" />
-                    </p:column>
-                </p:dataTable>  
-                <p:commandButton value="Crear una nueva cuenta" type="button" onclick="PF('dlg2').show();" />            
-            <p:dialog header="Crear une nueva cuenta" widgetVar="dlg2" modal="true" height="100%">
-                <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
-                    <h:outputLabel for="nombreCuenta" value="Nombre de la cuenta:" />
-                    <p:inputText id="nombreCuenta" value="#{beanCuenta.nombre}" required="true" label="text"/>
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{cuenta.nombre}" />
+                        </p:column>
+                    </p:dataTable>  
+                </p:layoutUnit>
+                <p:layoutUnit position="center">
+                    <h:outputLabel for="nombreSeleccionada" value="Nombre:" />
+                    <p:inplace id="nombreSeleccionada">
+                        <p:inputText value="#{beanCuenta.nombreSeleccionada}" />
+                    </p:inplace>
+                    <h:outputLabel for="empresaSeleccionada" value="Empresa:" />
+                    <p:inplace id="empresaSeleccionada">
+                        <p:inputText value="#{beanCuenta.empresaSeleccionada}" />
+                    </p:inplace>
+                    <h:outputLabel for="rutSeleccionada" value="Rut:" />
+                    <p:inplace id="rutSeleccionada">
+                        <p:inputText value="#{beanCuenta.rutSeleccionada}" />
+                    </p:inplace>
+                </p:layoutUnit>
+            </p:layout>
 
-                    <h:outputLabel for="nombreEmpresa" value="Nombre de la empresa asociada:" />
-                    <p:inputText id="nombreEmpresa" value="#{beanCuenta.empresa}" required="true" label="text" />                    
 
-                    <h:outputLabel for="rut" value="Rut de la empresa:"/>
-                    <p:inputText id="rut" value="#{beanCuenta.rut}" label="text" /> 
-                </h:panelGrid>
-                <p:commandButton style="float:right" value="Guardar" actionListener="#{beanCuenta.CrearCuenta()}">                       
-                </p:commandButton>
-            </p:dialog>
         </h:form>
     </ui:define>
 
