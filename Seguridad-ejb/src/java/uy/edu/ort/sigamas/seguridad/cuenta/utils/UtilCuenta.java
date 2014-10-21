@@ -8,6 +8,7 @@ package uy.edu.ort.sigamas.seguridad.cuenta.utils;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CreacionCuentaInvalidaException;
 import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CuentaExistenteException;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 
@@ -16,8 +17,12 @@ import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
  * @author Pikachuss
  */
 public class UtilCuenta {
-    public static Cuenta crearCuenta(EntityManager em, String nombre, String empresa, String rut) throws CuentaExistenteException{
-        UtilCuenta.verificarNombreCuenta(em, nombre);
+
+    public static Cuenta crearCuenta(EntityManager em, String nombre, String empresa, String rut) throws CreacionCuentaInvalidaException, CuentaExistenteException{
+        Query cuentaExistente = em.createNamedQuery("Cuenta.findByNombre").setParameter("nombre", nombre);
+        if (!cuentaExistente.getResultList().isEmpty()){
+            throw new CuentaExistenteException();
+        }
         Cuenta cuenta = new Cuenta(null, nombre, empresa);
         cuenta.setRut(rut);
         em.persist(cuenta);
@@ -26,7 +31,8 @@ public class UtilCuenta {
     
     public static List<Cuenta> obtenerCuentas(EntityManager em){
         Query cuentas = em.createNamedQuery("Cuenta.findAll");
-        return cuentas.getResultList();
+        List<Cuenta> lala = cuentas.getResultList();
+        return lala;
     }
 
     public static void verificarNombreCuenta(EntityManager em, String nombre) throws CuentaExistenteException{

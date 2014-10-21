@@ -5,6 +5,7 @@
  */
 package uy.edu.ort.sigamas.sigamasweb.cuenta;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -44,7 +45,8 @@ public class BeanCuenta {
      * Creates a new instance of BeanCuenta
      */
     public BeanCuenta() {
-
+        cuentas = new ArrayList<Cuenta>();
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="Gets y Sets">
@@ -203,7 +205,8 @@ public class BeanCuenta {
     public boolean crearCuenta() {
         try {
             Cuenta cuenta = cuentaBeanLocal.crearCuenta(nombre, empresa, rut);
-            getCuentas().add(cuenta);
+            //cuentas.add(cuenta);
+            this.obtenerCuentas();
             return true;
         } catch (CreacionCuentaInvalidaException exp) {
             UtilsMensajes.mostrarMensajeError("Error", "Error durante la creación de la cuenta");
