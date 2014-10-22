@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FlowEvent;
 import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
@@ -22,7 +23,7 @@ import uy.edu.ort.sigamas.sigamasweb.utils.UtilsMensajes;
  * @author Pikachuss
  */
 @ManagedBean(name = "beanUsuario")
-@RequestScoped
+@ViewScoped
 public class BeanUsuario {
 
     @EJB
