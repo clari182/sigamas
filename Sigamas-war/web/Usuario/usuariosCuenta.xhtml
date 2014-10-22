@@ -14,21 +14,21 @@
                 </p:column>
 
                 <p:column headerText="Nombre">
-                    <h:outputText value="#{usuario.primerNombre}" />
+                    <h:outputText value="#{usuario.nombre}" />
                 </p:column>
 
                 <p:column headerText="Apellido">
-                    <h:outputText value="#{usuario.primerApellido}" />
+                    <h:outputText value="#{usuario.apellidos}" />
                 </p:column>
 
                 <p:column headerText="Mail">
                     <h:outputText value="#{usuario.emailUsuario}" />
                 </p:column>
                 <p:column style="width:32px">
-                    <p:commandButton actionListener="#{beanUsuario.editarUsuario()}" icon="ui-icon-edit" />  
+                    <p:commandButton actionListener="#{beanUsuario.editarUsuario()}" icon="ui-icon-edit"  />  
                 </p:column>
             </p:dataTable>
-            <p:commandButton value="Crear un nuevo usuario" type="button" actionListener="#{beanUsuario.paginaCrearUsuario()}" />            
+            <p:commandButton value="Crear un nuevo usuario" ajax="false" actionListener="#{beanUsuario.paginaCrearUsuario()}" />            
         </h:form>
     </ui:define>
 </ui:composition>

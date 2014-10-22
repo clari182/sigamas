@@ -5,6 +5,7 @@
  */
 package uy.edu.ort.sigamas.sigamasweb.usuario;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -24,7 +25,7 @@ import uy.edu.ort.sigamas.sigamasweb.utils.UtilsMensajes;
  */
 @ManagedBean(name = "beanUsuario")
 @ViewScoped
-public class BeanUsuario {
+public class BeanUsuario implements Serializable{
 
     @EJB
     private UsuarioBeanLocal usuarioSessionBean;
@@ -203,12 +204,11 @@ public class BeanUsuario {
     }
 
     public void editarUsuario() {
-        RequestContext.getCurrentInstance().execute("dlg_usuario.show();");
+        //RequestContext.getCurrentInstance().execute("dlg_usuario.show();");
     }
 
-    public String paginaCrearUsuario() {
-        String lala = "";
-        return "crearUsuario";
+    public String paginaCrearUsuario() {        
+        return "CrearUsuario";
     }
 
     public String progresoCreacion(FlowEvent event) {
