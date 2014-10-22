@@ -56,12 +56,13 @@
                         </p:tabView>
                     </p:layoutUnit>
                     <p:layoutUnit position="center">
-                        <p:panel style="width:300px" id="drag-clima" header="Notificaciones climáticas">
-                            <h:outputText value="Aquí se consumirá info de algún WS climático (tratando de enfocarlo a las coordenadas de los predios(no corresponde al scope actual))" />
+                        <!--<script type="text/javascript" src="http://voap.weather.com/weather/oap/USGA0028?template=ALERV&par=3000000007&unit=1&key=twciweatherwidget"></script>-->
+                        <p:panel style="width:90%" id="drag-clima" header="Notificaciones climáticas">
+                            
                         </p:panel>
                         <p:draggable for="drag-clima" />
 
-                        <p:panel style="width:300px"  id="drag-noticias" header="Noticias varias">
+                        <p:panel style="width:90%"  id="drag-noticias" header="Noticias varias">
                             <h:outputText value="Aquí se consumirá info de algún WS de noticias agro (no corresponde al scope actual)" />
                         </p:panel>
                         <p:draggable for="drag-noticias" />
