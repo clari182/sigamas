@@ -23,6 +23,10 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
+<<<<<<< HEAD
         <welcome-file>faces/Cuenta/cuentasSuperUsuario.xhtml</welcome-file>
+=======
+        <welcome-file>faces/Usuario/crearUsuario.xhtml</welcome-file>
+>>>>>>> branchCrearUsuario
     </welcome-file-list>
 </web-app>
