@@ -22,30 +22,24 @@ import uy.edu.ort.sigamas.seguridad.login.excepciones.UsuarioInvalidoException;
  */
 public class UtilLogin {
 
-    public static boolean verificarUsuario(EntityManager em, String nombreUsuario, String claveUsuario) throws UsuarioInvalidoException, ClaveInvalidaException {
-//        Query q = em.createNamedQuery("SuperUsuario.findByNombreUsuario");
-//        Query q2 = em.createNamedQuery("Usuario.findByNombreUsuario");
-//        List<SuperUsuario> listaCoincidenciasNombre = q.getResultList();
-//        List<Usuario> listaCoincidenciasUsuario = q2.getResultList();
-//        if (listaCoincidenciasNombre.isEmpty() && listaCoincidenciasUsuario.isEmpty()) {            
-//            throw new UsuarioInvalidoException();
-//        }
-//        if (!listaCoincidenciasNombre.isEmpty() && !listaCoincidenciasNombre.get(0).getClaveUsuario().equals(claveUsuario)){
-//            throw new ClaveInvalidaException();
-//        }
-//        if (!listaCoincidenciasUsuario.isEmpty() && !listaCoincidenciasUsuario.get(0).getClaveUsuario().equals(claveUsuario)){
-//            throw new ClaveInvalidaException();
-//        }
+    public static boolean verificarUsuario(EntityManager em, String nombreUsuario, String claveUsuario) throws UsuarioInvalidoException, ClaveInvalidaException {        
+        Query q2 = em.createNamedQuery("Usuario.findByNombreUsuario").setParameter("nombreUsuario", nombreUsuario);
+        //List<SuperUsuario> listaCoincidenciasNombre = q.getResultList();
+        List<Usuario> listaCoincidenciasUsuario = q2.getResultList();
+        if (listaCoincidenciasUsuario.isEmpty()) {            
+            throw new UsuarioInvalidoException();
+        }
+        if (!listaCoincidenciasUsuario.isEmpty() && !listaCoincidenciasUsuario.get(0).getClaveUsuario().equals(claveUsuario)){
+            throw new ClaveInvalidaException();
+        }
         return true;
     }
 
     public static List<Cuenta> obtenerCuentas(EntityManager em, String nombreUsuario) {
-        Query q = em.createNamedQuery("Usuario.findByNombreUsuario");
-        List<Usuario> usuario = q.getResultList();
-        Map<Integer, String> cuentasUsuario = new HashMap<>();
-        if (!usuario.isEmpty()){
-            return usuario.get(0).getCuentaList();
-            
+        Query q = em.createNamedQuery("Cuenta.findAll");
+        List<Cuenta> cuentas = q.getResultList();
+        if (!cuentas.isEmpty()){
+            return cuentas;            
         }        
         return null;
     }

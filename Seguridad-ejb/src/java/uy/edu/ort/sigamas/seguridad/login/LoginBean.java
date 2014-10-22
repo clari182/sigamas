@@ -27,11 +27,7 @@ public class LoginBean implements LoginBeanLocal {
 
     @Override
     public boolean verificarUsuario(String nombreUsuario, String claveUsuario) throws ClaveInvalidaException, UsuarioInvalidoException {
-        if (nombreUsuario.equals("usuario")) {
-            return true;
-        } else {
-            return false;
-        }
+        return UtilLogin.verificarUsuario(em, nombreUsuario, claveUsuario);
     }
 
     // Add business logic below. (Right-click in editor and choose
