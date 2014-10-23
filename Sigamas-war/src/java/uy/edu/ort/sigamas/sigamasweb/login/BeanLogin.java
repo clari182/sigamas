@@ -5,6 +5,8 @@
  */
 package uy.edu.ort.sigamas.sigamasweb.login;
 //COMENTARIO
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -12,6 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.login.LoginBeanLocal;
@@ -23,9 +26,9 @@ import uy.edu.ort.sigamas.sigamasweb.utils.UtilsMensajes;
  *
  * @author Mattahari
  */
-@ManagedBean (name="beanLogin")
-@RequestScoped
-public class BeanLogin {
+@ManagedBean(name = "beanLogin")
+@ViewScoped
+public class BeanLogin implements Serializable {
 
     @EJB
     private LoginBeanLocal loginSessionBean;
@@ -36,9 +39,9 @@ public class BeanLogin {
     public BeanLogin() {
         this.cuentas = new ArrayList<>();
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         this.cuentas = new ArrayList();
     }
 
@@ -46,7 +49,7 @@ public class BeanLogin {
     private String claveUsuario;
     private String cuenta;
     private List<SelectItem> usuarios;
-    private List<Cuenta> cuentas;    
+    private List<Cuenta> cuentas;
 
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -84,7 +87,7 @@ public class BeanLogin {
     public List<Cuenta> getCuentas() {
         return cuentas;
     }
-    
+
     /**
      * @return the usuarios
      */
@@ -115,33 +118,13 @@ public class BeanLogin {
     public String ingresar() {
         try {
             if (validarUsuario()) {
-                if (obtenerCuentas()) {
-                    return "HomeClient";
-                }
+                return "HomeClient";
             }
             return "";
         } catch (Exception exp) { // Hacer clase de excepcion
-            UtilsMensajes.mostrarMensajeError("Error", exp.getMessage());
+            UtilsMensajes.mostrarMensajeError("Error inesperado", exp.getMessage());
             return "";
         }
-    }
-
-    public boolean obtenerCuentas() {      
-        try {
-            this.cuentas = loginSessionBean.obtenerCuentas(nombreUsuario);            
-            return true;
-        } catch (UsuarioInvalidoException ex) {
-            UtilsMensajes.mostrarMensajeError("Error", "Nombre de usuario inexistente.");
-            return false;
-        } catch (ClaveInvalidaException ex) {
-            UtilsMensajes.mostrarMensajeError("Error", "Contraseña errónea.");
-            return false;
-        }
-    }
-    
-    public boolean obtenerCuentasSU(){
-        return true;
-    }
-
+    }   
 
 }
