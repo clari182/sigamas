@@ -108,7 +108,7 @@ public class BeanLogin {
         try {
             if (validarUsuario()) {
                 if (obtenerCuentas()) {
-                    return "HomeClient";
+                    return "HomeCliente";
                 }
             }
             return "";

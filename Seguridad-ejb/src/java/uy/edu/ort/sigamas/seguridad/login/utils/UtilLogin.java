@@ -23,19 +23,14 @@ import uy.edu.ort.sigamas.seguridad.login.excepciones.UsuarioInvalidoException;
 public class UtilLogin {
 
     public static boolean verificarUsuario(EntityManager em, String nombreUsuario, String claveUsuario) throws UsuarioInvalidoException, ClaveInvalidaException {
-//        Query q = em.createNamedQuery("SuperUsuario.findByNombreUsuario");
-//        Query q2 = em.createNamedQuery("Usuario.findByNombreUsuario");
-//        List<SuperUsuario> listaCoincidenciasNombre = q.getResultList();
-//        List<Usuario> listaCoincidenciasUsuario = q2.getResultList();
-//        if (listaCoincidenciasNombre.isEmpty() && listaCoincidenciasUsuario.isEmpty()) {            
-//            throw new UsuarioInvalidoException();
-//        }
-//        if (!listaCoincidenciasNombre.isEmpty() && !listaCoincidenciasNombre.get(0).getClaveUsuario().equals(claveUsuario)){
-//            throw new ClaveInvalidaException();
-//        }
-//        if (!listaCoincidenciasUsuario.isEmpty() && !listaCoincidenciasUsuario.get(0).getClaveUsuario().equals(claveUsuario)){
-//            throw new ClaveInvalidaException();
-//        }
+
+        Query queryUsuario = em.createNamedQuery("Usuario.findByNombreUsuario");
+        List<Usuario> listaCoincidenciasUsuario = queryUsuario.getResultList();
+        if (listaCoincidenciasUsuario.isEmpty()) {
+            throw new UsuarioInvalidoException();
+        } else if (!listaCoincidenciasUsuario.get(0).getClaveUsuario().equals(claveUsuario)) {
+            throw new ClaveInvalidaException();
+        }
         return true;
     }
 
@@ -43,10 +38,9 @@ public class UtilLogin {
         Query q = em.createNamedQuery("Usuario.findByNombreUsuario");
         List<Usuario> usuario = q.getResultList();
         Map<Integer, String> cuentasUsuario = new HashMap<>();
-        if (!usuario.isEmpty()){
+        if (!usuario.isEmpty()) {
             return usuario.get(0).getCuentaList();
-            
-        }        
+        }
         return null;
     }
 }

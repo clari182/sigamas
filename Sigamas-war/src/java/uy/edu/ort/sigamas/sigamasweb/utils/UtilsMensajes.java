@@ -17,4 +17,7 @@ public class UtilsMensajes {
     public static void mostrarMensajeError(String titulo, String mensaje){
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, titulo, mensaje));
     }
+    public static void mostrarMensajeInfo(String titulo, String mensaje){
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, titulo, mensaje));
+    }
 }
