@@ -25,7 +25,7 @@ import uy.edu.ort.sigamas.sigamasweb.utils.UtilsMensajes;
  */
 @ManagedBean(name = "beanUsuario")
 @ViewScoped
-public class BeanUsuario implements Serializable{
+public class BeanUsuario implements Serializable {
 
     @EJB
     private UsuarioBeanLocal usuarioSessionBean;
@@ -191,7 +191,7 @@ public class BeanUsuario implements Serializable{
 // </editor-fold>
     public boolean crearUsuario() {
         try {
-            Usuario nuevoUsuario = usuarioSessionBean.crearUsuario(getNombreUsuario(), getClaveUsuario(), getNombre(), getApellidos(), getEmailUsuario(), getFechaNacimiento(), getProfesion(), getSexo(), getTelefono());
+            Usuario nuevoUsuario = usuarioSessionBean.crearUsuario(getNombreUsuario(), getClaveUsuario(), getNombre(), getApellidos(), getEmailUsuario(), getFechaNacimiento(), getProfesion(), getSexo(), getTelefono(), null);
             if (nuevoUsuario != null) {
                 usuarios.add(nuevoUsuario);
                 return true;
@@ -207,12 +207,21 @@ public class BeanUsuario implements Serializable{
         //RequestContext.getCurrentInstance().execute("dlg_usuario.show();");
     }
 
-    public String paginaCrearUsuario() {        
+    public String paginaCrearUsuario() {
         return "CrearUsuario";
     }
 
     public String progresoCreacion(FlowEvent event) {
 
+        if ("ingreso".equals(event.getOldStep())) {
+            try {
+                usuarioSessionBean.verificarUsuario(nombreUsuario);
+            } catch (UsuarioExistenteException exp) {
+                UtilsMensajes.mostrarMensajeError("Error", "Ya existe un usuario con este nombre de usuario");
+                return event.getOldStep();
+            }
+            return event.getNewStep();
+        }
         return event.getNewStep();
     }
 }

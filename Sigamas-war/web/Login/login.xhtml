@@ -27,7 +27,7 @@
                     <p:outputLabel value="Contraseña"/>
                     <p:password value="#{beanLogin.claveUsuario}"/>          
                     <f:facet name="footer">
-                        <p:commandButton value="Entrar" style="margin-left: 40%;" action="#{beanLogin.ingresar}"/>
+                        <p:commandButton value="Entrar" style="margin-left: 40%;" action="#{beanLogin.ingresar}" ajax="false"/>
                     </f:facet>
                 </p:panelGrid>
                 <p:commandLink value="Olvidé mi contraseña"/>

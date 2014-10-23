@@ -25,8 +25,8 @@ public class UsuarioBean implements UsuarioBeanLocal {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     @Override
-    public Usuario crearUsuario(String nombreUsuario, String claveUsuario, String nombre, String apellidos, String emailUsuario, Date fechaNacimiento, String profesion, String sexo, String telefono) throws UsuarioExistenteException{
-       return UtilUsuario.crearUsuario(em, nombreUsuario, claveUsuario, nombre, apellidos, emailUsuario, fechaNacimiento, profesion, sexo, telefono);
+    public Usuario crearUsuario(String nombreUsuario, String claveUsuario, String nombre, String apellidos, String emailUsuario, Date fechaNacimiento, String profesion, String sexo, String telefono, String rol) throws UsuarioExistenteException{
+       return UtilUsuario.crearUsuario(em, nombreUsuario, claveUsuario, nombre, apellidos, emailUsuario, fechaNacimiento, profesion, sexo, telefono, rol);
     }
 
     @Override
@@ -37,5 +37,10 @@ public class UsuarioBean implements UsuarioBeanLocal {
     @Override
     public boolean eliminarUsuario(String nombreUsuario) {
         return UtilUsuario.eliminarUsuario(em, nombreUsuario);
+    }
+    
+    @Override
+    public void verificarUsuario(String nombreUsuario) throws UsuarioExistenteException{
+        UtilUsuario.verificarNombreUsuario(em, nombreUsuario);
     }
 }

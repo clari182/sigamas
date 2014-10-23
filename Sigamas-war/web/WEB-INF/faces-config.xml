@@ -27,18 +27,42 @@
      <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
-            <from-outcome>UsuariosCuenta</from-outcome>
-            <to-view-id>/Usuario/usuariosCuenta.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>CrearUsuario</from-outcome>
             <to-view-id>/Usuario/crearUsuario.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>UsuariosCuenta</from-outcome>
+            <to-view-id>/Usuario/usuariosCuenta.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>HomeClient</from-outcome>
             <to-view-id>/Home/homeClient.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/Cuenta/cuentasSuperUsuario.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>CrearCuenta</from-outcome>
+            <to-view-id>/Cuenta/crearCuenta.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/Home/homeClient.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>UsuariosCuenta</from-outcome>
+            <to-view-id>/Usuario/usuariosCuenta.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/Templates/topHeaderTemplate.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>UsuariosCuenta</from-outcome>
+            <to-view-id>/Usuario/usuariosCuenta.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

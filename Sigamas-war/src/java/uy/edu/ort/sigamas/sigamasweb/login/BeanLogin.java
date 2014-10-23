@@ -5,8 +5,10 @@
  */
 package uy.edu.ort.sigamas.sigamasweb.login;
 //COMENTARIO
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -32,6 +34,12 @@ public class BeanLogin {
      * Creates a new instance of BeanLogin
      */
     public BeanLogin() {
+        this.cuentas = new ArrayList<>();
+    }
+    
+    @PostConstruct
+    public void init(){
+        this.cuentas = new ArrayList();
     }
 
     private String nombreUsuario;
