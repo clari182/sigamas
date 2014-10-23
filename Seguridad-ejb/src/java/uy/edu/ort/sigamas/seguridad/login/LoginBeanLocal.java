@@ -6,10 +6,8 @@
 
 package uy.edu.ort.sigamas.seguridad.login;
 
-import java.util.Collection;
-import java.util.List;
 import javax.ejb.Local;
-import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
+import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
 import uy.edu.ort.sigamas.seguridad.login.excepciones.ClaveInvalidaException;
 import uy.edu.ort.sigamas.seguridad.login.excepciones.UsuarioInvalidoException;
 
@@ -22,6 +20,6 @@ public interface LoginBeanLocal {
 
     boolean verificarUsuario(String nombreUsuario, String claveUsuario) throws ClaveInvalidaException, UsuarioInvalidoException;
 
-    List<Cuenta> obtenerCuentas(String nombreUsuario) throws ClaveInvalidaException, UsuarioInvalidoException;
+    Usuario obtenerUsuario(String nombreUsuario) throws UsuarioInvalidoException;
     
 }

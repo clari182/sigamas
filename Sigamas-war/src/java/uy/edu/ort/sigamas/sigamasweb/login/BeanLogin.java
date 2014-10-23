@@ -5,11 +5,13 @@
  */
 package uy.edu.ort.sigamas.sigamasweb.login;
 //COMENTARIO
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.login.LoginBeanLocal;
@@ -22,8 +24,8 @@ import uy.edu.ort.sigamas.sigamasweb.utils.UtilsMensajes;
  * @author Mattahari
  */
 @ManagedBean (name="beanLogin")
-@RequestScoped
-public class BeanLogin {
+@ViewScoped
+public class BeanLogin implements Serializable{
 
     @EJB
     private LoginBeanLocal loginSessionBean;
@@ -91,7 +93,7 @@ public class BeanLogin {
         this.usuarios = usuarios;
     }
 
-    public boolean validarUsuario() {
+    private boolean validarUsuario() {
         try {
             loginSessionBean.verificarUsuario(nombreUsuario, claveUsuario);
             return true;
@@ -99,41 +101,22 @@ public class BeanLogin {
             UtilsMensajes.mostrarMensajeError("Error", "Nombre de usuario inexistente.");
             return false;
         } catch (ClaveInvalidaException ex) {
-            UtilsMensajes.mostrarMensajeError("Error", "Contraseña erronea.");
+            UtilsMensajes.mostrarMensajeError("Error", "ContraseÃ±a erronea.");
             return false;
         }
     }
 
     public String ingresar() {
         try {
-            if (validarUsuario()) {
-                if (obtenerCuentas()) {
+            if (validarUsuario()) {                
                     return "HomeCliente";
-                }
             }
             return "";
         } catch (Exception exp) { // Hacer clase de excepcion
             UtilsMensajes.mostrarMensajeError("Error", exp.getMessage());
             return "";
         }
-    }
-
-    public boolean obtenerCuentas() {      
-        try {
-            this.cuentas = loginSessionBean.obtenerCuentas(nombreUsuario);            
-            return true;
-        } catch (UsuarioInvalidoException ex) {
-            UtilsMensajes.mostrarMensajeError("Error", "Nombre de usuario inexistente.");
-            return false;
-        } catch (ClaveInvalidaException ex) {
-            UtilsMensajes.mostrarMensajeError("Error", "Contraseña errónea.");
-            return false;
-        }
-    }
-    
-    public boolean obtenerCuentasSU(){
-        return true;
-    }
+    }  
 
 
 }
