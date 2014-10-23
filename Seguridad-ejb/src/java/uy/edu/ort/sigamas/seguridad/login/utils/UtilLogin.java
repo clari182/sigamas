@@ -23,7 +23,7 @@ import uy.edu.ort.sigamas.seguridad.login.excepciones.UsuarioInvalidoException;
 public class UtilLogin {
 
     public static boolean verificarUsuario(EntityManager em, String nombreUsuario, String claveUsuario) throws UsuarioInvalidoException, ClaveInvalidaException {        
-        List<Usuario> listaCoincidenciasUsuario = UtilLogin.obtenerUsuario(em, nombreUsuario);
+        List<Usuario> listaCoincidenciasUsuario = UtilLogin.obtenerUsuarios(em, nombreUsuario);
         if (listaCoincidenciasUsuario.isEmpty()) {            
             throw new UsuarioInvalidoException();
         }
@@ -33,15 +33,15 @@ public class UtilLogin {
         return true;
     }
 
-    public static List<Cuenta> obtenerCuentas(EntityManager em, String nombreUsuario) {
-        List<Usuario> usuarios = UtilLogin.obtenerUsuario(em, nombreUsuario);
+    public static Usuario obtenerUsuario(EntityManager em, String nombreUsuario)  throws UsuarioInvalidoException{
+        List<Usuario> usuarios = UtilLogin.obtenerUsuarios(em, nombreUsuario);
         if (usuarios.isEmpty()){
-            return null;
+            throw new UsuarioInvalidoException();
         }        
-        return usuarios.get(0).getCuentaList();            
+        return usuarios.get(0);            
     }
     
-    public static List<Usuario> obtenerUsuario(EntityManager em, String nombreUsuario){
+    private static List<Usuario> obtenerUsuarios(EntityManager em, String nombreUsuario){
         return em.createNamedQuery("Usuario.findByNombreUsuario").setParameter("nombreUsuario", nombreUsuario).getResultList();                
     }
 }

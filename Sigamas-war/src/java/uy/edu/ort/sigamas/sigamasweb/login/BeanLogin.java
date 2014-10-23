@@ -8,12 +8,11 @@ package uy.edu.ort.sigamas.sigamasweb.login;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
@@ -32,7 +31,14 @@ public class BeanLogin implements Serializable {
 
     @EJB
     private LoginBeanLocal loginSessionBean;
+    
+    @ManagedProperty(value="#{beanSesionUsuario}")
+    private BeanSesionUsuario beanSesionUsuario;
 
+    public void setBeanSesionUsuario(BeanSesionUsuario beanSesionUsuario) {
+        this.beanSesionUsuario = beanSesionUsuario;
+    }
+    
     /**
      * Creates a new instance of BeanLogin
      */
@@ -117,11 +123,12 @@ public class BeanLogin implements Serializable {
 
     public String ingresar() {
         try {
-            if (validarUsuario()) {
+            if (validarUsuario()) {                
+                beanSesionUsuario.setUsuarioLoggeado(loginSessionBean.obtenerUsuario(nombreUsuario));
                 return "HomeClient";
             }
             return "";
-        } catch (Exception exp) { // Hacer clase de excepcion
+        } catch (UsuarioInvalidoException exp) { // Hacer clase de excepcion
             UtilsMensajes.mostrarMensajeError("Error inesperado", exp.getMessage());
             return "";
         }
