@@ -6,6 +6,7 @@
 package uy.edu.ort.sigamas.seguridad.usuario;
 
 import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -42,5 +43,10 @@ public class UsuarioBean implements UsuarioBeanLocal {
     @Override
     public void verificarUsuario(String nombreUsuario) throws UsuarioExistenteException{
         UtilUsuario.verificarNombreUsuario(em, nombreUsuario);
+    }
+    
+    @Override 
+    public List<Usuario> obtenerUsuarios(){
+        return em.createNamedQuery("Usuario.findAll").getResultList();
     }
 }

@@ -6,8 +6,10 @@
 package uy.edu.ort.sigamas.sigamasweb.usuario;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -45,7 +47,8 @@ public class BeanUsuario implements Serializable {
     private String profesion;
     private String sexo;
     private String telefono;
-    private List<Usuario> usuarios;
+    private List<Usuario> usuarios = new ArrayList<>();
+    private Usuario usuarioSeleccionado;
 
 // <editor-fold defaultstate="collapsed" desc="Gets y Sets">
     /**
@@ -188,18 +191,37 @@ public class BeanUsuario implements Serializable {
         this.usuarios = usuarios;
     }
 
+    /**
+     * @return the usuarioSeleccionado
+     */
+    public Usuario getUsuarioSeleccionado() {
+        return usuarioSeleccionado;
+    }
+
+    /**
+     * @param usuarioSeleccionado the usuarioSeleccionado to set
+     */
+    public void setUsuarioSeleccionado(Usuario usuarioSeleccionado) {
+        this.usuarioSeleccionado = usuarioSeleccionado;
+    }
 // </editor-fold>
-    public boolean crearUsuario() {
+
+    @PostConstruct
+    public void init() {
+        usuarios = usuarioSessionBean.obtenerUsuarios();
+    }
+
+    public String crearUsuario() {
         try {
             Usuario nuevoUsuario = usuarioSessionBean.crearUsuario(getNombreUsuario(), getClaveUsuario(), getNombre(), getApellidos(), getEmailUsuario(), getFechaNacimiento(), getProfesion(), getSexo(), getTelefono(), null);
             if (nuevoUsuario != null) {
                 usuarios.add(nuevoUsuario);
-                return true;
+                return "UsuariosCuenta";
             }
-            return false;
+            return "";
         } catch (UsuarioExistenteException u) {
             UtilsMensajes.mostrarMensajeError("Error de creación", "Ya existe un usuario con este nombre de usuario");
-            return false;
+            return "";
         }
     }
 

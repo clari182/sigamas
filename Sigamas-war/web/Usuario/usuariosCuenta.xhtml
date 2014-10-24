@@ -7,7 +7,8 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="content">
-        <h:form id="form">                               
+        <h:form id="form">             
+            <p:commandButton ajax="false" action="CrearUsuario" icon="ui-icon-plus" />            
             <p:dataTable var="usuario" value="#{beanUsuario.usuarios}" editable="true" editMode="cell" style="width:50%">
                 <p:column headerText="Nombre de usuario">
                     <h:outputText value="#{usuario.nombreUsuario}" />
@@ -23,12 +24,9 @@
 
                 <p:column headerText="Mail">
                     <h:outputText value="#{usuario.emailUsuario}" />
-                </p:column>
-                <p:column style="width:32px">
-                    <p:commandButton actionListener="#{beanUsuario.editarUsuario()}" icon="ui-icon-edit"  />  
-                </p:column>
+                </p:column>                
             </p:dataTable>
-            <p:commandButton value="Crear un nuevo usuario" ajax="false" actionListener="#{beanUsuario.paginaCrearUsuario()}" />            
+            
         </h:form>
     </ui:define>
 </ui:composition>

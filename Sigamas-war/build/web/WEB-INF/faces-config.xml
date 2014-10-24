@@ -66,4 +66,11 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/Usuario/crearUsuario.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>UsuariosCuenta</from-outcome>
+            <to-view-id>/Usuario/usuariosCuenta.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

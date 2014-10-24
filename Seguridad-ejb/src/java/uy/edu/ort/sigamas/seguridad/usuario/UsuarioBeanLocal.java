@@ -6,6 +6,7 @@
 package uy.edu.ort.sigamas.seguridad.usuario;
 
 import java.util.Date;
+import java.util.List;
 import javax.ejb.Local;
 import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
 import uy.edu.ort.sigamas.seguridad.usuario.excepciones.UsuarioExistenteException;
@@ -23,4 +24,6 @@ public interface UsuarioBeanLocal {
     boolean eliminarUsuario(String nombreUsuario);
     
     void verificarUsuario(String nombreUsuario) throws UsuarioExistenteException;
+
+    List<Usuario> obtenerUsuarios();
 }
