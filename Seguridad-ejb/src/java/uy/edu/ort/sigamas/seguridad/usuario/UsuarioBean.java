@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import uy.edu.ort.sigamas.seguridad.entidades.Rol;
 import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
 import uy.edu.ort.sigamas.seguridad.usuario.excepciones.UsuarioExistenteException;
 import uy.edu.ort.sigamas.seguridad.usuario.utils.UtilUsuario;
@@ -26,8 +27,8 @@ public class UsuarioBean implements UsuarioBeanLocal {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     @Override
-    public Usuario crearUsuario(String nombreUsuario, String claveUsuario, String nombre, String apellidos, String emailUsuario, Date fechaNacimiento, String profesion, String sexo, String telefono, String rol) throws UsuarioExistenteException{
-       return UtilUsuario.crearUsuario(em, nombreUsuario, claveUsuario, nombre, apellidos, emailUsuario, fechaNacimiento, profesion, sexo, telefono, rol);
+    public Usuario crearUsuario(Usuario nuevoUsuario, Rol rol) throws UsuarioExistenteException{
+       return UtilUsuario.crearUsuario(em, nuevoUsuario, rol);
     }
 
     @Override

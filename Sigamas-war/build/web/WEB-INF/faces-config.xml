@@ -6,64 +6,37 @@
     <navigation-rule>
         <from-view-id>/Login/login.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>HomeSuperUsuario</from-outcome>
-            <to-view-id>/Home/homeSuperUsuario.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>HomeClient</from-outcome>
+            <from-outcome>homeClient</from-outcome>
             <to-view-id>/Home/homeClient.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>
+        </navigation-case>       
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/Usuario/usuariosCuenta.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>CrearUsuario</from-outcome>
-            <to-view-id>/Usuario/crearUsuario.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
-     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
-            <from-outcome>CrearUsuario</from-outcome>
-            <to-view-id>/Usuario/crearUsuario.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>UsuariosCuenta</from-outcome>
-            <to-view-id>/Usuario/usuariosCuenta.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>HomeClient</from-outcome>
-            <to-view-id>/Home/homeClient.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/Cuenta/cuentasSuperUsuario.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>CrearCuenta</from-outcome>
-            <to-view-id>/Cuenta/crearCuenta.xhtml</to-view-id>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/Login/login.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/Home/homeClient.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>UsuariosCuenta</from-outcome>
+            <from-outcome>usuariosCuenta</from-outcome>
             <to-view-id>/Usuario/usuariosCuenta.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/Templates/topHeaderTemplate.xhtml</from-view-id>
+        <from-view-id>/Usuario/usuariosCuenta.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>UsuariosCuenta</from-outcome>
-            <to-view-id>/Usuario/usuariosCuenta.xhtml</to-view-id>
+            <from-outcome>crearUsuario</from-outcome>
+            <to-view-id>/Usuario/crearUsuario.xhtml</to-view-id>
             <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>invitacionUsuario</from-outcome>
+            <to-view-id>/Usuario/invitacionUsuario.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>

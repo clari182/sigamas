@@ -4,29 +4,73 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./../Templates/topHeaderTemplate.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
-        <h:form id="form">             
-            <p:commandButton ajax="false" action="CrearUsuario" icon="ui-icon-plus" />            
-            <p:dataTable var="usuario" value="#{beanUsuario.usuarios}" editable="true" editMode="cell" style="width:50%">
-                <p:column headerText="Nombre de usuario">
-                    <h:outputText value="#{usuario.nombreUsuario}" />
-                </p:column>
 
-                <p:column headerText="Nombre">
-                    <h:outputText value="#{usuario.nombre}" />
-                </p:column>
+        <h:form id="form">                
+            <p:menubar>                
+                <p:menuitem value="Invitar Nuevo Usuario" icon="ui-icon-contact" outcome="invitacionUsuario"/>                    
+            </p:menubar>
+            <div style="height: 10px; clear: both;"/>
+            <p:panel header="Usuarios" style="width:55%; float: left;">
+                <p:dataTable id="tabla-usuarios" 
+                             var="usuario" 
+                             value="#{beanSesionUsuario.cuentaActual.usuarioList}" 
+                             selectionMode="single"
+                             selection="#{beanUsuario.usuario}"    
+                             rowKey="#{usuario.idUsuario}">
+                    <p:column headerText="Nombre de usuario">
+                        <h:outputText value="#{usuario.nombreUsuario}" />
+                    </p:column>
 
-                <p:column headerText="Apellido">
-                    <h:outputText value="#{usuario.apellidos}" />
-                </p:column>
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{usuario.nombre}" />
+                    </p:column>
 
-                <p:column headerText="Mail">
-                    <h:outputText value="#{usuario.emailUsuario}" />
-                </p:column>                
-            </p:dataTable>
-            
+                    <p:column headerText="Apellido">
+                        <h:outputText value="#{usuario.apellidos}" />
+                    </p:column>
+
+                    <p:column headerText="Mail">
+                        <h:outputText value="#{usuario.emailUsuario}" />
+                    </p:column>                
+                </p:dataTable>         
+            </p:panel>            
+            <p:accordionPanel  style="width:40%; float: right;">
+                <p:tab title="Invitaciones de usuario pendientes">
+                    TODO : Lista con las invitaciones pendientes
+                </p:tab>
+                <p:tab title="Últimos accesos">
+                    TODO : Lista con los ultimos accesos de usuarios a la cuenta
+                </p:tab>
+                <p:tab title="Informes">
+                    TODO : Lista con informes de uso de la cuenta
+                </p:tab>
+            </p:accordionPanel>
+            <div style="clear:both;"/>
+            <p:contextMenu for="tabla-usuarios">
+                <p:menuitem value="Ver" update="detailUsuario" icon="ui-icon-search" oncomplete="PF('dialogUsuario').show()"/>
+                <p:menuitem value="Borrar" icon="ui-icon-close"/>
+            </p:contextMenu>
+
+            <p:dialog header="Informacion de Usuario" widgetVar="dialogUsuario" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="detailUsuario" style="text-align:center;">
+                    <p:panelGrid  columns="2" rendered="#{not empty beanUsuario.usuario}" columnClasses="label,value">                       
+
+                        <h:outputText value="Nombre de usuario"/>
+                        <h:outputText value="#{beanUsuario.usuario.nombreUsuario}" />
+
+                        <h:outputText value="Nombre"/>
+                        <h:outputText value="#{beanUsuario.usuario.nombre}" />
+
+                        <h:outputText value="Apellido"/>
+                        <h:outputText value="#{beanUsuario.usuario.apellidos}" />
+
+                        <h:outputText value="Mail"/>
+                        <h:outputText value="#{beanUsuario.usuario.emailUsuario}" />
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
         </h:form>
     </ui:define>
 </ui:composition>

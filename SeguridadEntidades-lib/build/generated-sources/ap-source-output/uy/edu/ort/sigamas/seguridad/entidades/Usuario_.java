@@ -9,7 +9,7 @@ import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.entidades.Login;
 import uy.edu.ort.sigamas.seguridad.entidades.Rol;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-23T23:26:46")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-24T21:37:28")
 @StaticMetamodel(Usuario.class)
 public class Usuario_ { 
 

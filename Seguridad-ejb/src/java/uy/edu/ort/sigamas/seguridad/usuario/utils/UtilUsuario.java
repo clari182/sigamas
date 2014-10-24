@@ -1,6 +1,5 @@
 package uy.edu.ort.sigamas.seguridad.usuario.utils;
 
-import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import uy.edu.ort.sigamas.seguridad.entidades.Rol;
@@ -18,22 +17,16 @@ import uy.edu.ort.sigamas.seguridad.usuario.excepciones.UsuarioExistenteExceptio
  */
 public class UtilUsuario {
 
-    public static Usuario crearUsuario(EntityManager em, String nombreUsuario, String claveUsuario, String nombre, String apellidos, String emailUsuario, Date fechaNacimiento, String profesion, String sexo, String telefono, String rol) throws UsuarioExistenteException {
-        verificarNombreUsuario(em, nombreUsuario);
-        Usuario usuario = new Usuario(null, nombreUsuario, claveUsuario, nombre, apellidos);
-        usuario.setEmailUsuario(emailUsuario);
-        usuario.setFechaNacimiento(fechaNacimiento);
-        usuario.setSexo(sexo);
-        usuario.setProfesion(profesion);
-        usuario.setTelefono(telefono);
-        if ("".equals(rol) || rol == null ) {
-            Query qRoles = em.createNamedQuery("Rol.findByNombre").setParameter("nombre", rol);
-            if (!qRoles.getResultList().isEmpty()){               
-                usuario.setIdRol((Rol)qRoles.getResultList().get(0));
-            }
+    public static Usuario crearUsuario(EntityManager em, Usuario nuevoUsuario, Rol rol) throws UsuarioExistenteException {
+        verificarNombreUsuario(em, nuevoUsuario.getNombreUsuario());        
+        
+        if (rol != null ) {
+            Rol managedRol = em.merge(rol);
+            nuevoUsuario.setIdRol(managedRol);
         }
-        em.persist(usuario);
-        return usuario;
+        
+        em.persist(nuevoUsuario);
+        return nuevoUsuario;
     }
 
     public static void verificarNombreUsuario (EntityManager em, String nombreUsuario) throws UsuarioExistenteException{
