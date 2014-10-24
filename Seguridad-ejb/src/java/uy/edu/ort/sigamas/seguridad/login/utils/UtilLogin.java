@@ -23,7 +23,7 @@ import uy.edu.ort.sigamas.seguridad.login.excepciones.UsuarioInvalidoException;
 public class UtilLogin {
 
     public static boolean verificarUsuario(EntityManager em, String nombreUsuario, String claveUsuario) throws UsuarioInvalidoException, ClaveInvalidaException {        
-        List<Usuario> listaCoincidenciasUsuario = UtilLogin.obtenerUsuario(em, nombreUsuario);
+        List<Usuario> listaCoincidenciasUsuario = em.createNamedQuery("Usuario.findByNombreUsuario").setParameter("nombreUsuario", nombreUsuario).getResultList();
         if (listaCoincidenciasUsuario.isEmpty()) {            
             throw new UsuarioInvalidoException();
         }

@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../Templates/topHeaderTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form>
+            <p:growl id="growl" sticky="true" showDetail="true" />
+            <p:wizard flowListener="#{beanUsuario.progresoCreacion}">
+                <p:tab id="ingreso" title="Ingreso">                  
+                    <p:panel id="custom" header="Información de ingreso" style="margin-bottom:20px;vertical-align: top">                            
+                        <p:messages></p:messages>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Nombre del usuario: *" />
+                            <p:inputText id="nombreUsuario" value="#{beanUsuario.nombreUsuario}" required="true" label="text"/>
+
+                            <h:outputText value="Contraseña: *" />
+                            <p:password feedback="true" id="claveUsuario" value="#{beanUsuario.claveUsuario}" required="true" label="text"/>
+
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+                <p:tab id="personal" title="Personal">
+                    <p:panel header="Información personal" style="margin-bottom:20px">
+                        <p:messages/>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel for="nombre" value="Primer Nombre: *" />
+                            <p:inputText id="nombre" value="#{beanUsuario.nombre}" required="true" label="text"/>
+
+                            <h:outputLabel for="apellidos" value="Apellidos: *" />
+                            <p:inputText id="apellidos" value="#{beanUsuario.apellidos}" required="true" label="text"/>
+
+                            <h:outputLabel for="email" value="Mail: *" />
+                            <p:inputText id="email" value="#{beanUsuario.emailUsuario}" required="true" label="text"/>
+
+                            <h:outputLabel for="telefono" value="Teléfono:" />
+                            <p:inputText id="telefono" value="#{beanUsuario.telefono}" label="text"/>
+
+                            <h:outputLabel for="fechaNacimiento" value="Fecha de nacimiento:" />
+                            <p:inputText type="date" id="fechaNacimiento" value="#{beanUsuario.fechaNacimiento}" label="text"/>
+
+                            <h:outputLabel for="sexo" value="Sexo:" />
+                            <p:selectOneMenu id="sexo" value="#{beanUsuario.sexo}" style="width:150px">                                    
+                                <f:selectItem itemLabel="M" itemValue="M" />
+                                <f:selectItem itemLabel="F" itemValue="F" />
+                            </p:selectOneMenu>
+
+                            <h:outputLabel for="profesion" value="Profesion:" />
+                            <p:inputText id="profesion" value="#{beanUsuario.profesion}" label="text"/>
+                        </h:panelGrid>                        
+                    </p:panel>
+                </p:tab>
+                <p:tab id="confirmacion" title="Confirmación">
+                    <p:panel header="Confirmación de los datos" style="margin-bottom:20px">
+                        <p:messages/>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel  value="Nombre de Usuario: *" />
+                            <p:outputLabel  value="#{beanUsuario.nombreUsuario}"/>
+
+                            <h:outputLabel value="Primer Nombre: *" />
+                            <h:outputLabel value="#{beanUsuario.nombre}"/>
+
+                            <h:outputLabel value="Apellidos: *" />
+                            <h:outputLabel value="#{beanUsuario.apellidos}"/>
+
+                            <h:outputLabel value="Mail: *" />
+                            <h:outputLabel value="#{beanUsuario.emailUsuario}"/>
+
+                            <h:outputLabel value="Teléfono:" />
+                            <h:outputLabel value="#{beanUsuario.telefono}"/>
+
+                            <h:outputLabel value="Fecha de nacimiento:" />
+                            <h:outputLabel value="#{beanUsuario.fechaNacimiento}"/>
+
+                            <h:outputLabel value="Sexo:" />
+                            <h:outputLabel value="#{beanUsuario.sexo}"/>
+                            
+                            <h:outputLabel value="Profesion:" />
+                            <p:outputLabel value="#{beanUsuario.profesion}"/>
+                        </h:panelGrid>
+                        <p:commandButton style="float:right" value="Guardar" actionListener="#{beanUsuario.crearUsuario}" update="growl" process="@this"></p:commandButton>
+                    </p:panel>
+                </p:tab>
+
+            </p:wizard>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

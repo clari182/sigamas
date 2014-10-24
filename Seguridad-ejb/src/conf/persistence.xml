@@ -7,7 +7,6 @@
     <class>uy.edu.ort.sigamas.seguridad.entidades.Rol</class>
     <class>uy.edu.ort.sigamas.seguridad.entidades.Usuario</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
-    <properties>
-    </properties>
+    <properties/>
   </persistence-unit>
 </persistence>
