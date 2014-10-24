@@ -19,6 +19,11 @@
     </h:head>
     <h:body>
         <h:form>
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+            <p:dialog modal="true" widgetVar="statusDialog" header="Espere por favor"
+                      draggable="false" closable="false" resizable="false" style="text-align: center;">
+                <h:graphicImage value="resources/img/ajax-loader.gif" />
+            </p:dialog>
             <p:growl id="growl" sticky="true" showDetail="true"/>
             <p:panel style="margin-top: 20%;margin-bottom: 30%; height: 30%; width: 50%;margin: 0 auto; text-align: center;">
                 <img src="resources/img/login/logo.png" alt=""/>

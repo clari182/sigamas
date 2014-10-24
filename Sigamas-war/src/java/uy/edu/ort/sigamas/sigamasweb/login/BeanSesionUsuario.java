@@ -56,7 +56,7 @@ public class BeanSesionUsuario implements Serializable {
 
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "Login";
+        return "login";
     }
 
 }
