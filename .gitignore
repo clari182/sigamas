@@ -1,6 +1,11 @@
- /Seguridad-ejb/dist/
- /Sigamas-war/build/
- /build/
- /Sigamas-war/dist/
- /SeguridadEntidades-lib/dist/
-/SeguridadEntidades-lib2/nbproject/private/
+# #########################
+# Ignore file - NetBeans
+# #########################
+ 
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
