@@ -6,6 +6,7 @@
     <class>uy.edu.ort.sigamas.seguridad.entidades.Login</class>
     <class>uy.edu.ort.sigamas.seguridad.entidades.Rol</class>
     <class>uy.edu.ort.sigamas.seguridad.entidades.Usuario</class>
+    <class>uy.edu.ort.sigamas.seguridad.entidades.CuentaUsuario</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>

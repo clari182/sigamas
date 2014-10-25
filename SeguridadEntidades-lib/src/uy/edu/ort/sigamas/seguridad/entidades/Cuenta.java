@@ -8,6 +8,7 @@ package uy.edu.ort.sigamas.seguridad.entidades;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -36,6 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cuenta.findByEmpresa", query = "SELECT c FROM Cuenta c WHERE c.empresa = :empresa"),
     @NamedQuery(name = "Cuenta.findByRut", query = "SELECT c FROM Cuenta c WHERE c.rut = :rut")})
 public class Cuenta implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuenta")
+    private List<CuentaUsuario> cuentaUsuarioList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -133,6 +137,15 @@ public class Cuenta implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Cuenta[ idCuenta=" + idCuenta + " ]";
+    }
+
+    @XmlTransient
+    public List<CuentaUsuario> getCuentaUsuarioList() {
+        return cuentaUsuarioList;
+    }
+
+    public void setCuentaUsuarioList(List<CuentaUsuario> cuentaUsuarioList) {
+        this.cuentaUsuarioList = cuentaUsuarioList;
     }
     
 }
