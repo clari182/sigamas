@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,8 +48,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findBySexo", query = "SELECT u FROM Usuario u WHERE u.sexo = :sexo"),
     @NamedQuery(name = "Usuario.findByProfesion", query = "SELECT u FROM Usuario u WHERE u.profesion = :profesion")})
 public class Usuario implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private List<CuentaUsuario> cuentaUsuarioList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -78,12 +77,12 @@ public class Usuario implements Serializable {
     private String sexo;
     @Column(name = "profesion", length = 45)
     private String profesion;
-    @ManyToMany(mappedBy = "usuarioList")
+    @ManyToMany(mappedBy = "usuarioList", fetch = FetchType.EAGER)
     private List<Cuenta> cuentaList;
     @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Rol idRol;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario", fetch = FetchType.EAGER)
     private List<Login> loginList;
 
     public Usuario() {
@@ -230,15 +229,6 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Usuario[ idUsuario=" + idUsuario + " ]";
-    }
-
-    @XmlTransient
-    public List<CuentaUsuario> getCuentaUsuarioList() {
-        return cuentaUsuarioList;
-    }
-
-    public void setCuentaUsuarioList(List<CuentaUsuario> cuentaUsuarioList) {
-        this.cuentaUsuarioList = cuentaUsuarioList;
     }
     
 }
