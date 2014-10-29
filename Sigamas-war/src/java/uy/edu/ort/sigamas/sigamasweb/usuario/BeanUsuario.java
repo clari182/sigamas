@@ -29,7 +29,7 @@ public class BeanUsuario implements Serializable {
     @EJB
     private UsuarioBeanLocal usuarioSessionBean;
 
-    @ManagedProperty(value = "#{beanSesionUsuario}")
+    @ManagedProperty(value="#{beanSesionUsuario}")
     private BeanSesionUsuario beanSesionUsuario;
 
     /**
