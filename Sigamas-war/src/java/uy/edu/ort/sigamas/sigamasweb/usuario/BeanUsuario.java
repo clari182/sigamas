@@ -96,7 +96,8 @@ public class BeanUsuario implements Serializable {
     }
     
     public String modificarUsuario(){
-        //Usuario aux = usuarioSessionBean.modificarUsuario(beanSessionUsuario.getUsuarioLoggeado());
+        Usuario aux = usuarioSessionBean.modificarUsuario(beanSesionUsuario.getUsuarioLoggeado());
+        beanSesionUsuario.setUsuarioLoggeado(aux);
         return "homeClient";
     }
 }
