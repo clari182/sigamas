@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../Templates/topHeaderTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form>
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+            <p:dialog modal="true" widgetVar="statusDialog" header="Espere por favor"
+                      draggable="false" closable="false" resizable="false" style="text-align: center;">
+                <h:graphicImage value="resources/img/ajax-loader.gif" />
+            </p:dialog>
+            <p:growl id="growl" sticky="true" showDetail="true" />
+            <p:panel style="margin: 0 auto; width: 60%;"> 
+                <p:tabView>
+                    <p:tab id="personal" title="Datos del usuario #{beanSesionUsuario.usuarioLoggeado.nombreUsuario}">
+
+                        <p:messages/>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel for="nombre" value="Primer Nombre: *" />
+
+                            <p:inputText id="nombre" value="#{beanSesionUsuario.usuarioLoggeado.nombre}" required="true" label="text"/>
+
+                            <h:outputLabel for="apellidos" value="Apellidos: *" />
+
+                            <p:inputText id="apellidos" value="#{beanSesionUsuario.usuarioLoggeado.apellidos}" required="true" label="text"/>
+
+                            <h:outputLabel for="email" value="Mail: *" />
+
+                            <p:inputText id="email" value="#{beanSesionUsuario.usuarioLoggeado.emailUsuario}" required="true" label="text"/>
+
+                            <h:outputLabel for="telefono" value="Teléfono:" />
+
+                            <p:inputText id="telefono" value="#{beanSesionUsuario.usuarioLoggeado.telefono}" label="text"/>
+
+                            <h:outputLabel for="fechaNacimiento" value="Fecha de nacimiento:" />
+
+                            <p:inputText type="date" id="fechaNacimiento" value="#{beanSesionUsuario.usuarioLoggeado.fechaNacimiento}" label="text"/>
+
+                            <h:outputLabel for="sexo" value="Sexo:" />
+
+                            <p:selectOneMenu id="sexo" value="#{beanSesionUsuario.usuarioLoggeado.sexo}" style="width:150px">                                    
+                                <f:selectItem itemLabel="M" itemValue="M" />
+                                <f:selectItem itemLabel="F" itemValue="F" />
+                            </p:selectOneMenu>
+
+                            <h:outputLabel for="profesion" value="Profesion:" />
+
+                            <p:inputText id="profesion" value="#{beanSesionUsuario.usuarioLoggeado.profesion}" label="text"/>
+                            <p:commandButton value="Guardar" action="#{beanUsuario.modificarUsuario()}"/>
+                        </h:panelGrid>
+                        
+
+                    </p:tab> 
+                </p:tabView>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

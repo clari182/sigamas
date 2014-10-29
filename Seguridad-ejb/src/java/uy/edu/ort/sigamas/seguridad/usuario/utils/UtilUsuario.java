@@ -35,8 +35,16 @@ public class UtilUsuario {
             throw new UsuarioExistenteException();
         }        
     }
-    public static Usuario modificarUsuario(EntityManager em, Object nuevoUsuario) {
-        return null;
+    public static Usuario modificarUsuario(EntityManager em, Usuario nuevoUsuario) {
+        Usuario aux = em.find(Usuario.class, nuevoUsuario.getIdUsuario());
+        aux.setNombre(nuevoUsuario.getNombre());
+        aux.setApellidos(nuevoUsuario.getApellidos());
+        aux.setEmailUsuario(nuevoUsuario.getEmailUsuario());
+        aux.setProfesion(nuevoUsuario.getProfesion());
+        aux.setSexo(nuevoUsuario.getSexo());
+        aux.setTelefono(nuevoUsuario.getTelefono());
+        return aux;
+        
     }
 
     public static boolean eliminarUsuario(EntityManager em, String nombreUsuario) {

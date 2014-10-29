@@ -32,7 +32,7 @@ public class UsuarioBean implements UsuarioBeanLocal {
     }
 
     @Override
-    public Usuario modificarUsuario(Object nuevoUsuario) {
+    public Usuario modificarUsuario(Usuario nuevoUsuario) {
         return UtilUsuario.modificarUsuario(em, nuevoUsuario);
     }
 

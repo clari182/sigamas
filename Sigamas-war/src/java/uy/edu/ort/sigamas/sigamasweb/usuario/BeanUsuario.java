@@ -9,11 +9,13 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.event.FlowEvent;
 import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
 import uy.edu.ort.sigamas.seguridad.usuario.UsuarioBeanLocal;
 import uy.edu.ort.sigamas.seguridad.usuario.excepciones.UsuarioExistenteException;
+import uy.edu.ort.sigamas.sigamasweb.login.BeanSesionUsuario;
 import uy.edu.ort.sigamas.sigamasweb.utils.UtilsMensajes;
 
 /**
@@ -26,6 +28,9 @@ public class BeanUsuario implements Serializable {
 
     @EJB
     private UsuarioBeanLocal usuarioSessionBean;
+
+    @ManagedProperty(value = "#{beanSesionUsuario}")
+    private BeanSesionUsuario beanSesionUsuario;
 
     /**
      * Creates a new instance of BeanUsuario
@@ -48,7 +53,21 @@ public class BeanUsuario implements Serializable {
         this.usuario = usuario;
     }
 
+    /**
+     * @return the beanSessionUsuario
+     */
+    public BeanSesionUsuario getBeanSessionUsuario() {
+        return beanSesionUsuario;
+    }
+
+    /**
+     * @param beanSessionUsuario the beanSessionUsuario to set
+     */
+    public void setBeanSessionUsuario(BeanSesionUsuario beanSessionUsuario) {
+        this.beanSesionUsuario = beanSessionUsuario;
+    }
 // </editor-fold>
+
     public boolean crearUsuario() {
         try {
             Usuario nuevoUsuario = usuarioSessionBean.crearUsuario(usuario, null);
@@ -74,5 +93,10 @@ public class BeanUsuario implements Serializable {
             return event.getNewStep();
         }
         return event.getNewStep();
+    }
+    
+    public String modificarUsuario(){
+        //Usuario aux = usuarioSessionBean.modificarUsuario(beanSessionUsuario.getUsuarioLoggeado());
+        return "homeClient";
     }
 }

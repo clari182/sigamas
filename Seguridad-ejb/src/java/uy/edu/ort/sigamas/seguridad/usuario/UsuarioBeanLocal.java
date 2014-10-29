@@ -19,7 +19,7 @@ import uy.edu.ort.sigamas.seguridad.usuario.excepciones.UsuarioExistenteExceptio
 public interface UsuarioBeanLocal {
     Usuario crearUsuario(Usuario nuevoUsuario, Rol rol) throws UsuarioExistenteException;
     
-    Usuario modificarUsuario(Object nuevoUsuario);
+    Usuario modificarUsuario(Usuario nuevoUsuario);
     
     boolean eliminarUsuario(String nombreUsuario);
     
