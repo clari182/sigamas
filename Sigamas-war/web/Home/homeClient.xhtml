@@ -31,15 +31,15 @@
                                 </div>
                                 <!--</h:panelGrid>-->
                             </p:tab>
-                            <p:tab title="Mis predios">
-                                <h:outputLabel>Por ahora se deja hardcoded, despues cuando se tenga la entidad predio se hará uso del mismo. No corresponde al scope actual</h:outputLabel>
-                                <p:dataTable var="predio" value="" style="width:50%">
+                            <p:tab title="Mis parcelas">
+                                
+                                <p:dataTable var="parcela" value="#{beanParcela.parcelas}" style="width:50%">
                                     <p:column headerText="Nombre">
-                                        <h:outputText value="predio1" />                                
+                                        <h:outputText value="#{parcela.nombre}" />                                
                                     </p:column>
 
-                                    <p:column headerText="Dato1">
-                                        <h:outputText value="dato1" />                                                            
+                                    <p:column headerText="Padrón">
+                                        <h:outputText value="#{parcela.padron}" />                                                            
                                     </p:column>                                    
                                 </p:dataTable>
                             </p:tab>

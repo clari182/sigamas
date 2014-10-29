@@ -5,10 +5,18 @@
  */
 package uy.edu.ort.sigamas.seguridad.parcela.utils;
 
+import java.util.List;
+import javax.persistence.EntityManager;
+import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
+
 /**
  *
  * @author Pikachuss
  */
 public class UtilParcela {
+    
+    public static List<Parcela> obtenerParcelas(EntityManager em){
+        return null; //Se buscará las parcelas de la cuenta
+    }
     
 }

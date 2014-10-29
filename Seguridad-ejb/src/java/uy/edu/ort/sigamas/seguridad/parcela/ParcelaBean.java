@@ -5,7 +5,12 @@
  */
 package uy.edu.ort.sigamas.seguridad.parcela;
 
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
+import uy.edu.ort.sigamas.seguridad.parcela.utils.UtilParcela;
 
 /**
  *
@@ -14,6 +19,11 @@ import javax.ejb.Stateless;
 @Stateless
 public class ParcelaBean implements ParcelaBeanLocal {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @PersistenceContext(unitName = "Seguridad-PU")
+    private EntityManager em;
+    
+    @Override
+    public List<Parcela> obtenerParcelas(){
+        return UtilParcela.obtenerParcelas(em);
+    }
 }
