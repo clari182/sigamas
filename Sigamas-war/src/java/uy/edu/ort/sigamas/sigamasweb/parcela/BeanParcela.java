@@ -5,6 +5,7 @@
  */
 package uy.edu.ort.sigamas.sigamasweb.parcela;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -19,7 +20,7 @@ import uy.edu.ort.sigamas.seguridad.parcela.ParcelaBeanLocal;
  */
 @Named(value = "beanParcela")
 @ViewScoped
-public class BeanParcela {
+public class BeanParcela implements Serializable{
 
     @EJB
     private ParcelaBeanLocal parcelaBeanLocal;
