@@ -10,6 +10,7 @@ import javax.ejb.Local;
 import uy.edu.ort.sigamas.seguridad.entidades.Rol;
 import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
 import uy.edu.ort.sigamas.seguridad.usuario.excepciones.UsuarioExistenteException;
+import uy.edu.ort.sigamas.seguridad.usuario.excepciones.ViejaContraseñaIncorrectaException;
 
 /**
  *
@@ -27,5 +28,5 @@ public interface UsuarioBeanLocal {
 
     List<Usuario> obtenerUsuarios();
 
-    void cambiarContraseña(Usuario usuarioLoggeado, String nuevaContraseña);
+    void cambiarContraseña(Usuario usuarioLoggeado, String viejaContraseña, String nuevaContraseña) throws ViejaContraseñaIncorrectaException;
 }

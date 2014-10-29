@@ -15,6 +15,7 @@ import org.primefaces.event.FlowEvent;
 import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
 import uy.edu.ort.sigamas.seguridad.usuario.UsuarioBeanLocal;
 import uy.edu.ort.sigamas.seguridad.usuario.excepciones.UsuarioExistenteException;
+import uy.edu.ort.sigamas.seguridad.usuario.excepciones.ViejaContraseñaIncorrectaException;
 import uy.edu.ort.sigamas.sigamasweb.login.BeanSesionUsuario;
 import uy.edu.ort.sigamas.sigamasweb.utils.UtilsMensajes;
 
@@ -122,11 +123,14 @@ public class BeanUsuario implements Serializable {
     }
 
     public String cambiarContraseña() {
-        if (viejaContraseña == null ? beanSesionUsuario.getUsuarioLoggeado().getClaveUsuario() == null : viejaContraseña.equals(beanSesionUsuario.getUsuarioLoggeado().getClaveUsuario())){
-            usuarioSessionBean.cambiarContraseña(beanSesionUsuario.getUsuarioLoggeado(), nuevaContraseña);
-            return "";
+        try{
+            usuarioSessionBean.cambiarContraseña(beanSesionUsuario.getUsuarioLoggeado(), viejaContraseña, nuevaContraseña);
+           return "homeClient";
         }
-        return "";
+        catch (ViejaContraseñaIncorrectaException exp){
+            UtilsMensajes.mostrarMensajeError("Error", "La contraseña actual no es correcta");
+            return "";
+        }        
     }
 
 }

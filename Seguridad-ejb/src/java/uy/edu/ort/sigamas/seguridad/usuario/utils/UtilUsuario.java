@@ -5,6 +5,7 @@ import javax.persistence.Query;
 import uy.edu.ort.sigamas.seguridad.entidades.Rol;
 import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
 import uy.edu.ort.sigamas.seguridad.usuario.excepciones.UsuarioExistenteException;
+import uy.edu.ort.sigamas.seguridad.usuario.excepciones.ViejaContraseñaIncorrectaException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -51,7 +52,10 @@ public class UtilUsuario {
         return true;
     }
 
-    public static void cambiarContraseña(EntityManager em, Usuario usuarioLoggeado, String nuevaContraseña) {
+    public static void cambiarContraseña(EntityManager em, Usuario usuarioLoggeado,String viejaContraseña, String nuevaContraseña) throws ViejaContraseñaIncorrectaException{
+        if (usuarioLoggeado.getClaveUsuario() == null ? viejaContraseña != null : !usuarioLoggeado.getClaveUsuario().equals(viejaContraseña)){
+            throw new ViejaContraseñaIncorrectaException();
+        }
         usuarioLoggeado.setClaveUsuario(nuevaContraseña);
         em.merge(usuarioLoggeado);
     }
