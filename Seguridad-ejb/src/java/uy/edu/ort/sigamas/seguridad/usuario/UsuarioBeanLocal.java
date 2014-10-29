@@ -26,4 +26,6 @@ public interface UsuarioBeanLocal {
     void verificarUsuario(String nombreUsuario) throws UsuarioExistenteException;
 
     List<Usuario> obtenerUsuarios();
+
+    void cambiarContraseña(Usuario usuarioLoggeado, String nuevaContraseña);
 }

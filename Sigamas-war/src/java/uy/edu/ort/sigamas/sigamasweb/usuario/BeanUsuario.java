@@ -29,8 +29,15 @@ public class BeanUsuario implements Serializable {
     @EJB
     private UsuarioBeanLocal usuarioSessionBean;
 
-    @ManagedProperty(value="#{beanSesionUsuario}")
+    private String viejaContraseña;
+    private String nuevaContraseña;
+
+    @ManagedProperty(value = "#{beanSesionUsuario}")
     private BeanSesionUsuario beanSesionUsuario;
+
+    public void setBeanSesionUsuario(BeanSesionUsuario beanSesionUsuario) {
+        this.beanSesionUsuario = beanSesionUsuario;
+    }
 
     /**
      * Creates a new instance of BeanUsuario
@@ -54,20 +61,34 @@ public class BeanUsuario implements Serializable {
     }
 
     /**
-     * @return the beanSessionUsuario
+     * @return the nuevaContraseña
      */
-    public BeanSesionUsuario getBeanSessionUsuario() {
-        return beanSesionUsuario;
+    public String getNuevaContraseña() {
+        return nuevaContraseña;
     }
 
     /**
-     * @param beanSessionUsuario the beanSessionUsuario to set
+     * @param nuevaContraseña the nuevaContraseña to set
      */
-    public void setBeanSessionUsuario(BeanSesionUsuario beanSessionUsuario) {
-        this.beanSesionUsuario = beanSessionUsuario;
+    public void setNuevaContraseña(String nuevaContraseña) {
+        this.nuevaContraseña = nuevaContraseña;
     }
-// </editor-fold>
 
+    /**
+     * @return the viejaContraseña
+     */
+    public String getViejaContraseña() {
+        return viejaContraseña;
+    }
+
+    /**
+     * @param viejaContraseña the viejaContraseña to set
+     */
+    public void setViejaContraseña(String viejaContraseña) {
+        this.viejaContraseña = viejaContraseña;
+    }
+
+// </editor-fold>
     public boolean crearUsuario() {
         try {
             Usuario nuevoUsuario = usuarioSessionBean.crearUsuario(usuario, null);
@@ -94,10 +115,18 @@ public class BeanUsuario implements Serializable {
         }
         return event.getNewStep();
     }
-    
-    public String modificarUsuario(){
-        Usuario aux = usuarioSessionBean.modificarUsuario(beanSesionUsuario.getUsuarioLoggeado());
-        beanSesionUsuario.setUsuarioLoggeado(aux);
+
+    public String modificarUsuario() {
+        beanSesionUsuario.setUsuarioLoggeado(usuarioSessionBean.modificarUsuario(beanSesionUsuario.getUsuarioLoggeado()));
         return "homeClient";
     }
+
+    public String cambiarContraseña() {
+        if (viejaContraseña == null ? beanSesionUsuario.getUsuarioLoggeado().getClaveUsuario() == null : viejaContraseña.equals(beanSesionUsuario.getUsuarioLoggeado().getClaveUsuario())){
+            usuarioSessionBean.cambiarContraseña(beanSesionUsuario.getUsuarioLoggeado(), nuevaContraseña);
+            return "";
+        }
+        return "";
+    }
+
 }

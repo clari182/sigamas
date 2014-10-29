@@ -50,4 +50,9 @@ public class UsuarioBean implements UsuarioBeanLocal {
     public List<Usuario> obtenerUsuarios(){
         return em.createNamedQuery("Usuario.findAll").getResultList();
     }
+    
+    @Override
+    public void cambiarContraseña(Usuario usuarioLoggeado, String nuevaContraseña){
+        UtilUsuario.cambiarContraseña(em, usuarioLoggeado, nuevaContraseña);
+    }
 }

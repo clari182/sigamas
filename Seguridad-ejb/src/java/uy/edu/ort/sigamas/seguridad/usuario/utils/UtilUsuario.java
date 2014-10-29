@@ -36,19 +36,24 @@ public class UtilUsuario {
         }        
     }
     public static Usuario modificarUsuario(EntityManager em, Usuario nuevoUsuario) {
-        Usuario aux = em.find(Usuario.class, nuevoUsuario.getIdUsuario());
+        /*Usuario aux = em.find(Usuario.class, nuevoUsuario.getIdUsuario());
         aux.setNombre(nuevoUsuario.getNombre());
         aux.setApellidos(nuevoUsuario.getApellidos());
         aux.setEmailUsuario(nuevoUsuario.getEmailUsuario());
         aux.setProfesion(nuevoUsuario.getProfesion());
         aux.setSexo(nuevoUsuario.getSexo());
-        aux.setTelefono(nuevoUsuario.getTelefono());
-        return aux;
+        aux.setTelefono(nuevoUsuario.getTelefono());*/
+        return em.merge(nuevoUsuario);        
         
     }
 
     public static boolean eliminarUsuario(EntityManager em, String nombreUsuario) {
         return true;
+    }
+
+    public static void cambiarContraseña(EntityManager em, Usuario usuarioLoggeado, String nuevaContraseña) {
+        usuarioLoggeado.setClaveUsuario(nuevaContraseña);
+        em.merge(usuarioLoggeado);
     }
 
 }

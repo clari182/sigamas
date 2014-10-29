@@ -16,11 +16,13 @@
             </p:dialog>
             <p:growl id="growl" sticky="true" showDetail="true" />
             <p:panel style="margin: 0 auto; width: 60%;"> 
+                <p:messages></p:messages>
                 <p:tabView>
                     <p:tab id="personal" title="Datos del usuario #{beanSesionUsuario.usuarioLoggeado.nombreUsuario}">
 
-                        <p:messages/>
+
                         <h:panelGrid columns="2" cellpadding="5">
+
                             <h:outputLabel for="nombre" value="Primer Nombre: *" />
 
                             <p:inputText id="nombre" value="#{beanSesionUsuario.usuarioLoggeado.nombre}" required="true" label="text"/>
@@ -53,9 +55,23 @@
                             <p:inputText id="profesion" value="#{beanSesionUsuario.usuarioLoggeado.profesion}" label="text"/>
                             <p:commandButton value="Guardar" action="#{beanUsuario.modificarUsuario()}"/>
                         </h:panelGrid>
-                        
-
                     </p:tab> 
+                    <p:tab id="cambiarContraseña" title="Cambiar contraseña">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel for="contraseña" value="Contraseña actual: *"/>
+                            <p:password id="contraseña" value="#{beanUsuario.viejaContraseña}" required="true"/>
+                        </h:panelGrid>    
+                        <p:separator />
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel for="primerIntentoContraseña" value="Nueva contraseña: *"/>
+                            <p:password id="primerIntentoContraseña" value="#{beanUsuario.nuevaContraseña}" match="nuevaContraseña" required="true"/>
+
+                            <h:outputLabel for="nuevaContraseña" value="Confirme la contraseña: *"/>
+                            <p:password id="nuevaContraseña" value="#{beanUsuario.nuevaContraseña}" required="true"/>
+
+                            <p:commandButton value="Guardar" action="#{beanUsuario.cambiarContraseña}"/>
+                        </h:panelGrid>
+                    </p:tab>
                 </p:tabView>
             </p:panel>
         </h:form>
