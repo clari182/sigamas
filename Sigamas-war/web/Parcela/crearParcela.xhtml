@@ -22,6 +22,8 @@
 
                             <h:outputLabel for="padronParcela" value="Padrón asociado: *" />
                             <p:inputText id="padronParcela" value="#{beanParcela.padron}" required="true" label="text" />                    
+                            
+                            <p:commandButton value="Guardar" action="#{beanParcela.crearParcela}"/>
                         </h:panelGrid>                    
                     </p:tab>                
                 </p:tabView>

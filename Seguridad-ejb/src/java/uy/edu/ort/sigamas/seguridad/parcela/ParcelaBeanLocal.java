@@ -17,5 +17,7 @@ import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
 public interface ParcelaBeanLocal {
 
     List<Parcela> obtenerParcelas();
+
+    void crearParcela(String nombre, String padron);
     
 }

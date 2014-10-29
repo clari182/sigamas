@@ -26,4 +26,9 @@ public class ParcelaBean implements ParcelaBeanLocal {
     public List<Parcela> obtenerParcelas(){
         return UtilParcela.obtenerParcelas(em);
     }
+    
+    @Override
+    public void crearParcela(String nombre, String padron){
+        UtilParcela.crearParcela(em, nombre, padron);
+    }
 }

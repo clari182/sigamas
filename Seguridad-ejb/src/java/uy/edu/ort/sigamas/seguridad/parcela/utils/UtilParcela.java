@@ -18,5 +18,12 @@ public class UtilParcela {
     public static List<Parcela> obtenerParcelas(EntityManager em){
         return null; //Se buscará las parcelas de la cuenta
     }
+
+    public static void crearParcela(EntityManager em, String nombre, String padron) {
+        Parcela nuevaParcela = new Parcela();
+        nuevaParcela.setNombre(nombre);
+        nuevaParcela.setPadron(padron);
+        em.persist(nuevaParcela);
+    }
     
 }

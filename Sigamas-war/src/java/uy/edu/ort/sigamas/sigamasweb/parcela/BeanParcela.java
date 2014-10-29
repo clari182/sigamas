@@ -78,4 +78,8 @@ public class BeanParcela {
     public void init() {
         parcelas = parcelaBeanLocal.obtenerParcelas();
     }
+    
+    public void crearParcela(){
+        parcelaBeanLocal.crearParcela(nombre, padron);
+    }
 }
