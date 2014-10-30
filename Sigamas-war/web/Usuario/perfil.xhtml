@@ -15,52 +15,65 @@
                 <h:graphicImage value="resources/img/ajax-loader.gif" />
             </p:dialog>
             <p:growl id="growl" sticky="true" showDetail="true" />
+  <p:panel style="margin: 0 auto; width: 60%;"> 
+                <p:messages></p:messages>
+                <p:tabView>
+                    <p:tab id="personal" title="Datos del usuario #{beanSesionUsuario.usuarioLoggeado.nombreUsuario}">
 
-                <p:tab id="confirmacion" title="Confirmación">
-                    <p:panel header="Confirmación de los datos" style="margin-bottom:20px">
-                        <p:messages/>
+
                         <h:panelGrid columns="2" cellpadding="5">
-                            <h:outputLabel value="Primer Nombre: *" />
-                           <p:inplace>
-                               <p:inputText value="#{beanUsuario.usuario.nombre}"/>
-                            </p:inplace>
 
-                            <h:outputLabel value="Apellidos: *" />
-                            <p:inplace>
-                                <p:inputText value="#{beanUsuario.usuario.apellidos}"/>
-                            </p:inplace>
+                            <h:outputLabel for="nombre" value="Primer Nombre: *" />
 
-                            <h:outputLabel value="Mail: *" />
-                            <p:inplace>
-                                <p:inputText value="#{beanUsuario.usuario.emailUsuario}"/>
-                            </p:inplace>
+                            <p:inputText id="nombre" value="#{beanSesionUsuario.usuarioLoggeado.nombre}" required="true" label="text"/>
 
-                            <h:outputLabel value="Teléfono:" />
-                            <p:inplace>
-                                <p:inputText value="#{beanUsuario.usuario.nombreUsuario}"/>
-                            </p:inplace>
+                            <h:outputLabel for="apellidos" value="Apellidos: *" />
 
-                            <h:outputLabel value="Fecha de nacimiento:" />
-                            <p:inplace>
-                                <p:inputText value="#{beanUsuario.usuario.nombreUsuario}"/>
-                            </p:inplace>
+                            <p:inputText id="apellidos" value="#{beanSesionUsuario.usuarioLoggeado.apellidos}" required="true" label="text"/>
 
-                            <h:outputLabel value="Sexo:" />
-                            <p:inplace>
-                                <p:inputText value="#{beanUsuario.usuario.nombreUsuario}"/>
-                            </p:inplace>
+                            <h:outputLabel for="email" value="Mail: *" />
 
-                            <h:outputLabel value="Profesion:" />
-                            <p:inplace>
-                                <p:inputText value="#{beanUsuario.usuario.nombreUsuario}"/>
-                            </p:inplace>
-                            <f:facet name="footer">
-                                <p:commandButton value="Guardar" actionListener="#{beanUsuario.crearUsuario}" update="growl" />
-                            </f:facet>
+                            <p:inputText id="email" value="#{beanSesionUsuario.usuarioLoggeado.emailUsuario}" required="true" label="text"/>
+
+                            <h:outputLabel for="telefono" value="Teléfono:" />
+
+                            <p:inputText id="telefono" value="#{beanSesionUsuario.usuarioLoggeado.telefono}" label="text"/>
+
+                            <h:outputLabel for="fechaNacimiento" value="Fecha de nacimiento:" />
+
+                            <p:inputText type="date" id="fechaNacimiento" value="#{beanSesionUsuario.usuarioLoggeado.fechaNacimiento}" label="text"/>
+
+                            <h:outputLabel for="sexo" value="Sexo:" />
+
+                            <p:selectOneMenu id="sexo" value="#{beanSesionUsuario.usuarioLoggeado.sexo}" style="width:150px">                                    
+                                <f:selectItem itemLabel="M" itemValue="M" />
+                                <f:selectItem itemLabel="F" itemValue="F" />
+                            </p:selectOneMenu>
+
+                            <h:outputLabel for="profesion" value="Profesion:" />
+
+                            <p:inputText id="profesion" value="#{beanSesionUsuario.usuarioLoggeado.profesion}" label="text"/>
+                            <p:commandButton value="Guardar" action="#{beanUsuario.modificarUsuario()}"/>
                         </h:panelGrid>
+                    </p:tab> 
+                    <p:tab id="cambiarContraseña" title="Cambiar contraseña">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel for="contraseña" value="Contraseña actual: *"/>
+                            <p:password id="contraseña" value="#{beanUsuario.viejaContraseña}" required="true"/>
+                        </h:panelGrid>    
+                        <p:separator />
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel for="primerIntentoContraseña" value="Nueva contraseña: *"/>
+                            <p:password id="primerIntentoContraseña" value="#{beanUsuario.nuevaContraseña}" match="nuevaContraseña" required="true"/>
 
-                    </p:panel>
-                </p:tab>
+                            <h:outputLabel for="nuevaContraseña" value="Confirme la contraseña: *"/>
+                            <p:password id="nuevaContraseña" value="#{beanUsuario.nuevaContraseña}" required="true"/>
+
+                            <p:commandButton value="Guardar" action="#{beanUsuario.cambiarContraseña}"/>
+                        </h:panelGrid>
+                    </p:tab>
+                </p:tabView>
+            </p:panel>
         </h:form>
     </ui:define>
 

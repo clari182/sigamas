@@ -5,6 +5,7 @@ import javax.persistence.Query;
 import uy.edu.ort.sigamas.seguridad.entidades.Rol;
 import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
 import uy.edu.ort.sigamas.seguridad.usuario.excepciones.UsuarioExistenteException;
+import uy.edu.ort.sigamas.seguridad.usuario.excepciones.ViejaContraseñaIncorrectaException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -35,12 +36,27 @@ public class UtilUsuario {
             throw new UsuarioExistenteException();
         }        
     }
-    public static Usuario modificarUsuario(EntityManager em, Object nuevoUsuario) {
-        return null;
+    public static Usuario modificarUsuario(EntityManager em, Usuario nuevoUsuario) {
+        /*Usuario aux = em.find(Usuario.class, nuevoUsuario.getIdUsuario());
+        aux.setNombre(nuevoUsuario.getNombre());
+        aux.setApellidos(nuevoUsuario.getApellidos());
+        aux.setEmailUsuario(nuevoUsuario.getEmailUsuario());
+        aux.setProfesion(nuevoUsuario.getProfesion());
+        aux.setSexo(nuevoUsuario.getSexo());
+        aux.setTelefono(nuevoUsuario.getTelefono());*/
+        return em.merge(nuevoUsuario);        
+        
     }
 
     public static boolean eliminarUsuario(EntityManager em, String nombreUsuario) {
         return true;
     }
 
+    public static void cambiarContraseña(EntityManager em, Usuario usuarioLoggeado,String viejaContraseña, String nuevaContraseña) throws ViejaContraseñaIncorrectaException{
+        if (usuarioLoggeado.getClaveUsuario() == null ? viejaContraseña != null : !usuarioLoggeado.getClaveUsuario().equals(viejaContraseña)){
+            throw new ViejaContraseñaIncorrectaException();
+        }
+        usuarioLoggeado.setClaveUsuario(nuevaContraseña);
+        em.merge(usuarioLoggeado);
+    }
 }

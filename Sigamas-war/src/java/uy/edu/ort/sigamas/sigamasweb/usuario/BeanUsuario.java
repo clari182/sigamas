@@ -9,11 +9,14 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.event.FlowEvent;
 import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
 import uy.edu.ort.sigamas.seguridad.usuario.UsuarioBeanLocal;
 import uy.edu.ort.sigamas.seguridad.usuario.excepciones.UsuarioExistenteException;
+import uy.edu.ort.sigamas.seguridad.usuario.excepciones.ViejaContraseñaIncorrectaException;
+import uy.edu.ort.sigamas.sigamasweb.login.BeanSesionUsuario;
 import uy.edu.ort.sigamas.sigamasweb.utils.UtilsMensajes;
 
 /**
@@ -26,6 +29,16 @@ public class BeanUsuario implements Serializable {
 
     @EJB
     private UsuarioBeanLocal usuarioSessionBean;
+
+    private String viejaContraseña;
+    private String nuevaContraseña;
+
+    @ManagedProperty(value = "#{beanSesionUsuario}")
+    private BeanSesionUsuario beanSesionUsuario;
+
+    public void setBeanSesionUsuario(BeanSesionUsuario beanSesionUsuario) {
+        this.beanSesionUsuario = beanSesionUsuario;
+    }
 
     /**
      * Creates a new instance of BeanUsuario
@@ -47,8 +60,37 @@ public class BeanUsuario implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+    /**
+     * @return the nuevaContraseña
+     */
+    public String getNuevaContraseña() {
+        return nuevaContraseña;
+    }
 
-// </editor-fold>
+    /**
+     * @param nuevaContraseña the nuevaContraseña to set
+     */
+    public void setNuevaContraseña(String nuevaContraseña) {
+        this.nuevaContraseña = nuevaContraseña;
+    }
+
+    /**
+     * @return the viejaContraseña
+     */
+    public String getViejaContraseña() {
+        return viejaContraseña;
+    }
+
+    /**
+     * @param viejaContraseña the viejaContraseña to set
+     */
+    public void setViejaContraseña(String viejaContraseña) {
+        this.viejaContraseña = viejaContraseña;
+    }
+
+   // </editor-fold>
+
+
     public boolean crearUsuario() {
         try {
             Usuario nuevoUsuario = usuarioSessionBean.crearUsuario(usuario, null);
@@ -75,4 +117,20 @@ public class BeanUsuario implements Serializable {
         }
         return event.getNewStep();
     }
+
+    public String modificarUsuario() {
+        beanSesionUsuario.setUsuarioLoggeado(usuarioSessionBean.modificarUsuario(beanSesionUsuario.getUsuarioLoggeado()));
+        return "homeClient";
+    }
+
+    public String cambiarContraseña() {
+        try {
+            usuarioSessionBean.cambiarContraseña(beanSesionUsuario.getUsuarioLoggeado(), viejaContraseña, nuevaContraseña);
+            return "homeClient";
+        } catch (ViejaContraseñaIncorrectaException exp) {
+            UtilsMensajes.mostrarMensajeError("Error", "La contraseña actual no es correcta");
+            return "";
+        }
+    }
+
 }
