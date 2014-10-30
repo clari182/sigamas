@@ -7,6 +7,7 @@ package uy.edu.ort.sigamas.seguridad.parcela;
 
 import java.util.List;
 import javax.ejb.Local;
+import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
 import uy.edu.ort.sigamas.seguridad.parcela.excepciones.ParcelaPadronExistenteException;
 
@@ -19,6 +20,6 @@ public interface ParcelaBeanLocal {
 
     List<Parcela> obtenerParcelas();
 
-    void crearParcela(String nombre, String padron, String departamento) throws ParcelaPadronExistenteException;
+    void crearParcela(String nombre, String padron, String departamento, Cuenta cuentaActual) throws ParcelaPadronExistenteException;
     
 }

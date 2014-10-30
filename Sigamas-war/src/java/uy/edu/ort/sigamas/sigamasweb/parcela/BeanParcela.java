@@ -9,23 +9,34 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
 import uy.edu.ort.sigamas.seguridad.parcela.ParcelaBeanLocal;
 import uy.edu.ort.sigamas.seguridad.parcela.excepciones.ParcelaPadronExistenteException;
+import uy.edu.ort.sigamas.sigamasweb.login.BeanSesionUsuario;
 import uy.edu.ort.sigamas.sigamasweb.utils.UtilsMensajes;
 
 /**
  *
  * @author Pikachuss
  */
-@Named(value = "beanParcela")
+@ManagedBean(name = "beanParcela")
 @ViewScoped
 public class BeanParcela implements Serializable{
 
     @EJB
     private ParcelaBeanLocal parcelaBeanLocal;
+    
+    @ManagedProperty(value="#{beanSesionUsuario}")
+    private BeanSesionUsuario beanSesionUsuario;
+
+    public void setBeanSesionUsuario(BeanSesionUsuario beanSesionUsuario) {
+        this.beanSesionUsuario = beanSesionUsuario;
+    }
+    
     private String nombre;
     private String padron;
     private String departamento;
@@ -86,7 +97,7 @@ public class BeanParcela implements Serializable{
 
     public void crearParcela() {
         try {
-            parcelaBeanLocal.crearParcela(nombre, padron, departamento);
+            parcelaBeanLocal.crearParcela(nombre, padron, departamento, beanSesionUsuario.getCuentaActual());
         } catch (ParcelaPadronExistenteException exp) {
             UtilsMensajes.mostrarMensajeError("Error", "Ya existe una parcela asociada a al padrón " + padron + ", porfavor elija otro padrón");
         }
@@ -104,5 +115,9 @@ public class BeanParcela implements Serializable{
      */
     public void setDepartamento(String departamento) {
         this.departamento = departamento;
+    }
+    
+    public String abrirCreacionParcela(){
+        return "crearParcela";
     }
 }

@@ -20,6 +20,9 @@
                             <h:outputLabel for="nombreParcela" value="Nombre de la parcela *:" />
                             <p:inputText id="nombreParcela" value="#{beanParcela.nombre}" required="true" label="text"/>
 
+                            <h:outputLabel for="departamentoParcela" value="Departamento:" />
+                            <p:inputText id="departamentoParcela" value="#{beanParcela.departamento}" label="text" />                    
+                            
                             <h:outputLabel for="padronParcela" value="Padrón asociado: *" />
                             <p:inputText id="padronParcela" value="#{beanParcela.padron}" required="true" label="text" />                    
                             
@@ -27,6 +30,7 @@
                         </h:panelGrid>                    
                     </p:tab>                
                 </p:tabView>
+            </p:panel>
         </h:form>
     </ui:define>
 

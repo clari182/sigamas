@@ -18,6 +18,16 @@
             <to-view-id>/Login/login.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>crearParcela</from-outcome>
+            <to-view-id>/Parcela/crearParcela.xhtml</to-view-id>
+             <redirect/>
+        </navigation-case>
+         <navigation-case>
+            <from-outcome>usuariosCuenta</from-outcome>
+            <to-view-id>/Usuario/usuariosCuenta.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/Home/homeClient.xhtml</from-view-id>
@@ -25,6 +35,11 @@
             <from-outcome>usuariosCuenta</from-outcome>
             <to-view-id>/Usuario/usuariosCuenta.xhtml</to-view-id>
             <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>crearParcela</from-outcome>
+            <to-view-id>/Parcela/crearParcela.xhtml</to-view-id>
+             <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>

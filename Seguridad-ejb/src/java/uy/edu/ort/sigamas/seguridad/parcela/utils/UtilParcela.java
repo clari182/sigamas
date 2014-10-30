@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NamedQuery;
 import javax.persistence.Query;
+import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
 import uy.edu.ort.sigamas.seguridad.parcela.excepciones.ParcelaPadronExistenteException;
 
@@ -19,10 +20,10 @@ import uy.edu.ort.sigamas.seguridad.parcela.excepciones.ParcelaPadronExistenteEx
 public class UtilParcela {
     
     public static List<Parcela> obtenerParcelas(EntityManager em){
-        return null; //Se buscará las parcelas de la cuenta
+        return em.createNamedQuery("Parcela.findAll").getResultList();
     }
 
-    public static void crearParcela(EntityManager em, String nombre, String padron, String departamento) throws ParcelaPadronExistenteException{
+    public static void crearParcela(EntityManager em, String nombre, String padron, String departamento, Cuenta cuentaActual) throws ParcelaPadronExistenteException{
         Query q = em.createNamedQuery("Parcela.findByPadron").setParameter("padron", padron);
         if (!q.getResultList().isEmpty()){
             throw new ParcelaPadronExistenteException();
@@ -31,6 +32,7 @@ public class UtilParcela {
         nuevaParcela.setNombre(nombre);
         nuevaParcela.setPadron(padron);
         nuevaParcela.setDepartamento(departamento);
+        nuevaParcela.setIdCuenta(cuentaActual);
         em.persist(nuevaParcela);
     }
     

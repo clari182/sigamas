@@ -32,15 +32,19 @@
                                 <!--</h:panelGrid>-->
                             </p:tab>
                             <p:tab title="Mis parcelas">
-                                
+                                <p:commandButton icon="ui-icon-plus" action="#{beanParcela.abrirCreacionParcela}"/>
                                 <p:dataTable var="parcela" value="#{beanParcela.parcelas}" style="width:50%">
                                     <p:column headerText="Nombre">
                                         <h:outputText value="#{parcela.nombre}" />                                
                                     </p:column>
 
+                                    <p:column headerText="Departamento">
+                                        <h:outputText value="#{parcela.departamento}" />                                                            
+                                    </p:column> 
+                                    
                                     <p:column headerText="Padrón">
                                         <h:outputText value="#{parcela.padron}" />                                                            
-                                    </p:column>                                    
+                                    </p:column> 
                                 </p:dataTable>
                             </p:tab>
                             <p:tab title="Mis cronogramas">
