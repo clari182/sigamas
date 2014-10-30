@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../Templates/topHeaderTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form>
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+            <p:dialog modal="true" widgetVar="statusDialog" header="Espere por favor"
+                      draggable="false" closable="false" resizable="false" style="text-align: center;">
+                <h:graphicImage value="resources/img/ajax-loader.gif" />
+            </p:dialog>
+            <p:growl id="growl" sticky="true" showDetail="true" />
+
+                <p:tab id="confirmacion" title="Confirmación">
+                    <p:panel header="Confirmación de los datos" style="margin-bottom:20px">
+                        <p:messages/>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel value="Primer Nombre: *" />
+                           <p:inplace>
+                               <p:inputText value="#{beanUsuario.usuario.nombre}"/>
+                            </p:inplace>
+
+                            <h:outputLabel value="Apellidos: *" />
+                            <p:inplace>
+                                <p:inputText value="#{beanUsuario.usuario.apellidos}"/>
+                            </p:inplace>
+
+                            <h:outputLabel value="Mail: *" />
+                            <p:inplace>
+                                <p:inputText value="#{beanUsuario.usuario.emailUsuario}"/>
+                            </p:inplace>
+
+                            <h:outputLabel value="Teléfono:" />
+                            <p:inplace>
+                                <p:inputText value="#{beanUsuario.usuario.nombreUsuario}"/>
+                            </p:inplace>
+
+                            <h:outputLabel value="Fecha de nacimiento:" />
+                            <p:inplace>
+                                <p:inputText value="#{beanUsuario.usuario.nombreUsuario}"/>
+                            </p:inplace>
+
+                            <h:outputLabel value="Sexo:" />
+                            <p:inplace>
+                                <p:inputText value="#{beanUsuario.usuario.nombreUsuario}"/>
+                            </p:inplace>
+
+                            <h:outputLabel value="Profesion:" />
+                            <p:inplace>
+                                <p:inputText value="#{beanUsuario.usuario.nombreUsuario}"/>
+                            </p:inplace>
+                            <f:facet name="footer">
+                                <p:commandButton value="Guardar" actionListener="#{beanUsuario.crearUsuario}" update="growl" />
+                            </f:facet>
+                        </h:panelGrid>
+
+                    </p:panel>
+                </p:tab>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -6,6 +6,7 @@
     <class>uy.edu.ort.sigamas.seguridad.entidades.Cuenta</class>
     <class>uy.edu.ort.sigamas.seguridad.entidades.Usuario</class>
     <class>uy.edu.ort.sigamas.seguridad.entidades.Login</class>
+    <class>uy.edu.ort.sigamas.seguridad.entidades.Parcela</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sigamas?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
