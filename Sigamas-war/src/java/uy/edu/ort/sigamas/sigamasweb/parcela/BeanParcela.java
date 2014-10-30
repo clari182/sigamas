@@ -13,6 +13,8 @@ import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
 import uy.edu.ort.sigamas.seguridad.parcela.ParcelaBeanLocal;
+import uy.edu.ort.sigamas.seguridad.parcela.excepciones.ParcelaPadronExistenteException;
+import uy.edu.ort.sigamas.sigamasweb.utils.UtilsMensajes;
 
 /**
  *
@@ -26,7 +28,9 @@ public class BeanParcela implements Serializable{
     private ParcelaBeanLocal parcelaBeanLocal;
     private String nombre;
     private String padron;
+    private String departamento;
     private List<Parcela> parcelas;
+
     /**
      * Creates a new instance of BeanPredio
      */
@@ -74,13 +78,31 @@ public class BeanParcela implements Serializable{
     public void setParcelas(List<Parcela> parcelas) {
         this.parcelas = parcelas;
     }
-    
+
     @PostConstruct
     public void init() {
         parcelas = parcelaBeanLocal.obtenerParcelas();
     }
-    
-    public void crearParcela(){
-        parcelaBeanLocal.crearParcela(nombre, padron);
+
+    public void crearParcela() {
+        try {
+            parcelaBeanLocal.crearParcela(nombre, padron, departamento);
+        } catch (ParcelaPadronExistenteException exp) {
+            UtilsMensajes.mostrarMensajeError("Error", "Ya existe una parcela asociada a al padrón " + padron + ", porfavor elija otro padrón");
+        }
+    }
+
+    /**
+     * @return the departamento
+     */
+    public String getDepartamento() {
+        return departamento;
+    }
+
+    /**
+     * @param departamento the departamento to set
+     */
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
     }
 }

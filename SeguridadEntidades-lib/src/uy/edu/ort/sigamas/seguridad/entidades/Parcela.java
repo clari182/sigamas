@@ -30,6 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Parcela.findByNombre", query = "SELECT p FROM Parcela p WHERE p.nombre = :nombre"),
     @NamedQuery(name = "Parcela.findByPadron", query = "SELECT p FROM Parcela p WHERE p.padron = :padron")})
 public class Parcela implements Serializable {
+    @Column(name = "departamento", length = 45)
+    private String departamento;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -103,6 +105,14 @@ public class Parcela implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Parcela[ idParcela=" + idParcela + " ]";
+    }
+
+    public String getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
     }
     
 }
