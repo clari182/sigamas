@@ -3,9 +3,10 @@
 # #########################
  
 nbproject/private/
-Seguridad-ejb/nbproject/private/
-Sigamas-war/nbproject/private/
-Seguridad-ejb/nbproject/private/
+Seguridad-ejb/nbproject/
+Sigamas-war/nbproject/
+Seguridad-ejb/nbproject/
+SeguridadEntidades-lib/nbproject/
 build/
 nbbuild/
 dist/
