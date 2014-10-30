@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top" class="top">
+            <ui:insert name="top">
+                <h:form>
+                    <p:growl id="messages" showDetail="true" />
+
+                    <p:toolbar>
+                        <f:facet name="left">
+                            <img src="resources/img/login/logo.png" alt=""></img> <!--ver cual es el usuario loggeado-->
+                        </f:facet>
+                        <f:facet name="right">
+                            <h:panelGrid columns="3" cellpadding="5">                               
+
+                                <p:commandButton id="dynaButton" value="" type="button" icon="ui-icon-gear"/>
+                                <p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom">
+                                    <p:submenu label="Administración del usuario">                                       
+                                        <p:menuitem value="Perfil" outcome="/Cuenta/perfilSuperUsuario"/>     
+                                        <p:menuitem value="Cuentas" outcome="/Cuenta/cuentasSuperUsuario"/>
+                                    </p:submenu>
+                                    <p:separator />
+                                    <p:menuitem value="Salir"/>                                        
+                                </p:menu>
+                            </h:panelGrid>
+
+                        </f:facet>
+                    </p:toolbar>
+                </h:form>
+            </ui:insert>
+        </div>
+
+        <div id="content" class="center_content">
+            <ui:insert name="content">Content</ui:insert>
+        </div>
+
+    </h:body>
+
+</html>

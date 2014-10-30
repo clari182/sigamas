@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">    
+    <h:head>
+        <title>Login Sigamas</title>
+        <style>
+            html {
+                min-height: 100%;
+                background-repeat: no-repeat;                
+                background: -webkit-linear-gradient(180deg, #D8F6CE, #04B404); /* For Safari 5.1 to 6.0 */
+                background: -o-linear-gradient(180deg, #D8F6CE, #04B404); /* For Opera 11.1 to 12.0 */
+                background: -moz-linear-gradient(180deg, #D8F6CE, #04B404); /* For Firefox 3.6 to 15 */
+                background: linear-gradient(180deg, #D8F6CE, #04B404); /* Standard syntax (must be last) */
+            }
+
+        </style>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+            <p:dialog modal="true" widgetVar="statusDialog" header="Espere por favor"
+                      draggable="false" closable="false" resizable="false" style="text-align: center;">
+                <h:graphicImage value="resources/img/ajax-loader.gif" />
+            </p:dialog>
+            <p:growl id="growl" sticky="true" showDetail="true"/>
+            <p:panel style="margin-top: 20%;margin-bottom: 30%; height: 30%; width: 50%;margin: 0 auto; text-align: center;">
+                <img src="resources/img/login/logo.png" alt=""/>
+                <p:panelGrid columns="2" style="width: 40%;margin: 0 auto;">
+                    <p:outputLabel value="Nombre de Usuario"/>
+                    <p:inputText value="#{beanLogin.nombreUsuario}"/>               
+                    <p:outputLabel value="Contraseña"/>
+                    <p:password value="#{beanLogin.claveUsuario}"/>          
+                    <f:facet name="footer">
+                        <p:commandButton value="Entrar" style="margin-left: 40%;" action="#{beanLogin.ingresar}" update="growl"/>
+                    </f:facet>
+                </p:panelGrid>
+                <p:commandLink value="Olvidé mi contraseña"/>
+            </p:panel>
+        </h:form>    
+        <div style="height: 50px;"></div>
+        <p:panel style="width: 60%;margin: 0 auto; text-align: center;">
+            <h3>SIGAMAS es el asistente de gestión de cultivos que estabas esperando</h3>
+            <p>Utilizando múltiples fuentes de información, y apoyado en modelos científicos específicos, SIGAMAS permite
+            el seguimiento preciso en tiempo real de todos los cultivos, generando asi información de valor que apoya la toma de 
+            decisiones del productor.</p>
+            <p>Con su sistema integrado de alertas, Sigamas permite configurar los indicadores que el productor desea monitorear, e informar
+            de estos mediante notificaciones de forma inmediata, permitiendo el temprano tratamiento de los datos.</p>
+            <p>Sigamas ofrece tambien un sistema de seguimiento que permite registrar, organizar, planificar y analizar cada etapa
+            del cultivo, generando información valiosa a la hora de evaluar en restrospectiva el proceso de cultivo.</p>
+        </p:panel>
+
+    </h:body>
+</html>
+

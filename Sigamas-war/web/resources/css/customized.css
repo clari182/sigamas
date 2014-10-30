@@ -1,0 +1,30 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 03-oct-2014, 13:10:21
+    Author     : Pikachuss
+*/
+
+.ui-widget {    
+    /*font-size: 0.9em !important;*/
+}
+body{
+    margin: 0px 0px 0 0px !important;
+    font-family: "PT Sans","Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.centered-panel{
+    width:60%;    
+    margin: 30px auto;
+}
+
+.panel-grid td{
+    vertical-align: top;
+}
+
+.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error{
+    border: 2px solid #F91B1B;
+}

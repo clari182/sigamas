@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <h:outputStylesheet name="./css/customized.css"/>
+        <title>SIGAMAS</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top" class="top">
+            <ui:insert name="top">
+                <h:form>
+                    <p:growl id="messages" showDetail="true" />
+
+                    <p:toolbar>
+                        <f:facet name="left">
+                            <img src="../resources/img/login/logo.png" alt=""></img> <!--ver cual es el usuario loggeado-->
+                        </f:facet>
+                        <f:facet name="right">
+                            <h:panelGrid columns="4" cellpadding="5">
+                                <h:outputLabel value="Usted está usando la cuenta:" rendered="#{not empty beanSesionUsuario.cuentaActual}"/>
+                                <p:selectOneMenu id="cuenta-usada" value="#{beanSesionUsuario.cuentaActual.nombre}" rendered="#{not empty beanSesionUsuario.cuentaActual}">                                
+                                    <f:selectItems var="item" value="#{beanSesionUsuario.usuarioLoggeado.cuentaList}" itemLabel="#{item.nombre}" itemValue="#{item}" />
+                                </p:selectOneMenu>  
+
+                                <p:commandButton id="dynaButton" value="Opciones" type="button" icon="ui-icon-gear"/>
+                                
+                                <p:commandButton value="Salir" action="#{beanSesionUsuario.logout}" >                                     
+                                    <p:confirm header="Confirmación" message="¿Seguro que desea salir?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </f:facet>
+                    </p:toolbar>
+                    <p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom">
+                        <p:submenu label="Administración de la cuenta">                                       
+                            <p:menuitem value="Perfil" outcome="/Cuenta/perfilCuenta"/>
+                            <p:menuitem value="Usuarios" outcome="usuariosCuenta"/>                                        
+                        </p:submenu>                        
+                    </p:menu>         
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+                </h:form>
+            </ui:insert>
+        </div>
+
+        <div id="content" class="center_content">
+            <ui:insert name="content"></ui:insert>
+        </div>
+
+    </h:body>
+
+</html>
