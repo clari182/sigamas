@@ -19,6 +19,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -56,6 +57,8 @@ public class Cuenta implements Serializable {
         @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", nullable = false)})
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Usuario> usuarioList;
+    @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
+    private List<Parcela> parcelaList;
 
     public Cuenta() {
     }
@@ -109,6 +112,15 @@ public class Cuenta implements Serializable {
 
     public void setUsuarioList(List<Usuario> usuarioList) {
         this.usuarioList = usuarioList;
+    }
+
+    @XmlTransient
+    public List<Parcela> getParcelaList() {
+        return parcelaList;
+    }
+
+    public void setParcelaList(List<Parcela> parcelaList) {
+        this.parcelaList = parcelaList;
     }
 
     @Override
