@@ -48,7 +48,10 @@ public class BeanParcela implements Serializable {
     private String departamento;
     private List<Parcela> parcelas;
     private List<Departamento> departamentos;
-    private Departamento departamentoSeleccionado;
+    private String departamentoSeleccionado;
+    private String actualLatitud = "-32.5583168";
+    private String actualLongitud = "-55.8117213";
+    private String actualZoom = "6";
     private MapModel mapModel = new DefaultMapModel();
 
     /**
@@ -113,22 +116,21 @@ public class BeanParcela implements Serializable {
     public void setDepartamentos(List<Departamento> departamentos) {
         this.departamentos = departamentos;
     }
-    
-    
+
     /**
      * @return the departamentoSeleccionado
      */
-    public Departamento getDepartamentoSeleccionado() {
+    public String getDepartamentoSeleccionado() {
         return departamentoSeleccionado;
     }
 
     /**
      * @param departamentoSeleccionado the departamentoSeleccionado to set
      */
-    public void setDepartamentoSeleccionado(Departamento departamentoSeleccionado) {
+    public void setDepartamentoSeleccionado(String departamentoSeleccionado) {
         this.departamentoSeleccionado = departamentoSeleccionado;
-    }    
-    
+    }
+
     /**
      * @return the departamento
      */
@@ -140,9 +142,9 @@ public class BeanParcela implements Serializable {
      * @param departamento the departamento to set
      */
     public void setDepartamento(String departamento) {
-        this.departamento = departamento;               
+        this.departamento = departamento;
     }
-        
+
     /**
      * @return the mapModel
      */
@@ -156,8 +158,50 @@ public class BeanParcela implements Serializable {
     public void setMapModel(MapModel mapModel) {
         this.mapModel = mapModel;
     }
-    //</editor-fold>
 
+    /**
+     * @return the actualLatitud
+     */
+    public String getActualLatitud() {
+        return actualLatitud;
+    }
+
+    /**
+     * @param actualLatitud the actualLatitud to set
+     */
+    public void setActualLatitud(String actualLatitud) {
+        this.actualLatitud = actualLatitud;
+    }
+
+    /**
+     * @return the actualLongitud
+     */
+    public String getActualLongitud() {
+        return actualLongitud;
+    }
+
+    /**
+     * @param actualLongitud the actualLongitud to set
+     */
+    public void setActualLongitud(String actualLongitud) {
+        this.actualLongitud = actualLongitud;
+    }
+
+    /**
+     * @return the actualZoom
+     */
+    public String getActualZoom() {
+        return actualZoom;
+    }
+
+    /**
+     * @param actualZoom the actualZoom to set
+     */
+    public void setActualZoom(String actualZoom) {
+        this.actualZoom = actualZoom;
+    }
+
+    //</editor-fold>
     @PostConstruct
     public void init() {
         parcelas = parcelaBeanLocal.obtenerParcelas();
@@ -173,14 +217,16 @@ public class BeanParcela implements Serializable {
         }
     }
 
-
     public String abrirCreacionParcela() {
         return "crearParcela";
     }
-    
-    public void centrarMapa(){
-        if (!(departamentoSeleccionado == null)){
-        mapModel.addOverlay(new Marker(new LatLng(Double.parseDouble(departamentoSeleccionado.getLatitud()), Double.parseDouble(departamentoSeleccionado.getLongitud()))));
+
+    public void centrarMapa() {
+        if (!(departamentoSeleccionado == null)) {
+            Departamento dep = parcelaBeanLocal.obtenerDepartamento(departamentoSeleccionado);
+            actualLatitud = dep.getLatitud();
+            actualLongitud = dep.getLongitud();
+            actualZoom = dep.getZoom();
         }
-    }       
+    }
 }

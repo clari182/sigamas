@@ -42,7 +42,7 @@ public class UtilParcela {
     }
 
     public static Departamento obtenerDepartamento(EntityManager em, String departamento) {
-        Query q = em.createNamedQuery("Parcela.findByNombre").setParameter("nombre", departamento);
+        Query q = em.createNamedQuery("Departamento.findByIdDepartamento").setParameter("idDepartamento",Integer.parseInt(departamento));
         if (q.getResultList().isEmpty()) {
             return null;
         }

@@ -31,6 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Departamento.findByLatitud", query = "SELECT d FROM Departamento d WHERE d.latitud = :latitud"),
     @NamedQuery(name = "Departamento.findByLongitud", query = "SELECT d FROM Departamento d WHERE d.longitud = :longitud")})
 public class Departamento implements Serializable {
+    @Column(name = "zoom", length = 3)
+    private String zoom;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -112,6 +114,14 @@ public class Departamento implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Departamento[ idDepartamento=" + idDepartamento + " ]";
+    }
+
+    public String getZoom() {
+        return zoom;
+    }
+
+    public void setZoom(String zoom) {
+        this.zoom = zoom;
     }
     
 }

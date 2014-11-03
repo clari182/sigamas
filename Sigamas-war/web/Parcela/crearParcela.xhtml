@@ -24,18 +24,18 @@
 
                                 <h:outputLabel for="departamentoParcela" value="Departamento:" />                            
                                 <p:selectOneMenu id="departamentoParcela" value="#{beanParcela.departamentoSeleccionado}" style="width:150px">
-                                    <p:ajax listener="#{beanParcela.centrarMapa}" />
+                                    <p:ajax listener="#{beanParcela.centrarMapa}" event="change" update="mapa"/>
                                     <f:selectItem itemLabel="Seleccionar departamento" itemValue="" noSelectionOption="true" />
-                                    <f:selectItems value="#{beanParcela.departamentos}" var="dep" itemValue="#{dep}" itemLabel="#{dep.nombre}"/>
+                                    <f:selectItems value="#{beanParcela.departamentos}" var="dep" itemValue="#{dep.idDepartamento}" itemLabel="#{dep.nombre}"/>
                                 </p:selectOneMenu>
-                                <h:outputLabel for="padronParcela" value="Padrón asociado: *" />
+                                <h:outputLabel for="padronParcela" value="Padrón asociado: *"/>
                                 <p:inputText id="padronParcela" value="#{beanParcela.padron}" required="true" label="text" />                    
 
                                 <p:commandButton value="Guardar" action="#{beanParcela.crearParcela}"/>
                             </h:panelGrid>                    
                         </p:layoutUnit>
                         <p:layoutUnit position="center" style="width:50%">
-                            <p:gmap center="-34.935535, -56.161005" zoom="15" type="HYBRID" style="width:600px;height:400px" widgetVar="#{beanParcela.mapModel}"/>
+                            <p:gmap id="mapa" center="#{beanParcela.actualLatitud}, #{beanParcela.actualLongitud}" zoom="#{beanParcela.actualZoom}" type="HYBRID" style="width:600px;height:400px" widgetVar="#{beanParcela.mapModel}" model="#{beanParcela.mapModel}"/>
                         </p:layoutUnit>
 
                     </p:layout>
