@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">    
+    <h:head>
+        <title>Administración de usuarios</title>
+
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+            <p:dialog modal="true" widgetVar="statusDialog" header="Espere por favor"
+                      draggable="false" closable="false" resizable="false" style="text-align: center;">
+                <h:graphicImage value="resources/img/ajax-loader.gif" />
+            </p:dialog>
+            <p:growl id="growl" sticky="true" showDetail="true"/>
+            <p:panel style="margin-top: 20%;margin-bottom: 30%; height: 30%; width: 50%;margin: 0 auto; text-align: center;">                
+                <p:commandButton icon="ui-icon-plus" action="#{beanParcela.abrirCreacionParcela}"/>
+                <p:dataTable var="usuario" value="#{beanSuperUsuario.superUsuarios}" style="width:50%">
+                    <p:column headerText="Nombre de Usuario">
+                        <h:outputText value="#{usuario.nombreUsuario}" />                                
+                    </p:column>
+
+                    <p:column headerText="Email">
+                        <h:outputText value="#{usuario.emailUsuario}" />                                                            
+                    </p:column> 
+                </p:dataTable>
+            </p:panel>
+        </h:form>           
+    </h:body>
+</html>
+
