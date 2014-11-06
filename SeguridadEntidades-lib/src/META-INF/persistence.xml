@@ -7,6 +7,12 @@
     <class>uy.edu.ort.sigamas.seguridad.entidades.Usuario</class>
     <class>uy.edu.ort.sigamas.seguridad.entidades.Login</class>
     <class>uy.edu.ort.sigamas.seguridad.entidades.Parcela</class>
+    <class>uy.edu.ort.sigamas.seguridad.entidades.CampoValor</class>
+    <class>uy.edu.ort.sigamas.seguridad.entidades.Departamento</class>
+    <class>uy.edu.ort.sigamas.seguridad.entidades.InsumoCampoValor</class>
+    <class>uy.edu.ort.sigamas.seguridad.entidades.Valor</class>
+    <class>uy.edu.ort.sigamas.seguridad.entidades.Insumo</class>
+    <class>uy.edu.ort.sigamas.seguridad.entidades.Campo</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sigamas?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
