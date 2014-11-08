@@ -15,6 +15,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -39,6 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Insumo.findByFamilia", query = "SELECT i FROM Insumo i WHERE i.familia = :familia"),
     @NamedQuery(name = "Insumo.findByActivo", query = "SELECT i FROM Insumo i WHERE i.activo = :activo")})
 public class Insumo implements Serializable {
+    @JoinColumn(name = "id_cuenta", referencedColumnName = "id_cuenta")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Cuenta idCuenta;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -155,6 +160,14 @@ public class Insumo implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Insumo[ idInsumo=" + idInsumo + " ]";
+    }
+
+    public Cuenta getIdCuenta() {
+        return idCuenta;
+    }
+
+    public void setIdCuenta(Cuenta idCuenta) {
+        this.idCuenta = idCuenta;
     }
     
 }

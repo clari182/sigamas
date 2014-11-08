@@ -39,6 +39,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cuenta.findByRut", query = "SELECT c FROM Cuenta c WHERE c.rut = :rut")})
 public class Cuenta implements Serializable {
     @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
+    private List<Campo> campoList;
+    @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
+    private List<Insumo> insumoList;
+    @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
     private List<Parcela> parcelaList;
     private static final long serialVersionUID = 1L;
     @Id
@@ -146,6 +150,24 @@ public class Cuenta implements Serializable {
 
     public void setParcelaList(List<Parcela> parcelaList) {
         this.parcelaList = parcelaList;
+    }
+
+    @XmlTransient
+    public List<Insumo> getInsumoList() {
+        return insumoList;
+    }
+
+    public void setInsumoList(List<Insumo> insumoList) {
+        this.insumoList = insumoList;
+    }
+
+    @XmlTransient
+    public List<Campo> getCampoList() {
+        return campoList;
+    }
+
+    public void setCampoList(List<Campo> campoList) {
+        this.campoList = campoList;
     }
     
 }

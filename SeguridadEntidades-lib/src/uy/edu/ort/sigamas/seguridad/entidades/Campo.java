@@ -15,6 +15,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -34,8 +36,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Campo.findByIdCampo", query = "SELECT c FROM Campo c WHERE c.idCampo = :idCampo"),
     @NamedQuery(name = "Campo.findByNombre", query = "SELECT c FROM Campo c WHERE c.nombre = :nombre"),
     @NamedQuery(name = "Campo.findByDescripcion", query = "SELECT c FROM Campo c WHERE c.descripcion = :descripcion"),
-    @NamedQuery(name = "Campo.findByActivo", query = "SELECT c FROM Campo c WHERE c.activo = :activo")})
+    @NamedQuery(name = "Campo.findByActivo", query = "SELECT c FROM Campo c WHERE c.activo = :activo"),
+    @NamedQuery(name = "Campo.findByCuenta", query = "SELECT c FROM Campo c WHERE c.idCuenta = :idCuenta")})
 public class Campo implements Serializable {
+    @JoinColumn(name = "id_cuenta", referencedColumnName = "id_cuenta")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Cuenta idCuenta;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -130,6 +136,14 @@ public class Campo implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Campo[ idCampo=" + idCampo + " ]";
+    }
+
+    public Cuenta getIdCuenta() {
+        return idCuenta;
+    }
+
+    public void setIdCuenta(Cuenta idCuenta) {
+        this.idCuenta = idCuenta;
     }
     
 }
