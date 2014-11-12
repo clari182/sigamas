@@ -10,6 +10,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -32,11 +34,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Parcela.findByPadron", query = "SELECT p FROM Parcela p WHERE p.padron = :padron"),
     @NamedQuery(name = "Parcela.findByDepartamento", query = "SELECT p FROM Parcela p WHERE p.departamento = :departamento")})
 public class Parcela implements Serializable {
-    @JoinColumn(name = "id_cuenta", referencedColumnName = "id_cuenta")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Cuenta idCuenta;
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_parcela", nullable = false)
     private Integer idParcela;
@@ -48,6 +48,9 @@ public class Parcela implements Serializable {
     private String padron;
     @Column(name = "departamento", length = 45)
     private String departamento;
+    @JoinColumn(name = "id_cuenta", referencedColumnName = "id_cuenta")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Cuenta idCuenta;
 
     public Parcela() {
     }
@@ -94,6 +97,14 @@ public class Parcela implements Serializable {
         this.departamento = departamento;
     }
 
+    public Cuenta getIdCuenta() {
+        return idCuenta;
+    }
+
+    public void setIdCuenta(Cuenta idCuenta) {
+        this.idCuenta = idCuenta;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -117,15 +128,6 @@ public class Parcela implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Parcela[ idParcela=" + idParcela + " ]";
-    }
-
-    public Cuenta getIdCuenta() {
-        return idCuenta;
-    }
-
-
-    public void setIdCuenta(Cuenta idCuenta) {
-        this.idCuenta = idCuenta;
     }
     
 }

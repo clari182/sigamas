@@ -16,6 +16,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
+import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
 import uy.edu.ort.sigamas.seguridad.login.LoginBeanLocal;
 import uy.edu.ort.sigamas.seguridad.login.excepciones.ClaveInvalidaException;
 import uy.edu.ort.sigamas.seguridad.login.excepciones.UsuarioInvalidoException;
@@ -31,14 +32,14 @@ public class BeanLogin implements Serializable {
 
     @EJB
     private LoginBeanLocal loginSessionBean;
-    
-    @ManagedProperty(value="#{beanSesionUsuario}")
+
+    @ManagedProperty(value = "#{beanSesionUsuario}")
     private BeanSesionUsuario beanSesionUsuario;
 
     public void setBeanSesionUsuario(BeanSesionUsuario beanSesionUsuario) {
         this.beanSesionUsuario = beanSesionUsuario;
     }
-    
+
     /**
      * Creates a new instance of BeanLogin
      */
@@ -123,15 +124,19 @@ public class BeanLogin implements Serializable {
 
     public String ingresar() {
         try {
-            if (validarUsuario()) {                
-                beanSesionUsuario.setUsuarioLoggeado(loginSessionBean.obtenerUsuario(nombreUsuario));
-                return "homeClient";
+            if (validarUsuario()) {
+                Usuario usuarioLoggeado = loginSessionBean.obtenerUsuario(nombreUsuario);
+                beanSesionUsuario.setUsuarioLoggeado(usuarioLoggeado);
+                if (usuarioLoggeado.getIdRol().getNombre().equals("Administrador")) {
+                    return "homeClient";
+                }
+                return "homeSuperUsuario";
             }
             return "";
         } catch (UsuarioInvalidoException exp) { // Hacer clase de excepcion
             UtilsMensajes.mostrarMensajeError("Error inesperado", exp.getMessage());
             return "";
         }
-    }   
+    }
 
 }

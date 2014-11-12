@@ -9,7 +9,12 @@
             <from-outcome>homeClient</from-outcome>
             <to-view-id>/Home/homeClient.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>       
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>homeSuperUsuario</from-outcome>
+            <to-view-id>/Home/homeSuperUsuario.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>*</from-view-id>

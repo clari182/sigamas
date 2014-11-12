@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">    
+    <h:head>
+        <title>Login Sigamas BACKOFFICE</title>
+        <style>
+            html {
+                min-height: 100%;
+                background-repeat: no-repeat;                
+                background: -webkit-linear-gradient(180deg, #D8F6CE, #04B404); /* For Safari 5.1 to 6.0 */
+                background: -o-linear-gradient(180deg, #D8F6CE, #04B404); /* For Opera 11.1 to 12.0 */
+                background: -moz-linear-gradient(180deg, #D8F6CE, #04B404); /* For Firefox 3.6 to 15 */
+                background: linear-gradient(180deg, #D8F6CE, #04B404); /* Standard syntax (must be last) */
+            }
+
+        </style>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:growl id="msgs" showDetail="true" />
+            <p:tabView>
+                <p:tab title="Super usuarios">
+                    <p:dataTable var="superUsuario" value="#{beanBackoffice.superUsuarios}">
+                        <p:column headerText="Id">
+                            <h:outputText value="#{superUsuario.id}" />
+                        </p:column>
+
+                        <p:column headerText="Year">
+                            <h:outputText value="#{superUsuario.year}" />
+                        </p:column>
+
+                        <p:column headerText="Brand">
+                            <h:outputText value="#{superUsuario.brand}" />
+                        </p:column>
+
+                        <p:column headerText="Color">
+                            <h:outputText value="#{superUsuario.color}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:tab>
+                <p:tab title="Cuentas">
+                    <p:dataTable var="cuenta" value="#{beanBackoffice.Cuentas}">
+                        <p:column headerText="Id">
+                            <h:outputText value="#{cuenta.id}" />
+                        </p:column>
+
+                        <p:column headerText="Year">
+                            <h:outputText value="#{cuenta.year}" />
+                        </p:column>
+
+                        <p:column headerText="Brand">
+                            <h:outputText value="#{cuenta.brand}" />
+                        </p:column>
+
+                        <p:column headerText="Color">
+                            <h:outputText value="#{cuenta.color}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:tab>                
+            </p:tabView> 
+        </h:form>    
+    </h:body>
+</html>
+
