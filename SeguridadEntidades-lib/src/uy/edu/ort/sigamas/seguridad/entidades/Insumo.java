@@ -8,7 +8,6 @@ package uy.edu.ort.sigamas.seguridad.entidades;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,10 +15,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -41,9 +41,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Insumo.findByFamilia", query = "SELECT i FROM Insumo i WHERE i.familia = :familia"),
     @NamedQuery(name = "Insumo.findByActivo", query = "SELECT i FROM Insumo i WHERE i.activo = :activo")})
 public class Insumo implements Serializable {
-    @JoinColumn(name = "id_cuenta", referencedColumnName = "id_cuenta")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Cuenta idCuenta;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,8 +59,14 @@ public class Insumo implements Serializable {
     private String familia;
     @Column(name = "activo")
     private Integer activo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "insumo", fetch = FetchType.EAGER)
-    private List<InsumoCampoValor> insumoCampoValorList;
+    @JoinTable(name = "insumo_campo_valor", joinColumns = {
+        @JoinColumn(name = "id_insumo", referencedColumnName = "id_insumo", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "id_campo", referencedColumnName = "id_campo", nullable = false)})
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Campo> campoList;
+    @JoinColumn(name = "id_cuenta", referencedColumnName = "id_cuenta")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Cuenta idCuenta;
 
     public Insumo() {
     }
@@ -129,12 +132,20 @@ public class Insumo implements Serializable {
     }
 
     @XmlTransient
-    public List<InsumoCampoValor> getInsumoCampoValorList() {
-        return insumoCampoValorList;
+    public List<Campo> getCampoList() {
+        return campoList;
     }
 
-    public void setInsumoCampoValorList(List<InsumoCampoValor> insumoCampoValorList) {
-        this.insumoCampoValorList = insumoCampoValorList;
+    public void setCampoList(List<Campo> campoList) {
+        this.campoList = campoList;
+    }
+
+    public Cuenta getIdCuenta() {
+        return idCuenta;
+    }
+
+    public void setIdCuenta(Cuenta idCuenta) {
+        this.idCuenta = idCuenta;
     }
 
     @Override
@@ -160,14 +171,6 @@ public class Insumo implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Insumo[ idInsumo=" + idInsumo + " ]";
-    }
-
-    public Cuenta getIdCuenta() {
-        return idCuenta;
-    }
-
-    public void setIdCuenta(Cuenta idCuenta) {
-        this.idCuenta = idCuenta;
     }
     
 }

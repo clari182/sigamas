@@ -10,9 +10,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import uy.edu.ort.sigamas.seguridad.entidades.Campo;
-import uy.edu.ort.sigamas.seguridad.entidades.CampoValor;
+//import uy.edu.ort.sigamas.seguridad.entidades.CampoValor;
 import uy.edu.ort.sigamas.seguridad.entidades.Insumo;
-import uy.edu.ort.sigamas.seguridad.entidades.InsumoCampoValor;
+//import uy.edu.ort.sigamas.seguridad.entidades.InsumoCampoValor;
 import uy.edu.ort.sigamas.seguridad.entidades.Valor;
 
 /**
@@ -49,7 +49,7 @@ public class UtilInsumo {
         return null;
     }
 
-    public static List<CampoValor> obtenerCampoValores(EntityManager em, int idCuenta) {
+    /*public static List<CampoValor> obtenerCampoValores(EntityManager em, int idCuenta) {
         List<Campo> campos = em.createNamedQuery("Campo.findByCuenta").setParameter("idCuenta", idCuenta).getResultList();
         List<CampoValor> total = new ArrayList<>();
         for (Campo campo : campos) {
@@ -60,5 +60,5 @@ public class UtilInsumo {
 
     public static List<InsumoCampoValor> obtenerCampoValorInsumo(EntityManager em, int idInsumo) {
         return em.createNamedQuery("InsumoCampoValor.findByIdInsumo").setParameter("idInsumo", idInsumo).getResultList();
-    }
+    }*/
 }

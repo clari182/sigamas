@@ -10,56 +10,56 @@
 
     <ui:define name="content">
         <h:form id="form">                               
-            <p:layout style="margin-top: 20px;">
-                <p:layoutUnit position="west" resizable="true" size="80%">
-                    <p:tabView style="border: none" orientation="left">
-                        <p:tab title="Insumos">                       
-                            <p:dataList value="#{beanInsumo.insumos}" var="car" type="unordered" itemType="none">
-                                <f:facet name="header">
-                                    Insumos
-                                </f:facet>
-                                <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px">
-                                    <f:setPropertyActionListener value="#{insumo}" target="#{beanInsumo.insumoSeleccionado}" />
-                                    <h:outputText value="#{insumo.nombre}, #{insumo.cantidad}" />
-                                </p:commandLink>
-                                <h:outputText value="#{insumo.brand}, #{insumo.year}" style="display:inline-block"/>
-                            </p:dataList>
-                            <p:dialog header="Detalles del insumo" widgetVar="insumoDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
-                                <p:outputPanel id="detallesInsumo" style="text-align:center;">
-                                    <p:panelGrid  columns="2" rendered="#{not empty dataListView.selectedCar}" columnClasses="label,value">
+            <p:tabView style="border: none" orientation="left">
+                <p:tab title="Insumos">     
+                   <!-- <p:commandButton icon="ui-icon-plus" action="#{beanInsumo.abrirCre}"/>-->
+                    <p:dataList value="#{beanInsumo.insumos}" var="car" type="unordered" itemType="none">
+                        <f:facet name="header">
+                            Insumos
+                        </f:facet>
+                        <p:commandLink update=":form:detallesInsumo" oncomplete="PF('insumoDialog').show()" title="Ver Detalle" styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px">
+                            <f:setPropertyActionListener value="#{insumo}" target="#{beanInsumo.insumoSeleccionado}" />
+                            <h:outputText value="#{insumo.nombre}, #{insumo.cantidad}" />
+                        </p:commandLink>
+                        <h:outputText value="#{insumo.brand}, #{insumo.year}" style="display:inline-block"/>
+                    </p:dataList>
+                    <p:dialog header="Detalles del insumo" widgetVar="insumoDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
+                        <p:outputPanel id="detallesInsumo" style="text-align:center;">
+                            <p:panelGrid  columns="2" rendered="#{not empty dataListView.selectedCar}" columnClasses="label,value">
 
-                                        <h:outputText value="Codigo:" />
-                                        <p:inplace id="editCodigo">
-                                            <p:inputText value="#{beanInsumo.insumoSeleccionado.codigo}" />
-                                        </p:inplace>
+                                <h:outputText value="Codigo:" />
+                                <p:inplace id="editCodigo">
+                                    <p:inputText value="#{beanInsumo.insumoSeleccionado.codigo}" />
+                                </p:inplace>
 
-                                        <h:outputText value="Nombre:" />
-                                        <p:inplace id="editNombre">
-                                            <p:inputText value="#{beanInsumo.insumoSeleccionado.nombre}" />
-                                        </p:inplace>
+                                <h:outputText value="Nombre:" />
+                                <p:inplace id="editNombre">
+                                    <p:inputText value="#{beanInsumo.insumoSeleccionado.nombre}" />
+                                </p:inplace>
 
-                                        <h:outputText value="Tipo:" />
-                                        <p:inplace id="editTipo">
-                                            <p:inputText value="#{beanInsumo.insumoSeleccionado.tipo}" />
-                                        </p:inplace>
+                                <h:outputText value="Tipo:" />
+                                <p:inplace id="editTipo">
+                                    <p:inputText value="#{beanInsumo.insumoSeleccionado.tipo}" />
+                                </p:inplace>
 
-                                        <h:outputText value="Descripción:" />
-                                        <p:inplace id="editDescripcion">
-                                            <p:inputText value="#{beanInsumo.insumoSeleccionado.descripcion}" />
-                                        </p:inplace>
+                                <h:outputText value="Descripción:" />
+                                <p:inplace id="editDescripcion">
+                                    <p:inputText value="#{beanInsumo.insumoSeleccionado.descripcion}" />
+                                </p:inplace>
 
-                                        <h:outputText value="Activo:" />
-                                        <p:inplace id="editActivo">
-                                            <p:inputText value="#{beanInsumo.insumoSeleccionado.activo}" />
-                                        </p:inplace>
-                                    </p:panelGrid>
-                                </p:outputPanel>
-                            </p:dialog>
-                        </p:tab>
-
-                    </p:tabView>
-                </p:layoutUnit>                                  
-            </p:layout>
+                                <h:outputText value="Activo:" />
+                                <p:inplace id="editActivo">
+                                    <p:inputText value="#{beanInsumo.insumoSeleccionado.activo}" />
+                                </p:inplace>
+                            </p:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+                </p:tab>
+                <p:tab title="Campos personalizados">
+                </p:tab>            
+                <p:tab title="Recetas personalizadas">
+                </p:tab>
+            </p:tabView>           
         </h:form>
     </ui:define>
 </ui:composition>

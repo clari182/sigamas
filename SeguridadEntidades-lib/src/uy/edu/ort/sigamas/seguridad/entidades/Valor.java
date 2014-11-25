@@ -8,16 +8,15 @@ package uy.edu.ort.sigamas.seguridad.entidades;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -48,8 +47,8 @@ public class Valor implements Serializable {
     private String unidad;
     @Column(name = "activo")
     private Integer activo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "valor", fetch = FetchType.EAGER)
-    private List<CampoValor> campoValorList;
+    @ManyToMany(mappedBy = "valorList", fetch = FetchType.EAGER)
+    private List<Campo> campoList;
 
     public Valor() {
     }
@@ -91,12 +90,12 @@ public class Valor implements Serializable {
     }
 
     @XmlTransient
-    public List<CampoValor> getCampoValorList() {
-        return campoValorList;
+    public List<Campo> getCampoList() {
+        return campoList;
     }
 
-    public void setCampoValorList(List<CampoValor> campoValorList) {
-        this.campoValorList = campoValorList;
+    public void setCampoList(List<Campo> campoList) {
+        this.campoList = campoList;
     }
 
     @Override

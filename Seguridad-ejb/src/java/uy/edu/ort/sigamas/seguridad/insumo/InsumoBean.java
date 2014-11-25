@@ -10,9 +10,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import uy.edu.ort.sigamas.seguridad.entidades.Campo;
-import uy.edu.ort.sigamas.seguridad.entidades.CampoValor;
+//import uy.edu.ort.sigamas.seguridad.entidades.CampoValor;
 import uy.edu.ort.sigamas.seguridad.entidades.Insumo;
-import uy.edu.ort.sigamas.seguridad.entidades.InsumoCampoValor;
+//import uy.edu.ort.sigamas.seguridad.entidades.InsumoCampoValor;
 import uy.edu.ort.sigamas.seguridad.entidades.Valor;
 import uy.edu.ort.sigamas.seguridad.insumo.utils.UtilInsumo;
 
@@ -31,7 +31,7 @@ public class InsumoBean implements InsumoBeanLocal {
         return UtilInsumo.obtenerInsumos(em, idCuenta);
     }
     
-    @Override
+    /*@Override
     public List<CampoValor> obtenerCampoValores(int idCuenta){
         return UtilInsumo.obtenerCampoValores(em, idCuenta);
     }
@@ -39,7 +39,7 @@ public class InsumoBean implements InsumoBeanLocal {
     @Override
     public List<InsumoCampoValor> obtenerCampoValorInsumo(int idInsumo){
         return UtilInsumo.obtenerCampoValorInsumo(em, idInsumo);
-    }
+    }*/
     
     @Override
     public Campo obtenerCampo(int idCampo){

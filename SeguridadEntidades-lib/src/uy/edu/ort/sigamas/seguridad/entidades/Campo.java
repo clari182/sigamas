@@ -8,7 +8,6 @@ package uy.edu.ort.sigamas.seguridad.entidades;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,10 +15,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -36,12 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Campo.findByIdCampo", query = "SELECT c FROM Campo c WHERE c.idCampo = :idCampo"),
     @NamedQuery(name = "Campo.findByNombre", query = "SELECT c FROM Campo c WHERE c.nombre = :nombre"),
     @NamedQuery(name = "Campo.findByDescripcion", query = "SELECT c FROM Campo c WHERE c.descripcion = :descripcion"),
-    @NamedQuery(name = "Campo.findByActivo", query = "SELECT c FROM Campo c WHERE c.activo = :activo"),
-    @NamedQuery(name = "Campo.findByCuenta", query = "SELECT c FROM Campo c WHERE c.idCuenta = :idCuenta")})
+    @NamedQuery(name = "Campo.findByActivo", query = "SELECT c FROM Campo c WHERE c.activo = :activo")})
 public class Campo implements Serializable {
-    @JoinColumn(name = "id_cuenta", referencedColumnName = "id_cuenta")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Cuenta idCuenta;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,8 +52,16 @@ public class Campo implements Serializable {
     @Basic(optional = false)
     @Column(name = "activo", nullable = false)
     private int activo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "campo", fetch = FetchType.EAGER)
-    private List<CampoValor> campoValorList;
+    @ManyToMany(mappedBy = "campoList", fetch = FetchType.EAGER)
+    private List<Insumo> insumoList;
+    @JoinTable(name = "campo_valor", joinColumns = {
+        @JoinColumn(name = "id_campo", referencedColumnName = "id_campo", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "id_valor", referencedColumnName = "id_valor", nullable = false)})
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Valor> valorList;
+    @JoinColumn(name = "id_cuenta", referencedColumnName = "id_cuenta")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Cuenta idCuenta;
 
     public Campo() {
     }
@@ -105,12 +109,29 @@ public class Campo implements Serializable {
     }
 
     @XmlTransient
-    public List<CampoValor> getCampoValorList() {
-        return campoValorList;
+    public List<Insumo> getInsumoList() {
+        return insumoList;
     }
 
-    public void setCampoValorList(List<CampoValor> campoValorList) {
-        this.campoValorList = campoValorList;
+    public void setInsumoList(List<Insumo> insumoList) {
+        this.insumoList = insumoList;
+    }
+
+    @XmlTransient
+    public List<Valor> getValorList() {
+        return valorList;
+    }
+
+    public void setValorList(List<Valor> valorList) {
+        this.valorList = valorList;
+    }
+
+    public Cuenta getIdCuenta() {
+        return idCuenta;
+    }
+
+    public void setIdCuenta(Cuenta idCuenta) {
+        this.idCuenta = idCuenta;
     }
 
     @Override
@@ -136,14 +157,6 @@ public class Campo implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Campo[ idCampo=" + idCampo + " ]";
-    }
-
-    public Cuenta getIdCuenta() {
-        return idCuenta;
-    }
-
-    public void setIdCuenta(Cuenta idCuenta) {
-        this.idCuenta = idCuenta;
     }
     
 }

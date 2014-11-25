@@ -6,11 +6,13 @@
 package uy.edu.ort.sigamas.sigamasweb.insumo;
 
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedProperty;
 import uy.edu.ort.sigamas.seguridad.entidades.Insumo;
+import uy.edu.ort.sigamas.seguridad.insumo.InsumoBeanLocal;
 import uy.edu.ort.sigamas.seguridad.parcela.ParcelaBeanLocal;
 import uy.edu.ort.sigamas.sigamasweb.login.BeanSesionUsuario;
 
@@ -23,7 +25,7 @@ import uy.edu.ort.sigamas.sigamasweb.login.BeanSesionUsuario;
 public class BeanInsumo {
 
     @EJB
-    private ParcelaBeanLocal parcelaBeanLocal;
+    private InsumoBeanLocal insumoBeanLocal;
     
     @ManagedProperty(value="#{beanSesionUsuario}")
     private BeanSesionUsuario beanSesionUsuario;
@@ -70,6 +72,11 @@ public class BeanInsumo {
     
     public void obtenerInsumos(){
         
+    }
+    
+    @PostConstruct
+    public void init() {
+        insumos = insumoBeanLocal.obtenerInsumos(beanSesionUsuario.getCuentaActual().getIdCuenta());
     }
     
 }

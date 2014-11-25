@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package uy.edu.ort.sigamas.seguridad.entidades;
 
 import java.io.Serializable;
@@ -106,5 +107,5 @@ public class Rol implements Serializable {
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Rol[ idRol=" + idRol + " ]";
     }
-    
+
 }

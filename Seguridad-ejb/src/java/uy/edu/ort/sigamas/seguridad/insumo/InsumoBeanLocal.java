@@ -8,9 +8,9 @@ package uy.edu.ort.sigamas.seguridad.insumo;
 import java.util.List;
 import javax.ejb.Local;
 import uy.edu.ort.sigamas.seguridad.entidades.Campo;
-import uy.edu.ort.sigamas.seguridad.entidades.CampoValor;
+//import uy.edu.ort.sigamas.seguridad.entidades.CampoValor;
 import uy.edu.ort.sigamas.seguridad.entidades.Insumo;
-import uy.edu.ort.sigamas.seguridad.entidades.InsumoCampoValor;
+//import uy.edu.ort.sigamas.seguridad.entidades.InsumoCampoValor;
 import uy.edu.ort.sigamas.seguridad.entidades.Valor;
 
 /**
@@ -21,8 +21,8 @@ import uy.edu.ort.sigamas.seguridad.entidades.Valor;
 public interface InsumoBeanLocal {
     
     List<Insumo> obtenerInsumos(int idCuenta);
-    List<CampoValor> obtenerCampoValores(int idCuenta);
-    List<InsumoCampoValor> obtenerCampoValorInsumo(int idInsumo);
+    //List<CampoValor> obtenerCampoValores(int idCuenta);
+    //List<InsumoCampoValor> obtenerCampoValorInsumo(int idInsumo);
     Campo obtenerCampo(int idCampo);
     Valor obtenerValor(int idValor);
 }
