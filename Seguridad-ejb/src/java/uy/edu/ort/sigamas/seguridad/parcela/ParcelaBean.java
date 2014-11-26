@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
+import uy.edu.ort.sigamas.seguridad.entidades.Departamento;
 import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
 import uy.edu.ort.sigamas.seguridad.parcela.excepciones.ParcelaPadronExistenteException;
 import uy.edu.ort.sigamas.seguridad.parcela.utils.UtilParcela;
@@ -32,5 +33,15 @@ public class ParcelaBean implements ParcelaBeanLocal {
     @Override
     public void crearParcela(String nombre, String padron, String departamento, Cuenta cuentaActual) throws ParcelaPadronExistenteException{
         UtilParcela.crearParcela(em, nombre, padron, departamento, cuentaActual);
+    }
+    
+    @Override
+    public List<Departamento> obtenerDepartamentos(){
+        return UtilParcela.obtenerDepartamentos(em);
+    }
+    
+    @Override
+    public Departamento obtenerDepartamento(String departamento){
+        return UtilParcela.obtenerDepartamento(em, departamento);
     }
 }

@@ -12,25 +12,36 @@
     <ui:define name="content">
         <h:form id="form">   
             <p:growl id="growl" sticky="true" showDetail="true"/>
-            <p:panel style="margin: 0 auto; width: 60%;">   
-                <p:tabView>
-                    <p:tab id="parcela" title="Creación de una parcela">
-                        <p:messages />
-                        <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
-                            <h:outputLabel for="nombreParcela" value="Nombre de la parcela *:" />
-                            <p:inputText id="nombreParcela" value="#{beanParcela.nombre}" required="true" label="text"/>
 
-                            <h:outputLabel for="departamentoParcela" value="Departamento:" />
-                            <p:inputText id="departamentoParcela" value="#{beanParcela.departamento}" label="text" />                    
-                            
-                            <h:outputLabel for="padronParcela" value="Padrón asociado: *" />
-                            <p:inputText id="padronParcela" value="#{beanParcela.padron}" required="true" label="text" />                    
-                            
-                            <p:commandButton value="Guardar" action="#{beanParcela.crearParcela}"/>
-                        </h:panelGrid>                    
-                    </p:tab>                
-                </p:tabView>
-            </p:panel>
+            <p:tabView style="margin: 0 auto; width: 60%;">
+                <p:tab id="parcela" title="Creación de una parcela">
+                    <p:layout style="height: 100%">
+                        <p:layoutUnit position="west" style="width: 50%">
+                            <p:messages />
+                            <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
+                                <h:outputLabel for="nombreParcela" value="Nombre de la parcela *:" />
+                                <p:inputText id="nombreParcela" value="#{beanParcela.nombre}" required="true" label="text"/>
+
+                                <h:outputLabel for="departamentoParcela" value="Departamento:" />                            
+                                <p:selectOneMenu id="departamentoParcela" value="#{beanParcela.departamentoSeleccionado}" style="width:150px">
+                                    <p:ajax listener="#{beanParcela.centrarMapa}" event="change" update="mapa"/>
+                                    <f:selectItem itemLabel="Seleccionar departamento" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems value="#{beanParcela.departamentos}" var="dep" itemValue="#{dep.idDepartamento}" itemLabel="#{dep.nombre}"/>
+                                </p:selectOneMenu>
+                                <h:outputLabel for="padronParcela" value="Padrón asociado: *"/>
+                                <p:inputText id="padronParcela" value="#{beanParcela.padron}" required="true" label="text" />                    
+
+                                <p:commandButton value="Guardar" action="#{beanParcela.crearParcela}"/>
+                            </h:panelGrid>                    
+                        </p:layoutUnit>
+                        <p:layoutUnit position="center" style="width:50%">
+                            <p:gmap id="mapa" center="#{beanParcela.actualLatitud}, #{beanParcela.actualLongitud}" zoom="#{beanParcela.actualZoom}" type="HYBRID" style="width:600px;height:400px" widgetVar="#{beanParcela.mapModel}" model="#{beanParcela.mapModel}"/>
+                        </p:layoutUnit>
+
+                    </p:layout>
+                </p:tab>   
+
+            </p:tabView>
         </h:form>
     </ui:define>
 

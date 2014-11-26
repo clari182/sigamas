@@ -6,6 +6,7 @@
 package uy.edu.ort.sigamas.sigamasweb.parcela;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -13,6 +14,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
+import uy.edu.ort.sigamas.seguridad.entidades.Departamento;
 import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
 import uy.edu.ort.sigamas.seguridad.parcela.ParcelaBeanLocal;
 import uy.edu.ort.sigamas.seguridad.parcela.excepciones.ParcelaPadronExistenteException;
@@ -25,22 +31,28 @@ import uy.edu.ort.sigamas.sigamasweb.utils.UtilsMensajes;
  */
 @ManagedBean(name = "beanParcela")
 @ViewScoped
-public class BeanParcela implements Serializable{
+public class BeanParcela implements Serializable {
 
     @EJB
     private ParcelaBeanLocal parcelaBeanLocal;
-    
-    @ManagedProperty(value="#{beanSesionUsuario}")
+
+    @ManagedProperty(value = "#{beanSesionUsuario}")
     private BeanSesionUsuario beanSesionUsuario;
 
     public void setBeanSesionUsuario(BeanSesionUsuario beanSesionUsuario) {
         this.beanSesionUsuario = beanSesionUsuario;
     }
-    
+
     private String nombre;
     private String padron;
     private String departamento;
     private List<Parcela> parcelas;
+    private List<Departamento> departamentos;
+    private String departamentoSeleccionado;
+    private String actualLatitud = "-32.5583168";
+    private String actualLongitud = "-55.8117213";
+    private String actualZoom = "6";
+    private MapModel mapModel = new DefaultMapModel();
 
     /**
      * Creates a new instance of BeanPredio
@@ -48,6 +60,7 @@ public class BeanParcela implements Serializable{
     public BeanParcela() {
     }
 
+    // <editor-fold defaultstate="collapsed" desc="Gets y Sets">
     /**
      * @return the nombre
      */
@@ -90,17 +103,32 @@ public class BeanParcela implements Serializable{
         this.parcelas = parcelas;
     }
 
-    @PostConstruct
-    public void init() {
-        parcelas = parcelaBeanLocal.obtenerParcelas();
+    /**
+     * @return the departamentos
+     */
+    public List<Departamento> getDepartamentos() {
+        return departamentos;
     }
 
-    public void crearParcela() {
-        try {
-            parcelaBeanLocal.crearParcela(nombre, padron, departamento, beanSesionUsuario.getCuentaActual());
-        } catch (ParcelaPadronExistenteException exp) {
-            UtilsMensajes.mostrarMensajeError("Error", "Ya existe una parcela asociada a al padrón " + padron + ", porfavor elija otro padrón");
-        }
+    /**
+     * @param departamentos the departamentos to set
+     */
+    public void setDepartamentos(List<Departamento> departamentos) {
+        this.departamentos = departamentos;
+    }
+
+    /**
+     * @return the departamentoSeleccionado
+     */
+    public String getDepartamentoSeleccionado() {
+        return departamentoSeleccionado;
+    }
+
+    /**
+     * @param departamentoSeleccionado the departamentoSeleccionado to set
+     */
+    public void setDepartamentoSeleccionado(String departamentoSeleccionado) {
+        this.departamentoSeleccionado = departamentoSeleccionado;
     }
 
     /**
@@ -116,8 +144,89 @@ public class BeanParcela implements Serializable{
     public void setDepartamento(String departamento) {
         this.departamento = departamento;
     }
-    
-    public String abrirCreacionParcela(){
+
+    /**
+     * @return the mapModel
+     */
+    public MapModel getMapModel() {
+        return mapModel;
+    }
+
+    /**
+     * @param mapModel the mapModel to set
+     */
+    public void setMapModel(MapModel mapModel) {
+        this.mapModel = mapModel;
+    }
+
+    /**
+     * @return the actualLatitud
+     */
+    public String getActualLatitud() {
+        return actualLatitud;
+    }
+
+    /**
+     * @param actualLatitud the actualLatitud to set
+     */
+    public void setActualLatitud(String actualLatitud) {
+        this.actualLatitud = actualLatitud;
+    }
+
+    /**
+     * @return the actualLongitud
+     */
+    public String getActualLongitud() {
+        return actualLongitud;
+    }
+
+    /**
+     * @param actualLongitud the actualLongitud to set
+     */
+    public void setActualLongitud(String actualLongitud) {
+        this.actualLongitud = actualLongitud;
+    }
+
+    /**
+     * @return the actualZoom
+     */
+    public String getActualZoom() {
+        return actualZoom;
+    }
+
+    /**
+     * @param actualZoom the actualZoom to set
+     */
+    public void setActualZoom(String actualZoom) {
+        this.actualZoom = actualZoom;
+    }
+
+    //</editor-fold>
+    @PostConstruct
+    public void init() {
+        parcelas = parcelaBeanLocal.obtenerParcelas();
+        departamentos = new ArrayList<>();
+        departamentos = parcelaBeanLocal.obtenerDepartamentos();
+    }
+
+    public void crearParcela() {
+        try {
+            parcelaBeanLocal.crearParcela(nombre, padron, departamento, beanSesionUsuario.getCuentaActual());
+        } catch (ParcelaPadronExistenteException exp) {
+            UtilsMensajes.mostrarMensajeError("Error", "Ya existe una parcela asociada a al padrón " + padron + ", porfavor elija otro padrón");
+        }
+    }
+
+    public String abrirCreacionParcela() {
         return "crearParcela";
+    }
+
+    public void centrarMapa() {
+        if (!(departamentoSeleccionado == null)) {
+            Departamento dep = parcelaBeanLocal.obtenerDepartamento(departamentoSeleccionado);
+            actualLatitud = dep.getLatitud();
+            actualLongitud = dep.getLongitud();
+            actualZoom = dep.getZoom();
+        }
     }
 }
