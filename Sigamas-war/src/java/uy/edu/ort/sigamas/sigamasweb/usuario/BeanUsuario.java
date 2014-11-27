@@ -99,7 +99,7 @@ public class BeanUsuario implements Serializable {
             }
             return false;
         } catch (UsuarioExistenteException u) {
-            UtilsMensajes.mostrarMensajeError("Error de creación", "Ya existe un usuario con este nombre de usuario");
+            UtilsMensajes.mostrarMensajeError(null, "Error de creación", "Ya existe un usuario con este nombre de usuario");
             return false;
         }
     }
@@ -110,7 +110,7 @@ public class BeanUsuario implements Serializable {
             try {
                 usuarioSessionBean.verificarUsuario(null);
             } catch (UsuarioExistenteException exp) {
-                UtilsMensajes.mostrarMensajeError("Error", "Ya existe un usuario con este nombre de usuario");
+                UtilsMensajes.mostrarMensajeError(null, "Error", "Ya existe un usuario con este nombre de usuario");
                 return event.getOldStep();
             }
             return event.getNewStep();
@@ -120,15 +120,17 @@ public class BeanUsuario implements Serializable {
 
     public String modificarUsuario() {
         beanSesionUsuario.setUsuarioLoggeado(usuarioSessionBean.modificarUsuario(beanSesionUsuario.getUsuarioLoggeado()));
-        return "homeClient";
+        UtilsMensajes.mostrarMensajeInformacion("messages1","Éxito", "¡Perfil actualizado con éxito!");
+        return "";
     }
 
     public String cambiarContraseña() {
         try {
             usuarioSessionBean.cambiarContraseña(beanSesionUsuario.getUsuarioLoggeado(), viejaContraseña, nuevaContraseña);
-            return "homeClient";
+             UtilsMensajes.mostrarMensajeInformacion("messages2","Éxito", "¡Contraseña actualizada con éxito!");
+            return "";
         } catch (ViejaContraseñaIncorrectaException exp) {
-            UtilsMensajes.mostrarMensajeError("Error", "La contraseña actual no es correcta");
+            UtilsMensajes.mostrarMensajeError("messages2","Error", "La contraseña actual no es correcta");
             return "";
         }
     }

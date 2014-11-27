@@ -7,6 +7,11 @@
 
     <ui:define name="content">
         <h:form>
+            <p:breadCrumb id="mainBreadCrumb">
+                <p:menuitem value="Home" outcome="homeClient"/>              
+                <p:menuitem value="Usuarios" outcome="usuariosCuenta"/>                 
+                <p:menuitem value="Invitación de usuario" outcome="invitacionUsuario"/>                 
+            </p:breadCrumb>
             <p:panel style="margin: 0 auto; width: 60%;">         
                 Invitar usuario a participar en esta cuenta
                 <p:tabView>

@@ -9,6 +9,11 @@
 
     <ui:define name="content">
         <h:form>
+            <p:breadCrumb id="mainBreadCrumb">
+                <p:menuitem value="Home" outcome="homeClient"/>              
+                <p:menuitem value="Usuarios" outcome="usuariosCuenta"/>                 
+                <p:menuitem value="Creación de usuario" outcome="crearUsuario"/>                 
+            </p:breadCrumb>
             <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
             <p:dialog modal="true" widgetVar="statusDialog" header="Espere por favor"
                       draggable="false" closable="false" resizable="false" style="text-align: center;">

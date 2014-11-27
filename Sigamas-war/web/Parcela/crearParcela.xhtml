@@ -11,6 +11,10 @@
 
     <ui:define name="content">
         <h:form id="form">   
+            <p:breadCrumb id="mainBreadCrumb">
+                <p:menuitem value="Home" outcome="homeClient"/>                 
+                <p:menuitem value="Creación de parcela" outcome="crearParcela"/>                 
+            </p:breadCrumb>
             <p:growl id="growl" sticky="true" showDetail="true"/>
 
             <p:tabView style="margin: 0 auto; width: 60%;">

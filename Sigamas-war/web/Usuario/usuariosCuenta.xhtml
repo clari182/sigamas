@@ -7,7 +7,11 @@
                 xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
 
-        <h:form id="form">                
+        <h:form id="form">   
+            <p:breadCrumb id="mainBreadCrumb">
+                <p:menuitem value="Home" outcome="homeClient"/>              
+                <p:menuitem value="Usuarios" outcome="usuariosCuenta"/>                                 
+            </p:breadCrumb>
             <p:menubar>                
                 <p:menuitem value="Invitar Nuevo Usuario" icon="ui-icon-contact" outcome="invitacionUsuario"/>                    
             </p:menubar>

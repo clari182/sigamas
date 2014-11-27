@@ -14,7 +14,11 @@ import javax.faces.context.FacesContext;
  * @author Mattahari
  */
 public class UtilsMensajes {
-    public static void mostrarMensajeError(String titulo, String mensaje){
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, titulo, mensaje));
+    public static void mostrarMensajeError(String id, String titulo, String mensaje){
+        FacesContext.getCurrentInstance().addMessage(id, new FacesMessage(FacesMessage.SEVERITY_ERROR, titulo, mensaje));
+    }
+    
+    public static void mostrarMensajeInformacion(String id, String titulo, String mensaje){
+        FacesContext.getCurrentInstance().addMessage(id, new FacesMessage(FacesMessage.SEVERITY_INFO, titulo, mensaje));
     }
 }

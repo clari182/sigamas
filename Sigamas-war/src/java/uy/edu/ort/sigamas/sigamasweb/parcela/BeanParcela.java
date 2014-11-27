@@ -214,7 +214,7 @@ public class BeanParcela implements Serializable {
         try {
             parcelaBeanLocal.crearParcela(nombre, padron, departamento, beanSesionUsuario.getCuentaActual());
         } catch (ParcelaPadronExistenteException exp) {
-            UtilsMensajes.mostrarMensajeError("Error", "Ya existe una parcela asociada a al padrón " + padron + ", porfavor elija otro padrón");
+            UtilsMensajes.mostrarMensajeError(null, "Error", "Ya existe una parcela asociada a al padrón " + padron + ", porfavor elija otro padrón");
         }
     }
 

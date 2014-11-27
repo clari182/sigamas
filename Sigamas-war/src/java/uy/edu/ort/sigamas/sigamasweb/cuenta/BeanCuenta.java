@@ -223,10 +223,10 @@ public class BeanCuenta {
             //this.obtenerCuentas();
             return true;
         } catch (CreacionCuentaInvalidaException exp) {
-            UtilsMensajes.mostrarMensajeError("Error", "Error durante la creación de la cuenta");
+            UtilsMensajes.mostrarMensajeError(null, "Error", "Error durante la creación de la cuenta");
             return false;
         } catch (CuentaExistenteException exp) {
-            UtilsMensajes.mostrarMensajeError("Error", "Ya existe una cuenta con este nombre");
+            UtilsMensajes.mostrarMensajeError(null, "Error", "Ya existe una cuenta con este nombre");
             return false;
         }
     }
@@ -282,7 +282,7 @@ public class BeanCuenta {
             try {
                 cuentaBeanLocal.verificarNombreCuenta(getNombre());
             } catch (CuentaExistenteException exp) {
-                UtilsMensajes.mostrarMensajeError("Error", "Ya existe una cuenta con este nombre");
+                UtilsMensajes.mostrarMensajeError(null, "Error", "Ya existe una cuenta con este nombre");
                 return event.getOldStep();
             }
 

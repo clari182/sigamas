@@ -113,10 +113,10 @@ public class BeanLogin implements Serializable {
             loginSessionBean.verificarUsuario(nombreUsuario, claveUsuario);
             return true;
         } catch (UsuarioInvalidoException ex) {
-            UtilsMensajes.mostrarMensajeError("Error", "Nombre de usuario inexistente.");
+            UtilsMensajes.mostrarMensajeError(null, "Error", "Nombre de usuario inexistente.");
             return false;
         } catch (ClaveInvalidaException ex) {
-            UtilsMensajes.mostrarMensajeError("Error", "Contraseña erronea.");
+            UtilsMensajes.mostrarMensajeError(null, "Error", "Contraseña erronea.");
             return false;
         }
     }
@@ -129,7 +129,7 @@ public class BeanLogin implements Serializable {
             }
             return "";
         } catch (UsuarioInvalidoException exp) { // Hacer clase de excepcion
-            UtilsMensajes.mostrarMensajeError("Error inesperado", exp.getMessage());
+            UtilsMensajes.mostrarMensajeError(null, "Error inesperado", exp.getMessage());
             return "";
         }
     }   
