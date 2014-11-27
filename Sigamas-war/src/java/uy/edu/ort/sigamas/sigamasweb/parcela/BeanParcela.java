@@ -21,6 +21,7 @@ import org.primefaces.model.map.Marker;
 import uy.edu.ort.sigamas.seguridad.entidades.Departamento;
 import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
 import uy.edu.ort.sigamas.seguridad.parcela.ParcelaBeanLocal;
+
 import uy.edu.ort.sigamas.seguridad.parcela.excepciones.ParcelaPadronExistenteException;
 import uy.edu.ort.sigamas.sigamasweb.login.BeanSesionUsuario;
 import uy.edu.ort.sigamas.sigamasweb.utils.UtilsMensajes;
@@ -33,15 +34,15 @@ import uy.edu.ort.sigamas.sigamasweb.utils.UtilsMensajes;
 @ViewScoped
 public class BeanParcela implements Serializable {
 
-    @EJB
-    private ParcelaBeanLocal parcelaBeanLocal;
-
-    @ManagedProperty(value = "#{beanSesionUsuario}")
+    @ManagedProperty(value="#{beanSesionUsuario}")
     private BeanSesionUsuario beanSesionUsuario;
 
     public void setBeanSesionUsuario(BeanSesionUsuario beanSesionUsuario) {
         this.beanSesionUsuario = beanSesionUsuario;
     }
+    @EJB
+    private ParcelaBeanLocal parcelaBeanLocal;
+
 
     private String nombre;
     private String padron;
