@@ -54,7 +54,11 @@
             <to-view-id>/Parcela/crearParcela.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-
+        <navigation-case>
+            <from-outcome>crearCultivo</from-outcome>
+            <to-view-id>/Cultivo/crearCultivo.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/Usuario/perfil.xhtml</from-view-id>

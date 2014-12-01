@@ -5,9 +5,13 @@
  */
 package uy.edu.ort.sigamas.seguridad.login;
 //hola222
+import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import uy.edu.ort.sigamas.seguridad.entidades.Login;
 import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
 import uy.edu.ort.sigamas.seguridad.login.excepciones.ClaveInvalidaException;
 import uy.edu.ort.sigamas.seguridad.login.excepciones.UsuarioInvalidoException;
@@ -33,6 +37,14 @@ public class LoginBean implements LoginBeanLocal {
     @Override
     public Usuario obtenerUsuario(String nombreUsuario) throws UsuarioInvalidoException {
         return UtilLogin.obtenerUsuario(em, nombreUsuario);
+    }
+    
+    @Override
+    public void agregarLogin(Usuario usurioLoggeado){
+       Login nuevoLogin = new Login();
+       nuevoLogin.setIdUsuario(usurioLoggeado);
+       nuevoLogin.setFecha(Calendar.getInstance().getTime());
+       em.persist(nuevoLogin);
     }
 
 }

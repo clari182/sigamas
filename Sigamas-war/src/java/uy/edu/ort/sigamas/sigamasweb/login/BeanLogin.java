@@ -125,6 +125,7 @@ public class BeanLogin implements Serializable {
         try {
             if (validarUsuario()) {                
                 beanSesionUsuario.setUsuarioLoggeado(loginSessionBean.obtenerUsuario(nombreUsuario));
+                loginSessionBean.agregarLogin(beanSesionUsuario.getUsuarioLoggeado());
                 return "homeClient";
             }
             return "";

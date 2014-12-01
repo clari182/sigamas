@@ -6,6 +6,7 @@
 package uy.edu.ort.sigamas.seguridad.entidades;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +16,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,6 +35,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Parcela.findByPadron", query = "SELECT p FROM Parcela p WHERE p.padron = :padron"),
     @NamedQuery(name = "Parcela.findByDepartamento", query = "SELECT p FROM Parcela p WHERE p.departamento = :departamento")})
 public class Parcela implements Serializable {
+    @OneToMany(mappedBy = "idParcela", fetch = FetchType.EAGER)
+    private List<Cultivo> cultivoList;
     @JoinColumn(name = "id_cuenta", referencedColumnName = "id_cuenta")
     @ManyToOne(fetch = FetchType.EAGER)
     private Cuenta idCuenta;
@@ -126,6 +131,15 @@ public class Parcela implements Serializable {
 
     public void setIdCuenta(Cuenta idCuenta) {
         this.idCuenta = idCuenta;
+    }
+
+    @XmlTransient
+    public List<Cultivo> getCultivoList() {
+        return cultivoList;
+    }
+
+    public void setCultivoList(List<Cultivo> cultivoList) {
+        this.cultivoList = cultivoList;
     }
     
 }

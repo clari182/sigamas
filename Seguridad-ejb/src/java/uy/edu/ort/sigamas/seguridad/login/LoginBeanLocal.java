@@ -21,5 +21,7 @@ public interface LoginBeanLocal {
     boolean verificarUsuario(String nombreUsuario, String claveUsuario) throws ClaveInvalidaException, UsuarioInvalidoException;
 
     Usuario obtenerUsuario(String nombreUsuario) throws UsuarioInvalidoException;
+
+    void agregarLogin(Usuario usuarioLoggeado);
     
 }
