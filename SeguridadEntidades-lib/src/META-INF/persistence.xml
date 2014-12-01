@@ -9,6 +9,8 @@
     <class>uy.edu.ort.sigamas.seguridad.entidades.Parcela</class>
     <class>uy.edu.ort.sigamas.seguridad.entidades.Departamento</class>
     <class>uy.edu.ort.sigamas.seguridad.entidades.Cultivo</class>
+    <class>uy.edu.ort.sigamas.seguridad.entidades.Notificacion</class>
+    <class>uy.edu.ort.sigamas.seguridad.entidades.TipoNotificacion</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sigamas?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
