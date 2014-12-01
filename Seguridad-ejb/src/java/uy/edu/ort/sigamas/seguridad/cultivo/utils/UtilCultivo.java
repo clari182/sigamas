@@ -5,9 +5,15 @@
  */
 package uy.edu.ort.sigamas.seguridad.cultivo.utils;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NamedQuery;
+import javax.persistence.Query;
+import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.entidades.Cultivo;
+//import uy.edu.ort.sigamas.seguridad.entidades.Cultivo;
 import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
 
 /**
@@ -26,6 +32,28 @@ public class UtilCultivo {
 
     public static void modificarCultivo(EntityManager em, String nombre) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public static List<Cultivo> obtenerCultivos(EntityManager em, Cuenta cuentaActual) {
+       List<Parcela> parcelasCuenta = new ArrayList<>();
+       List<Cultivo> cultivosCuenta = new ArrayList<>();
+       if (cuentaActual != null){
+       Query query = em.createNamedQuery("Parcela.findByCuenta").setParameter("idCuenta", cuentaActual.getIdCuenta());
+       if (!query.getResultList().isEmpty()){
+           parcelasCuenta = query.getResultList();
+       }
+       Query qFor = em.createNamedQuery("Cultivo.findByParcela");
+       List<Cultivo> cultivosAux;
+        for (Parcela parcelaCuenta : parcelasCuenta) {
+            cultivosAux = qFor.setParameter("idParcela", parcelaCuenta.getIdParcela()).getResultList();
+            cultivosCuenta.addAll(cultivosAux);
+        }
+        return cultivosCuenta;
+       }
+       else{
+           return em.createNamedQuery("Cultivo.findAll").getResultList();
+       }
+       
     }
     
 }

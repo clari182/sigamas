@@ -29,10 +29,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Departamento.findByIdDepartamento", query = "SELECT d FROM Departamento d WHERE d.idDepartamento = :idDepartamento"),
     @NamedQuery(name = "Departamento.findByNombre", query = "SELECT d FROM Departamento d WHERE d.nombre = :nombre"),
     @NamedQuery(name = "Departamento.findByLatitud", query = "SELECT d FROM Departamento d WHERE d.latitud = :latitud"),
-    @NamedQuery(name = "Departamento.findByLongitud", query = "SELECT d FROM Departamento d WHERE d.longitud = :longitud")})
+    @NamedQuery(name = "Departamento.findByLongitud", query = "SELECT d FROM Departamento d WHERE d.longitud = :longitud"),
+    @NamedQuery(name = "Departamento.findByZoom", query = "SELECT d FROM Departamento d WHERE d.zoom = :zoom")})
 public class Departamento implements Serializable {
-    @Column(name = "zoom", length = 3)
-    private String zoom;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,6 +45,8 @@ public class Departamento implements Serializable {
     private String latitud;
     @Column(name = "longitud", length = 45)
     private String longitud;
+    @Column(name = "zoom", length = 3)
+    private String zoom;
 
     public Departamento() {
     }
@@ -91,6 +92,14 @@ public class Departamento implements Serializable {
         this.longitud = longitud;
     }
 
+    public String getZoom() {
+        return zoom;
+    }
+
+    public void setZoom(String zoom) {
+        this.zoom = zoom;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -114,14 +123,6 @@ public class Departamento implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Departamento[ idDepartamento=" + idDepartamento + " ]";
-    }
-
-    public String getZoom() {
-        return zoom;
-    }
-
-    public void setZoom(String zoom) {
-        this.zoom = zoom;
     }
     
 }

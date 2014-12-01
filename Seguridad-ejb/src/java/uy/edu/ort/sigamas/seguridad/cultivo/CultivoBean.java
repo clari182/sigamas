@@ -6,10 +6,14 @@
 package uy.edu.ort.sigamas.seguridad.cultivo;
 
 import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import uy.edu.ort.sigamas.seguridad.cultivo.utils.UtilCultivo;
+import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
+import uy.edu.ort.sigamas.seguridad.entidades.Cultivo;
 import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
 
 /**
@@ -31,5 +35,10 @@ public class CultivoBean implements CultivoBeanLocal {
     @Override
     public void modificarCultivo(String nombre){
         UtilCultivo.modificarCultivo(em, nombre);
+    }
+    
+    @Override
+    public List<Cultivo> obtenerCultivos(Cuenta cuentaActual){
+        return UtilCultivo.obtenerCultivos(em, cuentaActual);
     }
 }

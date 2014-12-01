@@ -39,7 +39,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cuenta.findByRut", query = "SELECT c FROM Cuenta c WHERE c.rut = :rut")})
 public class Cuenta implements Serializable {
     @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
-    private List<Parcela> parcelaList;
+    private List<Insumo> insumoList;
+    @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
+    private List<Campo> campoList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,6 +61,8 @@ public class Cuenta implements Serializable {
         @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", nullable = false)})
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Usuario> usuarioList;
+    @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
+    private List<Parcela> parcelaList;
 
     public Cuenta() {
     }
@@ -114,6 +118,15 @@ public class Cuenta implements Serializable {
         this.usuarioList = usuarioList;
     }
 
+    @XmlTransient
+    public List<Parcela> getParcelaList() {
+        return parcelaList;
+    }
+
+    public void setParcelaList(List<Parcela> parcelaList) {
+        this.parcelaList = parcelaList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -140,12 +153,21 @@ public class Cuenta implements Serializable {
     }
 
     @XmlTransient
-    public List<Parcela> getParcelaList() {
-        return parcelaList;
+    public List<Insumo> getInsumoList() {
+        return insumoList;
     }
 
-    public void setParcelaList(List<Parcela> parcelaList) {
-        this.parcelaList = parcelaList;
+    public void setInsumoList(List<Insumo> insumoList) {
+        this.insumoList = insumoList;
+    }
+
+    @XmlTransient
+    public List<Campo> getCampoList() {
+        return campoList;
+    }
+
+    public void setCampoList(List<Campo> campoList) {
+        this.campoList = campoList;
     }
     
 }

@@ -7,12 +7,16 @@ package uy.edu.ort.sigamas.sigamasweb.cultivo;
 
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.faces.bean.ManagedProperty;
 import uy.edu.ort.sigamas.seguridad.cultivo.CultivoBeanLocal;
 import uy.edu.ort.sigamas.seguridad.entidades.Cultivo;
+//import uy.edu.ort.sigamas.seguridad.entidades.Cultivo;
 import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
+import uy.edu.ort.sigamas.sigamasweb.login.BeanSesionUsuario;
 
 /**
  *
@@ -27,30 +31,29 @@ public class BeanCultivo {
      */
     @EJB
     private CultivoBeanLocal cultivoBeanLocal;
-    private List<Cultivo> cultivos;
+
+    @ManagedProperty(value = "#{beanSesionUsuario}")
+    private BeanSesionUsuario beanSesionUsuario;
+
+    public void setBeanSesionUsuario(BeanSesionUsuario beanSesionUsuario) {
+        this.beanSesionUsuario = beanSesionUsuario;
+    }
+
     private String nombre;
     private Date fechaInicio;
     private Parcela parcela;
-    
-    
+    private List<Cultivo> cultivos;
+
     public BeanCultivo() {
     }
 
-    /**
-     * @return the cultivos
-     */
-    public List<Cultivo> getCultivos() {
-        return cultivos;
+    @PostConstruct
+    public void init() {
+
+        //cultivos = cultivoBeanLocal.obtenerCultivos(beanSesionUsuario.getCuentaActual());
     }
 
-    /**
-     * @param cultivos the cultivos to set
-     */
-    public void setCultivos(List<Cultivo> cultivos) {
-        this.cultivos = cultivos;
-    }
-    
-    public String abrirCreacionCultivo(){
+    public String abrirCreacionCultivo() {
         return "crearCultivo";
     }
 
@@ -95,10 +98,10 @@ public class BeanCultivo {
     public void setParcela(Parcela parcela) {
         this.parcela = parcela;
     }
-    
-    public void crearCultivo(){
+
+    public void crearCultivo() {
         cultivoBeanLocal.agregarCultivo(nombre, parcela, fechaInicio);
-        
+
     }
 
     /**
@@ -114,5 +117,19 @@ public class BeanCultivo {
     public void setCultivoBeanLocal(CultivoBeanLocal cultivoBeanLocal) {
         this.cultivoBeanLocal = cultivoBeanLocal;
     }
-    
+
+    /**
+     * @return the cultivos
+     */
+    public List<Cultivo> getCultivos() {
+        return cultivos;
+    }
+
+    /**
+     * @param cultivos the cultivos to set
+     */
+    public void setCultivos(List<Cultivo> cultivos) {
+        this.cultivos = cultivos;
+    }
+
 }

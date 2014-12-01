@@ -203,12 +203,12 @@ public class BeanParcela implements Serializable {
     }
 
     //</editor-fold>
-    @PostConstruct
+    /*@PostConstruct
     public void init() {
         parcelas = parcelaBeanLocal.obtenerParcelas();
         departamentos = new ArrayList<>();
         departamentos = parcelaBeanLocal.obtenerDepartamentos();
-    }
+    }*/
 
     public void crearParcela() {
         try {
