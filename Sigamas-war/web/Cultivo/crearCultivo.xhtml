@@ -1,16 +1,52 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../Templates/topHeaderTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+    <ui:define name="content">
+        <h:form id="form">   
+            <p:breadCrumb id="mainBreadCrumb">
+                <p:menuitem value="Home" outcome="homeClient"/>                 
+                <p:menuitem value="Creación de cultivo" outcome="crearCultivo"/>                 
+            </p:breadCrumb>
+            <p:growl id="growl" sticky="true" showDetail="true"/>
+
+            <p:tabView style="margin: 0 auto; width: 60%;">
+                <p:tab id="parcela" title="Creación de un cultivo">
+                    <p:layout style="height: 100%">
+                        <p:layoutUnit position="west" style="width: 50%">
+                            <p:messages />
+                            <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
+                                <h:outputLabel for="nombreCultivo" value="Nombre del cultivo *:" />
+                                <p:inputText id="nombreCultivo" value="#{beanCultivo.nombre}" required="true" label="text"/>
+
+                                <h:outputLabel for="parcelaCultivo" value="Parcela" />                            
+                                <p:selectOneMenu id="parcelaCultivo" value="#{beanCultivo.parcela}" style="width:150px">
+                                    <p:ajax listener="#{beanParcela.centrarMapa}" event="change" update="mapa"/>
+                                    <f:selectItem itemLabel="Seleccionar parcela" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems value="#{beanParcela.parcelas}" var="parcela" itemValue="#{parcela.idParcela}" itemLabel="#{parcela.nombre} #{parcela.padron}"/>
+                                </p:selectOneMenu>
+                                <h:outputLabel for="popup" value="Fecha de inicio: *"/>
+                               <p:calendar id="popup" value="#{beanCultivo.fechaInicio}" />                    
+
+                                <p:commandButton value="Guardar" action="#{beanCultivo.crearCultivo}"/>
+                            </h:panelGrid>                    
+                        </p:layoutUnit>
+                        <p:layoutUnit position="center" style="width:50%">
+                            <p:gmap id="mapa" center="#{beanParcela.actualLatitud}, #{beanParcela.actualLongitud}" zoom="#{beanParcela.actualZoom}" type="HYBRID" style="width:600px;height:400px" widgetVar="#{beanParcela.mapModel}" model="#{beanParcela.mapModel}"/>
+                        </p:layoutUnit>
+
+                    </p:layout>
+                </p:tab>   
+
+            </p:tabView>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
