@@ -5,7 +5,13 @@
  */
 package uy.edu.ort.sigamas.seguridad.notificacion;
 
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import uy.edu.ort.sigamas.seguridad.entidades.Notificacion;
+import uy.edu.ort.sigamas.seguridad.entidades.TipoNotificacion;
+import uy.edu.ort.sigamas.seguridad.notificacion.utils.UtilNotificacion;
 
 /**
  *
@@ -14,6 +20,31 @@ import javax.ejb.Stateless;
 @Stateless
 public class NotificacionBean implements NotificacionBeanLocal {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @PersistenceContext(unitName = "Seguridad-PU")
+    private EntityManager em;
+
+    @Override
+    public Notificacion agregarNotificacion(String mensaje, TipoNotificacion tipoNotificacion, int anterioridad_dias) {
+        return UtilNotificacion.agregarNotificacion(em, mensaje, tipoNotificacion, anterioridad_dias);
+    }
+
+    @Override
+    public List<Notificacion> obtenerNotificacionesTarea() {
+        return UtilNotificacion.obtenerNotificacionesTarea(em);
+    }
+
+    @Override
+    public List<Notificacion> obtenerNotificacionesManoObra() {
+        return UtilNotificacion.obtenerNotificacionesManoObra(em);
+    }
+
+    @Override
+    public List<Notificacion> obtenerNotificacionesMaquinaria() {
+        return UtilNotificacion.obtenerNotificaconesMaquinaria(em);
+    }
+
+    @Override
+    public List<Notificacion> obtenerNotificacionesMaterial() {
+        return UtilNotificacion.obtenerNotificacionesMaterial(em);
+    }
 }

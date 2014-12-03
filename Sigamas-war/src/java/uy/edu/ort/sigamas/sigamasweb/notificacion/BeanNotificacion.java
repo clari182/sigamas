@@ -6,6 +6,7 @@
 package uy.edu.ort.sigamas.sigamasweb.notificacion;
 
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
@@ -26,19 +27,20 @@ public class BeanNotificacion {
     private String mensaje;
     private int anterioridad_dias;
     private TipoNotificacion tipoNotificacion;
-    
+    private String destino;
+
     private List<Notificacion> notificacionesTareas;
     private List<Notificacion> notificacionesMaquinarias;
     private List<Notificacion> notificacionesManoObra;
     private List<Notificacion> notificacionesMateriales;
-    
-    
+
     /**
      * Creates a new instance of BeanNotificacion
      */
     public BeanNotificacion() {
     }
 
+// <editor-fold defaultstate="collapsed" desc="Gets y Sets">
     /**
      * @return the notificacionBeanLocal
      */
@@ -150,5 +152,45 @@ public class BeanNotificacion {
     public void setNotificacionesMateriales(List<Notificacion> notificacionesMateriales) {
         this.notificacionesMateriales = notificacionesMateriales;
     }
+
+    /**
+     * @return the destino
+     */
+    public String getDestino() {
+        return destino;
+    }
+
+    /**
+     * @param destino the destino to set
+     */
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
+// </editor-fold>
+
+    public void agregarNotificacion() {
+        Notificacion nuevaNotificacion = notificacionBeanLocal.agregarNotificacion(mensaje, tipoNotificacion, anterioridad_dias);
+        switch (destino) {
+            case "tarea":
+                notificacionesTareas.add(nuevaNotificacion);
+                break;
+            case "manoObra":
+                notificacionesManoObra.add(nuevaNotificacion);
+                break;
+            case "maquinaria":
+                notificacionesMaquinarias.add(nuevaNotificacion);
+                break;
+            case "material":
+                notificacionesMateriales.add(nuevaNotificacion);
+                break;
+        }
+    }
     
+    @PostConstruct
+    public void init() {
+        notificacionesTareas = notificacionBeanLocal.obtenerNotificacionesTarea();
+        notificacionesManoObra = notificacionBeanLocal.obtenerNotificacionesManoObra();
+        notificacionesMaquinarias = notificacionBeanLocal.obtenerNotificacionesMaquinaria();
+        notificacionesMateriales = notificacionBeanLocal.obtenerNotificacionesMaterial();
+    }
 }

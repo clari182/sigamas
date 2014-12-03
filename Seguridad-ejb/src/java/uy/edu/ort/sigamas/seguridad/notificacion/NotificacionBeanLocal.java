@@ -5,7 +5,10 @@
  */
 package uy.edu.ort.sigamas.seguridad.notificacion;
 
+import java.util.List;
 import javax.ejb.Local;
+import uy.edu.ort.sigamas.seguridad.entidades.Notificacion;
+import uy.edu.ort.sigamas.seguridad.entidades.TipoNotificacion;
 
 /**
  *
@@ -13,5 +16,15 @@ import javax.ejb.Local;
  */
 @Local
 public interface NotificacionBeanLocal {
+
+    Notificacion agregarNotificacion(String mensaje, TipoNotificacion tipoNotificacion, int anterioridad_dias);
+
+    List<Notificacion> obtenerNotificacionesTarea();
+
+    List<Notificacion> obtenerNotificacionesManoObra();
+
+    List<Notificacion> obtenerNotificacionesMaquinaria();
+
+    List<Notificacion> obtenerNotificacionesMaterial();
     
 }

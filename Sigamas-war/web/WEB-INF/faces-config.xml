@@ -35,6 +35,11 @@
             <redirect/>
         
         </navigation-case>
+         <navigation-case>
+            <from-outcome>administracion</from-outcome>
+            <to-view-id>/Administracion/administracion.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
         <navigation-case>
             <from-outcome>homeClient</from-outcome>
             <to-view-id>/Home/homeClient.xhtml</to-view-id>
@@ -58,7 +63,7 @@
             <from-outcome>crearCultivo</from-outcome>
             <to-view-id>/Cultivo/crearCultivo.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>
+        </navigation-case>       
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/Usuario/perfil.xhtml</from-view-id>
