@@ -10,7 +10,7 @@
 
     <ui:define name="content">
         <h:form id="form">             
-             <p:breadCrumb id="mainBreadCrumb">
+            <p:breadCrumb id="mainBreadCrumb">
                 <p:menuitem value="Home" outcome="homeClient"/>                 
                 <p:menuitem value="Administración" outcome="administracion"/>                 
             </p:breadCrumb>
@@ -22,17 +22,20 @@
                 <p:tab title="Recetas personalizadas">
                 </p:tab>
                 <p:tab title="Alertas y Notificaciones">
-                    
+
                     <h2>Alertas y Notificaciones</h2>
                     <p:separator style="height: 5px"/>
-                    
+
                     <h3>CRONOGRAMA - Tareas</h3>
 
                     <p:dataTable id="tabla-notificaciones-tarea" 
                                  var="notificacion" 
                                  value="#{beanNotificacion.notificacionesTareas}" 
                                  selectionMode="single"                                     
-                                 rowKey="#{notificacion.idNotificacion}">
+                                 rowKey="#{notificacion.idNotificacion}"
+                                 selection="#{beanNotificacion.notificacionSeleccionada}">
+                        <p:ajax event="rowSelect" listener="#{beanNotificacion.seleccionNotificacion}" />
+                        <p:ajax event="rowUnselect" listener="#{beanNotificacion.deseleccionNotificacion}" />
                         <p:column headerText="Tipo de notificacion">
                             <h:outputText value="#{notificacion.idTipoNotificacion.nombre}" />
                         </p:column>
@@ -56,7 +59,10 @@
                                  var="notificacion" 
                                  value="#{beanNotificacion.notificacionesMaquinarias}" 
                                  selectionMode="single"                                     
-                                 rowKey="#{notificacion.idNotificacion}">
+                                 rowKey="#{notificacion.idNotificacion}"
+                                 selection="#{beanNotificacion.notificacionSeleccionada}">
+                        <p:ajax event="rowSelect" listener="#{beanNotificacion.seleccionNotificacion}" />
+                        <p:ajax event="rowUnselect" listener="#{beanNotificacion.deseleccionNotificacion}" />
                         <p:column headerText="Tipo de notificacion">
                             <h:outputText value="#{notificacion.idTipoNotificacion.nombre}" />
                         </p:column>
@@ -81,7 +87,10 @@
                                  var="notificacion" 
                                  value="#{beanNotificacion.notificacionesManoObra}" 
                                  selectionMode="single"                                     
-                                 rowKey="#{notificacion.idNotificacion}">
+                                 rowKey="#{notificacion.idNotificacion}"
+                                 selection="#{beanNotificacion.notificacionSeleccionada}">
+                        <p:ajax event="rowSelect" listener="#{beanNotificacion.seleccionNotificacion}" />
+                        <p:ajax event="rowUnselect" listener="#{beanNotificacion.deseleccionNotificacion}" />
                         <p:column headerText="Tipo de notificacion">
                             <h:outputText value="#{notificacion.idTipoNotificacion.nombre}" />
                         </p:column>
@@ -99,12 +108,15 @@
                     <p:separator/>
                     <br/>
                     <h3>PRESUPUESTO - Materiales</h3>
-                    
+
                     <p:dataTable id="tabla-notificaciones-material" 
                                  var="notificacion" 
                                  value="#{beanNotificacion.notificacionesMateriales}" 
                                  selectionMode="single"                                     
-                                 rowKey="#{notificacion.idNotificacion}">
+                                 rowKey="#{notificacion.idNotificacion}"
+                                 selection="#{beanNotificacion.notificacionSeleccionada}">
+                        <p:ajax event="rowSelect" listener="#{beanNotificacion.seleccionNotificacion}" />
+                        <p:ajax event="rowUnselect" listener="#{beanNotificacion.deseleccionNotificacion}" />
                         <p:column headerText="Tipo de notificacion">
                             <h:outputText value="#{notificacion.idTipoNotificacion.nombre}" />
                         </p:column>
@@ -118,7 +130,25 @@
                         </p:column>
 
                     </p:dataTable>    
+                    <p:dialog header="Visualización Notificación" widgetVar="detalleNotificacion" modal="true" minHeight="215">
+                        <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
+                            <h:outputLabel for="tipoNotificacion" value="Tipo de notificación:" />
+                            <p:selectOneMenu id="car" >                               
+                                <f:selectItems value="#{beanNotificacion.tiposNotificacion}" var="tipoN" itemLabel="#{tipoN.nombre}" itemValue="#{tipoN.idTipoNotificacion}" />
+                            </p:selectOneMenu>
 
+                            <h:outputLabel for="detalleMensaje" value="Mensaje: "/>
+                            <p:inputText value="#{beanNotificacion.notificacionSeleccionada.mensaje}"/>
+
+                            <h:outputLabel for="anterioridadDias" value="Anterioridad"/>
+                            <h:selectOneMenu >
+                                <f:selectItem itemLabel="El día del evento" itemValue="0"/>
+                                <f:selectItem itemLabel="5 días antes del evento" itemValue="5"/>
+                                <f:selectItem itemLabel="10 días antes del evento" itemValue="10"/>
+                                <f:selectItem itemLabel="15 días antes del evento" itemValue="15"/>
+                            </h:selectOneMenu>
+                        </h:panelGrid>
+                    </p:dialog> 
                 </p:tab>
             </p:tabView>           
         </h:form>

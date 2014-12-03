@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import org.primefaces.context.RequestContext;
 import uy.edu.ort.sigamas.seguridad.entidades.Notificacion;
 import uy.edu.ort.sigamas.seguridad.entidades.TipoNotificacion;
 import uy.edu.ort.sigamas.seguridad.notificacion.NotificacionBeanLocal;
@@ -24,6 +25,9 @@ public class BeanNotificacion {
 
     @EJB
     private NotificacionBeanLocal notificacionBeanLocal;
+
+    private Notificacion notificacionSeleccionada;
+
     private String mensaje;
     private int anterioridad_dias;
     private TipoNotificacion tipoNotificacion;
@@ -33,6 +37,7 @@ public class BeanNotificacion {
     private List<Notificacion> notificacionesMaquinarias;
     private List<Notificacion> notificacionesManoObra;
     private List<Notificacion> notificacionesMateriales;
+    private List<TipoNotificacion> tiposNotificacion;
 
     /**
      * Creates a new instance of BeanNotificacion
@@ -166,8 +171,36 @@ public class BeanNotificacion {
     public void setDestino(String destino) {
         this.destino = destino;
     }
-// </editor-fold>
 
+    /**
+     * @return the notificacionSeleccionada
+     */
+    public Notificacion getNotificacionSeleccionada() {
+        return notificacionSeleccionada;
+    }
+
+    /**
+     * @param notificacionSeleccionada the notificacionSeleccionada to set
+     */
+    public void setNotificacionSeleccionada(Notificacion notificacionSeleccionada) {
+        this.notificacionSeleccionada = notificacionSeleccionada;
+    }
+
+    /**
+     * @return the tiposNotificacion
+     */
+    public List<TipoNotificacion> getTiposNotificacion() {
+        return tiposNotificacion;
+    }
+
+    /**
+     * @param tiposNotificacion the tiposNotificacion to set
+     */
+    public void setTiposNotificacion(List<TipoNotificacion> tiposNotificacion) {
+        this.tiposNotificacion = tiposNotificacion;
+    }
+
+// </editor-fold>
     public void agregarNotificacion() {
         Notificacion nuevaNotificacion = notificacionBeanLocal.agregarNotificacion(mensaje, tipoNotificacion, anterioridad_dias);
         switch (destino) {
@@ -185,12 +218,22 @@ public class BeanNotificacion {
                 break;
         }
     }
-    
+
     @PostConstruct
     public void init() {
         notificacionesTareas = notificacionBeanLocal.obtenerNotificacionesTarea();
         notificacionesManoObra = notificacionBeanLocal.obtenerNotificacionesManoObra();
         notificacionesMaquinarias = notificacionBeanLocal.obtenerNotificacionesMaquinaria();
         notificacionesMateriales = notificacionBeanLocal.obtenerNotificacionesMaterial();
+        tiposNotificacion = notificacionBeanLocal.obtenerTiposNotificacion();
     }
+
+    public void seleccionNotificacion() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.execute("PF('detalleNotificacion').show();");
+    }
+
+    public void deseleccionNotificacion() {
+    }
+
 }

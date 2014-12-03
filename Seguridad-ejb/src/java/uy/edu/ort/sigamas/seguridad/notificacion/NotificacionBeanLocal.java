@@ -26,5 +26,7 @@ public interface NotificacionBeanLocal {
     List<Notificacion> obtenerNotificacionesMaquinaria();
 
     List<Notificacion> obtenerNotificacionesMaterial();
+
+    List<TipoNotificacion> obtenerTiposNotificacion();
     
 }

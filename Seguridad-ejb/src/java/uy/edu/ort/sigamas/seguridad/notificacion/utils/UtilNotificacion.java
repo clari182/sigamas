@@ -45,5 +45,9 @@ public class UtilNotificacion {
         Query notificaciones = em.createNamedQuery("Notificacion.findByTipo").setParameter("tipo", 4);
         return notificaciones.getResultList();
     }
+
+    public static List<TipoNotificacion> obtenerTiposNotificacion(EntityManager em) {
+        return em.createNamedQuery("TipoNotificacion.findAll").getResultList();
+    }
     
 }

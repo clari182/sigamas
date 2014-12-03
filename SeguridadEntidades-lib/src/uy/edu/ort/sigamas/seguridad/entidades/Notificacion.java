@@ -31,8 +31,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Notificacion.findAll", query = "SELECT n FROM Notificacion n"),
     @NamedQuery(name = "Notificacion.findByIdNotificacion", query = "SELECT n FROM Notificacion n WHERE n.idNotificacion = :idNotificacion"),
     @NamedQuery(name = "Notificacion.findByMensaje", query = "SELECT n FROM Notificacion n WHERE n.mensaje = :mensaje"),
-    @NamedQuery(name = "Notificacion.findByAnterioridadDias", query = "SELECT n FROM Notificacion n WHERE n.anterioridadDias = :anterioridadDias")})
+    @NamedQuery(name = "Notificacion.findByAnterioridadDias", query = "SELECT n FROM Notificacion n WHERE n.anterioridadDias = :anterioridadDias"),
+    @NamedQuery(name = "Notificacion.findByTipo", query = "SELECT n FROM Notificacion n WHERE n.tipo = :tipo")})
 public class Notificacion implements Serializable {
+    @Column(name = "tipo")
+    private Integer tipo;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -109,6 +112,14 @@ public class Notificacion implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Notificacion[ idNotificacion=" + idNotificacion + " ]";
+    }
+
+    public Integer getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
     }
     
 }

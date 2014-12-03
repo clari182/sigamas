@@ -47,4 +47,9 @@ public class NotificacionBean implements NotificacionBeanLocal {
     public List<Notificacion> obtenerNotificacionesMaterial() {
         return UtilNotificacion.obtenerNotificacionesMaterial(em);
     }
+    
+    @Override
+    public List<TipoNotificacion> obtenerTiposNotificacion(){
+        return UtilNotificacion.obtenerTiposNotificacion(em);
+    }
 }
