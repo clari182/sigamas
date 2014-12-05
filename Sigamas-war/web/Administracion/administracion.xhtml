@@ -14,7 +14,7 @@
                 <p:menuitem value="Home" outcome="homeClient"/>                 
                 <p:menuitem value="Administración" outcome="administracion"/>                 
             </p:breadCrumb>
-            <p:tabView style="border: none" orientation="left">
+            <p:tabView id="tabViewAdministracion" style="border: none" orientation="left">
                 <p:tab title="Insumos">                        
                 </p:tab>
                 <p:tab title="Campos personalizados">
@@ -34,7 +34,7 @@
                                  selectionMode="single"                                     
                                  rowKey="#{notificacion.idNotificacion}"
                                  selection="#{beanNotificacion.notificacionSeleccionada}">
-                        <p:ajax event="rowSelect" listener="#{beanNotificacion.seleccionNotificacion}" />
+                        <p:ajax event="rowSelect" listener="#{beanNotificacion.seleccionNotificacion}" update=":form:tabViewAdministracion:detalleNotificacion"/>
                         <p:ajax event="rowUnselect" listener="#{beanNotificacion.deseleccionNotificacion}" />
                         <p:column headerText="Tipo de notificacion">
                             <h:outputText value="#{notificacion.idTipoNotificacion.nombre}" />
@@ -61,7 +61,7 @@
                                  selectionMode="single"                                     
                                  rowKey="#{notificacion.idNotificacion}"
                                  selection="#{beanNotificacion.notificacionSeleccionada}">
-                        <p:ajax event="rowSelect" listener="#{beanNotificacion.seleccionNotificacion}" />
+                        <p:ajax event="rowSelect" listener="#{beanNotificacion.seleccionNotificacion}" update=":form:tabViewAdministracion:detalleNotificacion"/>
                         <p:ajax event="rowUnselect" listener="#{beanNotificacion.deseleccionNotificacion}" />
                         <p:column headerText="Tipo de notificacion">
                             <h:outputText value="#{notificacion.idTipoNotificacion.nombre}" />
@@ -130,10 +130,10 @@
                         </p:column>
 
                     </p:dataTable>    
-                    <p:dialog header="Visualización Notificación" widgetVar="detalleNotificacion" modal="true" minHeight="215">
-                        <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
+                    <p:dialog widgetVar="dialogNotificacion" header="Visualización Notificación" modal="true" minHeight="215">
+                        <h:panelGrid  id="detalleNotificacion" columns="2" columnClasses="column" cellpadding="5">
                             <h:outputLabel for="tipoNotificacion" value="Tipo de notificación:" />
-                            <p:selectOneMenu id="car" >                               
+                            <p:selectOneMenu id="tipoNotificacion" >                               
                                 <f:selectItems value="#{beanNotificacion.tiposNotificacion}" var="tipoN" itemLabel="#{tipoN.nombre}" itemValue="#{tipoN.idTipoNotificacion}" />
                             </p:selectOneMenu>
 

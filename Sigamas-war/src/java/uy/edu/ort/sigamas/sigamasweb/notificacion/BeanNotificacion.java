@@ -5,12 +5,15 @@
  */
 package uy.edu.ort.sigamas.sigamasweb.notificacion;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.SelectableDataModel;
 import uy.edu.ort.sigamas.seguridad.entidades.Notificacion;
 import uy.edu.ort.sigamas.seguridad.entidades.TipoNotificacion;
 import uy.edu.ort.sigamas.seguridad.notificacion.NotificacionBeanLocal;
@@ -21,7 +24,7 @@ import uy.edu.ort.sigamas.seguridad.notificacion.NotificacionBeanLocal;
  */
 @Named(value = "beanNotificacion")
 @Dependent
-public class BeanNotificacion {
+public class BeanNotificacion{
 
     @EJB
     private NotificacionBeanLocal notificacionBeanLocal;
@@ -228,9 +231,10 @@ public class BeanNotificacion {
         tiposNotificacion = notificacionBeanLocal.obtenerTiposNotificacion();
     }
 
-    public void seleccionNotificacion() {
+    public void seleccionNotificacion(SelectEvent event) {
+        notificacionSeleccionada = (Notificacion)event.getObject();
         RequestContext context = RequestContext.getCurrentInstance();
-        context.execute("PF('detalleNotificacion').show();");
+        context.execute("PF('dialogNotificacion').show();");
     }
 
     public void deseleccionNotificacion() {
