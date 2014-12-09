@@ -28,5 +28,7 @@ public interface NotificacionBeanLocal {
     List<Notificacion> obtenerNotificacionesMaterial();
 
     List<TipoNotificacion> obtenerTiposNotificacion();
+
+    void modificarNotificacion(Notificacion notificacionSeleccionada);
     
 }

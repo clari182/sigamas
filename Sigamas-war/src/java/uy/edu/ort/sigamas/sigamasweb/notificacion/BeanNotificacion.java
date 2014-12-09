@@ -11,6 +11,11 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.RequestScoped;
+import javax.faces.view.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.SelectableDataModel;
@@ -23,8 +28,8 @@ import uy.edu.ort.sigamas.seguridad.notificacion.NotificacionBeanLocal;
  * @author Pikachuss
  */
 @Named(value = "beanNotificacion")
-@Dependent
-public class BeanNotificacion{
+@ViewScoped
+public class BeanNotificacion implements Serializable {
 
     @EJB
     private NotificacionBeanLocal notificacionBeanLocal;
@@ -46,6 +51,16 @@ public class BeanNotificacion{
      * Creates a new instance of BeanNotificacion
      */
     public BeanNotificacion() {
+    }
+
+    @PostConstruct
+    public void init() {
+        notificacionSeleccionada = new Notificacion();
+        notificacionesTareas = notificacionBeanLocal.obtenerNotificacionesTarea();
+        notificacionesManoObra = notificacionBeanLocal.obtenerNotificacionesManoObra();
+        notificacionesMaquinarias = notificacionBeanLocal.obtenerNotificacionesMaquinaria();
+        notificacionesMateriales = notificacionBeanLocal.obtenerNotificacionesMaterial();
+        tiposNotificacion = notificacionBeanLocal.obtenerTiposNotificacion();
     }
 
 // <editor-fold defaultstate="collapsed" desc="Gets y Sets">
@@ -222,22 +237,20 @@ public class BeanNotificacion{
         }
     }
 
-    @PostConstruct
-    public void init() {
-        notificacionesTareas = notificacionBeanLocal.obtenerNotificacionesTarea();
-        notificacionesManoObra = notificacionBeanLocal.obtenerNotificacionesManoObra();
-        notificacionesMaquinarias = notificacionBeanLocal.obtenerNotificacionesMaquinaria();
-        notificacionesMateriales = notificacionBeanLocal.obtenerNotificacionesMaterial();
-        tiposNotificacion = notificacionBeanLocal.obtenerTiposNotificacion();
-    }
-
     public void seleccionNotificacion(SelectEvent event) {
-        notificacionSeleccionada = (Notificacion)event.getObject();
+        notificacionSeleccionada = (Notificacion) event.getObject();          
         RequestContext context = RequestContext.getCurrentInstance();
         context.execute("PF('dialogNotificacion').show();");
+        RequestContext.getCurrentInstance().update("detalleNotificacion");
     }
 
     public void deseleccionNotificacion() {
+    }
+
+    public void modificarNotificacion() {
+        if (notificacionSeleccionada != null) {
+            notificacionBeanLocal.modificarNotificacion(notificacionSeleccionada);
+        }
     }
 
 }

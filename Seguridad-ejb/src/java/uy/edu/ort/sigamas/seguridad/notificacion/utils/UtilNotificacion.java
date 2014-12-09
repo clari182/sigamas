@@ -49,5 +49,9 @@ public class UtilNotificacion {
     public static List<TipoNotificacion> obtenerTiposNotificacion(EntityManager em) {
         return em.createNamedQuery("TipoNotificacion.findAll").getResultList();
     }
+
+    public static void modificarNotificacion(EntityManager em, Notificacion notificacionSeleccionada) {
+        em.persist(notificacionSeleccionada);
+    }
     
 }

@@ -22,12 +22,9 @@
                 <p:tab title="Recetas personalizadas">
                 </p:tab>
                 <p:tab title="Alertas y Notificaciones">
-
                     <h2>Alertas y Notificaciones</h2>
                     <p:separator style="height: 5px"/>
-
                     <h3>CRONOGRAMA - Tareas</h3>
-
                     <p:dataTable id="tabla-notificaciones-tarea" 
                                  var="notificacion" 
                                  value="#{beanNotificacion.notificacionesTareas}" 
@@ -39,17 +36,14 @@
                         <p:column headerText="Tipo de notificacion">
                             <h:outputText value="#{notificacion.idTipoNotificacion.nombre}" />
                         </p:column>
-
                         <p:column headerText="Mensaje">
                             <h:outputText value="#{notificacion.mensaje}" />
                         </p:column>
-
                         <p:column headerText="Cuando">
                             <h:outputText value="#{notificacion.anterioridadDias} días antes del evento" />
                         </p:column>
 
                     </p:dataTable> 
-
                     <br/>
                     <p:separator/>
                     <br/>
@@ -61,7 +55,8 @@
                                  selectionMode="single"                                     
                                  rowKey="#{notificacion.idNotificacion}"
                                  selection="#{beanNotificacion.notificacionSeleccionada}">
-                        <p:ajax event="rowSelect" listener="#{beanNotificacion.seleccionNotificacion}" update=":form:tabViewAdministracion:detalleNotificacion"/>
+                        <p:ajax event="rowSelect" listener="#{beanNotificacion.seleccionNotificacion}"
+                                update=":form:tabViewAdministracion:detalleNotificacion"/>
                         <p:ajax event="rowUnselect" listener="#{beanNotificacion.deseleccionNotificacion}" />
                         <p:column headerText="Tipo de notificacion">
                             <h:outputText value="#{notificacion.idTipoNotificacion.nombre}" />
@@ -76,20 +71,15 @@
                         </p:column>
 
                     </p:dataTable>  
-
-                    <br/>
-                    <p:separator/>
-                    <br/>
-
+                    <br/><p:separator/><br/>
                     <h3>PRESUPUESTO - Mano de Obra</h3>
-
                     <p:dataTable id="tabla-notificaciones-mano-obra" 
                                  var="notificacion" 
                                  value="#{beanNotificacion.notificacionesManoObra}" 
                                  selectionMode="single"                                     
                                  rowKey="#{notificacion.idNotificacion}"
                                  selection="#{beanNotificacion.notificacionSeleccionada}">
-                        <p:ajax event="rowSelect" listener="#{beanNotificacion.seleccionNotificacion}" />
+                        <p:ajax event="rowSelect" listener="#{beanNotificacion.seleccionNotificacion}" update=":form:tabViewAdministracion:detalleNotificacion"/>
                         <p:ajax event="rowUnselect" listener="#{beanNotificacion.deseleccionNotificacion}" />
                         <p:column headerText="Tipo de notificacion">
                             <h:outputText value="#{notificacion.idTipoNotificacion.nombre}" />
@@ -104,18 +94,15 @@
                         </p:column>
 
                     </p:dataTable>
-                    <br/>
-                    <p:separator/>
-                    <br/>
+                    <br/><p:separator/><br/>
                     <h3>PRESUPUESTO - Materiales</h3>
-
                     <p:dataTable id="tabla-notificaciones-material" 
                                  var="notificacion" 
                                  value="#{beanNotificacion.notificacionesMateriales}" 
                                  selectionMode="single"                                     
                                  rowKey="#{notificacion.idNotificacion}"
                                  selection="#{beanNotificacion.notificacionSeleccionada}">
-                        <p:ajax event="rowSelect" listener="#{beanNotificacion.seleccionNotificacion}" />
+                        <p:ajax event="rowSelect" listener="#{beanNotificacion.seleccionNotificacion}" update=":form:tabViewAdministracion:detalleNotificacion"/>
                         <p:ajax event="rowUnselect" listener="#{beanNotificacion.deseleccionNotificacion}" />
                         <p:column headerText="Tipo de notificacion">
                             <h:outputText value="#{notificacion.idTipoNotificacion.nombre}" />
@@ -133,20 +120,24 @@
                     <p:dialog widgetVar="dialogNotificacion" header="Visualización Notificación" modal="true" minHeight="215">
                         <h:panelGrid  id="detalleNotificacion" columns="2" columnClasses="column" cellpadding="5">
                             <h:outputLabel for="tipoNotificacion" value="Tipo de notificación:" />
-                            <p:selectOneMenu id="tipoNotificacion" >                               
-                                <f:selectItems value="#{beanNotificacion.tiposNotificacion}" var="tipoN" itemLabel="#{tipoN.nombre}" itemValue="#{tipoN.idTipoNotificacion}" />
+                            <p:selectOneMenu id="tipoNotificacion" value="#{beanNotificacion.notificacionSeleccionada.idTipoNotificacion.idTipoNotificacion}" rendered="#{not empty beanNotificacion.notificacionSeleccionada.idTipoNotificacion}">                               
+                                <f:selectItems value="#{beanNotificacion.tiposNotificacion}" 
+                                               var="tipoN"                                            
+                                               itemLabel="#{tipoN.nombre}" 
+                                               itemValue="#{tipoN.idTipoNotificacion}" />
                             </p:selectOneMenu>
 
                             <h:outputLabel for="detalleMensaje" value="Mensaje: "/>
-                            <p:inputText value="#{beanNotificacion.notificacionSeleccionada.mensaje}"/>
+                            <p:inputText value="#{beanNotificacion.notificacionSeleccionada.mensaje}" rendered="#{not empty beanNotificacion.notificacionSeleccionada}"/>
 
                             <h:outputLabel for="anterioridadDias" value="Anterioridad"/>
-                            <h:selectOneMenu >
+                            <p:selectOneMenu value="#{beanNotificacion.notificacionSeleccionada.anterioridadDias}" rendered="#{not empty beanNotificacion.notificacionSeleccionada}">        
                                 <f:selectItem itemLabel="El día del evento" itemValue="0"/>
                                 <f:selectItem itemLabel="5 días antes del evento" itemValue="5"/>
                                 <f:selectItem itemLabel="10 días antes del evento" itemValue="10"/>
                                 <f:selectItem itemLabel="15 días antes del evento" itemValue="15"/>
-                            </h:selectOneMenu>
+                            </p:selectOneMenu>
+                            <p:commandButton value="Guardar" action="#{beanNotificacion.modificarNotificacion}"/>
                         </h:panelGrid>
                     </p:dialog> 
                 </p:tab>

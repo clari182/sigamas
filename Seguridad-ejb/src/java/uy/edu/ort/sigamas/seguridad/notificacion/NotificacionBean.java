@@ -52,4 +52,9 @@ public class NotificacionBean implements NotificacionBeanLocal {
     public List<TipoNotificacion> obtenerTiposNotificacion(){
         return UtilNotificacion.obtenerTiposNotificacion(em);
     }
+    
+    @Override
+    public void modificarNotificacion(Notificacion notificacionSeleccionada){
+        UtilNotificacion.modificarNotificacion(em, notificacionSeleccionada);
+    }
 }
