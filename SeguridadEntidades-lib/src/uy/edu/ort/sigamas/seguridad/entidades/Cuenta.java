@@ -39,6 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cuenta.findByRut", query = "SELECT c FROM Cuenta c WHERE c.rut = :rut")})
 public class Cuenta implements Serializable {
     @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
+    private List<Login> loginList;
+    @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
     private List<Insumo> insumoList;
     @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
     private List<Campo> campoList;
@@ -168,6 +170,15 @@ public class Cuenta implements Serializable {
 
     public void setCampoList(List<Campo> campoList) {
         this.campoList = campoList;
+    }
+
+    @XmlTransient
+    public List<Login> getLoginList() {
+        return loginList;
+    }
+
+    public void setLoginList(List<Login> loginList) {
+        this.loginList = loginList;
     }
     
 }

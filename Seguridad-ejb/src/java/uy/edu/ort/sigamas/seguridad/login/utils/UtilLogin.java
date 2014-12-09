@@ -5,12 +5,14 @@
  */
 package uy.edu.ort.sigamas.seguridad.login.utils;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
+import uy.edu.ort.sigamas.seguridad.entidades.Login;
 import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
 
 import uy.edu.ort.sigamas.seguridad.login.excepciones.ClaveInvalidaException;
@@ -43,5 +45,13 @@ public class UtilLogin {
     
     private static List<Usuario> obtenerUsuarios(EntityManager em, String nombreUsuario){
         return em.createNamedQuery("Usuario.findByNombreUsuario").setParameter("nombreUsuario", nombreUsuario).getResultList();                
+    }
+
+    public static void registrarLogin(EntityManager em, Usuario usuario, Cuenta cuentaActual) {
+        Login login = new Login();
+        login.setIdUsuario(usuario);
+        login.setIdCuenta(cuentaActual);
+        login.setFecha(Calendar.getInstance().getTime());
+        em.persist(login);
     }
 }
