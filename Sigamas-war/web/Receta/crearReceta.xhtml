@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../Templates/topHeaderTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+    <ui:define name="content">
+        <h:form id="form">   
+            <p:breadCrumb id="mainBreadCrumb">
+                <p:menuitem value="Home" outcome="homeClient"/>                 
+                <p:menuitem value="Creación de receta" outcome="crearReceta"/>                 
+            </p:breadCrumb>
+            <p:growl id="growl" sticky="true" showDetail="true"/>
+            
+            <h2>Crear una nueva receta</h2>
+            <p:outputLabel value="Nombre: *" />
+            <p:inputText value="#{beanReceta.nuevoNombre}" />
+            
+            
+            
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>
