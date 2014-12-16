@@ -32,24 +32,24 @@
                                     <h:outputLabel></h:outputLabel>
 
                                     <p:panel style="width:400px;height:400px; display: inline" id="drag-tareas" header="Información sobre sus tareas">
-                                        <h:outputText id="tp" value="Usted tiene #{beanSesionUsuario.tareasPendientes} tareas pendientes:"  />
+                                        <h:outputText id="tp" value="Usted tiene #{beanSesionUsuario.tareasPendientes} tarea pendiente para el cultivo ''Cultivo Soja Canelones'':"  />
                                         <h:panelGrid columns="2" cellpadding="5">
-                                            <h:outputText value="Validar todas las tareas"/>
-                                            <p:selectBooleanCheckbox></p:selectBooleanCheckbox>
-
-                                            <p:link id="tarea1" outcome="detalleTarea" value="tarea1"/>
+                                            <p:link id="tarea1" outcome="detalleTarea" value="Aplicar Fungicida Stinger"/>
                                             <p:selectBooleanCheckbox id="tarea11" value="0" onchange="deleteTarea()">
                                                 <p:ajax update="tp" listener="#{beanSesionUsuario.validarTarea}"/>
                                             </p:selectBooleanCheckbox>
-
-                                            <p:link outcome="detalleTarea" value="tarea2"/>
-                                            <p:selectBooleanCheckbox value="0">
-                                                <p:ajax update="msg" listener="#{selectBooleanView.addMessage}" />
+                                        </h:panelGrid>
+                                        <p:separator />
+                                        <h:outputText id="tp2" value="Usted tiene #{beanSesionUsuario.tareasPendientes + 1} tareas pendientes para el cultivo ''Cultivo Trigo Canelones2'':"  />
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <p:link id="tarea2" outcome="detalleTarea" value="Aplicar INSECTICIDA Ectan"/>
+                                            <p:selectBooleanCheckbox id="tarea112" value="0" >
+                                               
                                             </p:selectBooleanCheckbox>
-                                            <p:link outcome="detalleTarea" value="tarea3"/>    
-                                            <p:selectBooleanCheckbox value="#{selectBooleanView.value2}">
-                                                <p:ajax update="msg" listener="#{selectBooleanView.addMessage}" />
-                                            </p:selectBooleanCheckbox>
+                                            <p:link id="tarea3" outcome="detalleTarea" value="Aplicar HERBICIDA Venceweed Extra 100"/>
+                                            <p:selectBooleanCheckbox id="tarea113" value="0">
+                                              
+                                            </p:selectBooleanCheckbox>                                            
                                         </h:panelGrid>
                                     </p:panel>
                                     <p:panel style="width:400px;height:400px;display: inline" id="drag-chart" header="Evolución de costos">
@@ -84,9 +84,41 @@
                                 </p:schedule>
                         </p:tab>
                         <p:tab title="Mis tareas">
-                            <h:panelGrid columns="2" cellpadding="10">
-
-                            </h:panelGrid>
+                            <p:panel header="Filtros">
+                                Filtros
+                                <p:panelGrid columns="6">
+                                    <h:outputText value="Fecha" />      
+                                    <p:selectOneMenu >
+                                        <f:selectItem itemLabel="Hoy"/>
+                                        <f:selectItem itemLabel="Esta semana"/>
+                                        <f:selectItem itemLabel="Este mes"/>
+                                    </p:selectOneMenu>
+                                    <h:outputText value="Proyecto" />      
+                                    <p:selectOneMenu >
+                                        <f:selectItem itemLabel="Cultivo Soja 1 - Artigas"/>
+                                        <f:selectItem itemLabel="Cultivo Trigo - Tacuarembo"/>                                        
+                                    </p:selectOneMenu>
+                                    <h:outputText value="Zona" />      
+                                    <p:selectOneMenu >
+                                        <f:selectItem itemLabel="Artigas"/>
+                                        <f:selectItem itemLabel="Tacuarembo"/>
+                                        <f:selectItem itemLabel="Rocha"/>
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+                            </p:panel>
+                            <p:outputPanel>
+                                <p:dataTable value="#{beanSeguimiento.tareas}" var="item">
+                                    <p:column headerText="Fecha" width="100px">
+                                        <p:calendar disabled="true" value="#{item.fechaPrevista}"/>
+                                    </p:column>
+                                    <p:column headerText="Actividad">
+                                        #{item.titulo}
+                                    </p:column>
+                                    <p:column headerText="Cultivo">
+                                        #{item.cultivo}
+                                    </p:column>
+                                </p:dataTable>
+                            </p:outputPanel>
                         </p:tab>
                         <p:tab title="Mis cultivos">
                             <p:commandButton icon="ui-icon-plus" action="#{beanCultivo.abrirCreacionCultivo}"/>
@@ -126,4 +158,3 @@
         </h:form>
     </ui:define>
 </ui:composition>
-

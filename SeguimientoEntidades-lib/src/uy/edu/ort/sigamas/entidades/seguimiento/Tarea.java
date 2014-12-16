@@ -48,6 +48,9 @@ public class Tarea implements Serializable {
     @Column(name = "titulo", nullable = false, length = 45)
     private String titulo;
     @Basic(optional = false)
+    @Column(name = "cultivo", nullable = false, length = 45)
+    private String cultivo;
+    @Basic(optional = false)
     @Column(name = "descripcion", nullable = false, length = 45)
     private String descripcion;
     @Basic(optional = false)
@@ -69,12 +72,13 @@ public class Tarea implements Serializable {
         this.idTarea = idTarea;
     }
 
-    public Tarea(Integer idTarea, String titulo, String descripcion, Date fechaPrevista, Date fechaCompletada) {
+    public Tarea(Integer idTarea, String titulo, String descripcion, Date fechaPrevista, Date fechaCompletada, String cultivo) {
         this.idTarea = idTarea;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fechaPrevista = fechaPrevista;
         this.fechaCompletada = fechaCompletada;
+        this.cultivo = cultivo;
     }
 
     public Integer getIdTarea() {
@@ -91,6 +95,14 @@ public class Tarea implements Serializable {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+    
+    public String getCultivo() {
+        return cultivo;
+    }
+
+    public void setCultivo(String cultivo) {
+        this.cultivo = cultivo;
     }
 
     public String getDescripcion() {

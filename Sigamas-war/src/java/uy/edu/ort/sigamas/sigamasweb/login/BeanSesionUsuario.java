@@ -48,7 +48,7 @@ public class BeanSesionUsuario implements Serializable {
     private int tabSelected;
     private LineChartModel lineModel1;
     private LineChartModel lineModel2;
-    private int tareasPendientes = 3;
+    private int tareasPendientes = 1;
     private ScheduleModel eventModel;
 
     @PostConstruct
@@ -110,7 +110,7 @@ public class BeanSesionUsuario implements Serializable {
         LineChartModel model = new LineChartModel();
  
         LineChartSeries series1 = new LineChartSeries();
-        series1.setLabel("Series 1");
+        series1.setLabel("Costos estimados");
  
         series1.set(1, 2);
         series1.set(2, 1);
@@ -119,7 +119,7 @@ public class BeanSesionUsuario implements Serializable {
         series1.set(5, 8);
  
         LineChartSeries series2 = new LineChartSeries();
-        series2.setLabel("Series 2");
+        series2.setLabel("Costos reales");
  
         series2.set(1, 6);
         series2.set(2, 3);
@@ -135,7 +135,7 @@ public class BeanSesionUsuario implements Serializable {
     
     private void createLineModels() {
         setLineModel1(initLinearModel());
-        getLineModel1().setTitle("Linear Chart");
+        getLineModel1().setTitle("Estimacion costos vs Costos reales");
         getLineModel1().setLegendPosition("e");
         Axis yAxis = getLineModel1().getAxis(AxisType.Y);
         yAxis.setMin(0);
@@ -226,7 +226,7 @@ public class BeanSesionUsuario implements Serializable {
 
     public void validarTarea()
     {
-        this.tareasPendientes = 2;
+        this.tareasPendientes = 0;
     }
     
     private Calendar today() {
