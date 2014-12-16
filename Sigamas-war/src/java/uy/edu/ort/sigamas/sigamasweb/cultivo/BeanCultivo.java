@@ -5,6 +5,7 @@
  */
 package uy.edu.ort.sigamas.sigamasweb.cultivo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -12,11 +13,13 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.model.SelectItem;
 import uy.edu.ort.sigamas.seguridad.cultivo.CultivoBeanLocal;
 import uy.edu.ort.sigamas.seguridad.entidades.Cultivo;
 //import uy.edu.ort.sigamas.seguridad.entidades.Cultivo;
 import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
 import uy.edu.ort.sigamas.sigamasweb.login.BeanSesionUsuario;
+import uy.edu.ort.sigamas.sigamasweb.parcela.BeanParcela;
 
 /**
  *
@@ -34,7 +37,7 @@ public class BeanCultivo {
 
     @ManagedProperty(value = "#{beanSesionUsuario}")
     private BeanSesionUsuario beanSesionUsuario;
-
+ 
     public void setBeanSesionUsuario(BeanSesionUsuario beanSesionUsuario) {
         this.beanSesionUsuario = beanSesionUsuario;
     }
@@ -42,20 +45,24 @@ public class BeanCultivo {
     private String nombre;
     private Date fechaInicio;
     private Parcela parcela;
+    private int parcelaSeleccionada;
+   
     private List<Cultivo> cultivos;
+    private String cultivar;
 
     public BeanCultivo() {
     }
 
     @PostConstruct
     public void init() {
-
-        //cultivos = cultivoBeanLocal.obtenerCultivos(beanSesionUsuario.getCuentaActual());
+      
     }
 
     public String abrirCreacionCultivo() {
         return "crearCultivo";
     }
+
+       
 
     /**
      * @return the nombre
@@ -131,5 +138,28 @@ public class BeanCultivo {
      */
     public void setCultivos(List<Cultivo> cultivos) {
         this.cultivos = cultivos;
-    }   
+    }
+
+    public String getCultivar() {
+        return cultivar;
+    }
+
+    public void setCultivar(String cultivar) {
+        this.cultivar = cultivar;
+    }
+
+    /**
+     * @return the parcelaSeleccionada
+     */
+    public int getParcelaSeleccionada() {
+        return parcelaSeleccionada;
+    }
+
+    /**
+     * @param parcelaSeleccionada the parcelaSeleccionada to set
+     */
+    public void setParcelaSeleccionada(int parcelaSeleccionada) {
+        this.parcelaSeleccionada = parcelaSeleccionada;
+    }
+
 }
