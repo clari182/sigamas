@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../Templates/topHeaderTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        Nuevo Proyecto de Siembra
+        <p:separator/>
+        <p:outputLabel value="Nombre"/>
+        <p:inputText/>
+        <p:outputLabel value="Fecha Inicio Prevista"/>
+        <p:calendar/>
+        <p:outputLabel value="Fecha Fin Estimada"/>
+        <p:calendar/>
+
+
+    </ui:define>
+
+</ui:composition>

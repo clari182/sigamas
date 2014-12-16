@@ -34,8 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cultivo.findAll", query = "SELECT c FROM Cultivo c"),
     @NamedQuery(name = "Cultivo.findByIdCultivo", query = "SELECT c FROM Cultivo c WHERE c.idCultivo = :idCultivo"),
     @NamedQuery(name = "Cultivo.findByNombre", query = "SELECT c FROM Cultivo c WHERE c.nombre = :nombre"),
-    @NamedQuery(name = "Cultivo.findByFechaInicio", query = "SELECT c FROM Cultivo c WHERE c.fechaInicio = :fechaInicio"),
-    @NamedQuery(name = "Cultivo.findByParcela", query = "SELECT c FROM Cultivo c WHERE c.idParcela = :idParcela")})
+    @NamedQuery(name = "Cultivo.findByFechaInicio", query = "SELECT c FROM Cultivo c WHERE c.fechaInicio = :fechaInicio")})
 public class Cultivo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

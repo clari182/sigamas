@@ -26,37 +26,17 @@
                                  var="receta" 
                                  value="#{beanReceta.listaRecetasPersonalizadas}" 
                                  selectionMode="single"                                     
-                                 <!--rowKey="#{receta.idReceta}"-->
+                                
                                  selection="#{beanReceta.recetaSeleccionada}">
                         <p:ajax event="rowSelect" listener="#{beanReceta.seleccionReceta}" update=":form:tabViewAdministracion:detalleReceta"/>
                         <p:ajax event="rowUnselect" listener="#{beanReceta.deseleccionReceta}" />
-                        <!--<p:column headerText="Nombre">
-                            <h:outputText value="#{receta.nombre}" />
-                        </p:column>-->
+
                         
 
                     </p:dataTable>                   
                     <p:dialog widgetVar="dialogRceta" header="Visualización de Receta" modal="true" minHeight="215">
                         <h:panelGrid  id="detalleReceta" columns="2" columnClasses="column" cellpadding="5">
-                            <h:outputLabel for="tipoNotificacion" value="Tipo de notificación:" />
-                            <p:selectOneMenu id="tipoNotificacion" value="#{beanNotificacion.notificacionSeleccionada.idTipoNotificacion.idTipoNotificacion}" rendered="#{not empty beanNotificacion.notificacionSeleccionada.idTipoNotificacion}">                               
-                                <f:selectItems value="#{beanNotificacion.tiposNotificacion}" 
-                                               var="tipoN"                                            
-                                               itemLabel="#{tipoN.nombre}" 
-                                               itemValue="#{tipoN.idTipoNotificacion}" />
-                            </p:selectOneMenu>
-
-                            <h:outputLabel for="detalleMensaje" value="Mensaje: "/>
-                            <p:inputText value="#{beanNotificacion.notificacionSeleccionada.mensaje}" rendered="#{not empty beanNotificacion.notificacionSeleccionada}"/>
-
-                            <h:outputLabel for="anterioridadDias" value="Anterioridad"/>
-                            <p:selectOneMenu value="#{beanNotificacion.notificacionSeleccionada.anterioridadDias}" rendered="#{not empty beanNotificacion.notificacionSeleccionada}">        
-                                <f:selectItem itemLabel="El día del evento" itemValue="0"/>
-                                <f:selectItem itemLabel="5 días antes del evento" itemValue="5"/>
-                                <f:selectItem itemLabel="10 días antes del evento" itemValue="10"/>
-                                <f:selectItem itemLabel="15 días antes del evento" itemValue="15"/>
-                            </p:selectOneMenu>
-                            <p:commandButton value="Guardar" action="#{beanNotificacion.modificarNotificacion}"/>
+                            
                         </h:panelGrid>
                     </p:dialog> 
                 </p:tab>
