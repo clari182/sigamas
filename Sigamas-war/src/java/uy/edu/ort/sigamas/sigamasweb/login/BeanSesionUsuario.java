@@ -29,6 +29,7 @@ public class BeanSesionUsuario implements Serializable {
 
     private Usuario usuarioLoggeado;
     private Cuenta cuentaActual;
+    private int tabSelected;
 
     public Usuario getUsuarioLoggeado() {
         return usuarioLoggeado;
@@ -58,6 +59,20 @@ public class BeanSesionUsuario implements Serializable {
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "login";
+    }
+
+    /**
+     * @return the tabSelected
+     */
+    public int getTabSelected() {
+        return tabSelected;
+    }
+
+    /**
+     * @param tabSelected the tabSelected to set
+     */
+    public void setTabSelected(int tabSelected) {
+        this.tabSelected = tabSelected;
     }
 
 }

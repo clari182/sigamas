@@ -28,8 +28,8 @@ public class CultivoBean implements CultivoBeanLocal {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     @Override
-    public void agregarCultivo(String nombre, Parcela parcela, Date fechaInicio){
-        UtilCultivo.agregarCultivo(em, nombre, parcela, fechaInicio);
+    public void agregarCultivo(String nombre, Parcela parcela, Date fechaInicio, String cultivar){
+        UtilCultivo.agregarCultivo(em, nombre, parcela, fechaInicio, cultivar);
     }
     
     @Override

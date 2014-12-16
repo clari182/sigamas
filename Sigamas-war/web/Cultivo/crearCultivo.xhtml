@@ -24,15 +24,27 @@
                         <h:outputLabel for="nombreCultivo" value="Nombre del cultivo *:" />
                         <p:inputText id="nombreCultivo" value="#{beanCultivo.nombre}" required="true" label="text"/>
 
-                        <h:outputLabel for="parcelaCultivo" value="Parcela" />                            
+                        <h:outputLabel for="parcelaCultivo" value="Parcela* :" />                            
                         <p:selectOneMenu id="parcelaCultivo" value="#{beanCultivo.parcela}" style="width:150px">
 
                             <f:selectItem itemLabel="Seleccionar parcela" itemValue="" noSelectionOption="true" />
                             <f:selectItems value="#{beanParcela.parcelas}" var="parcela" itemValue="#{parcela.idParcela}" itemLabel="#{parcela.nombre} #{parcela.padron}"/>
                         </p:selectOneMenu>
+                        
+                        <h:outputLabel for="cultivarCultivo" value="Cultivar: " />                            
+                        <p:selectOneMenu id="cultivarCultivo" value="#{beanCultivo.cultivar}" style="width:150px">
+
+                            <f:selectItem itemLabel="Seleccionar cultivar" itemValue="" noSelectionOption="true" />
+                            <f:selectItem itemLabel="Soja" itemValue="" noSelectionOption="true" />
+                            <f:selectItem itemLabel="Sorgo" itemValue="" noSelectionOption="true" />                            
+                            <f:selectItem itemLabel="Trigo" itemValue="" noSelectionOption="true" />                            
+                            <f:selectItem itemLabel="Maiz" itemValue="" noSelectionOption="true" />                            
+                            <f:selectItem itemLabel="Girasol" itemValue="" noSelectionOption="true" />                                                        
+                        </p:selectOneMenu>
+                        
                         <h:outputLabel for="siembraDatePicker" value="Fecha de siembra: *"/>
                         <p:calendar id="siembraDatePicker" value="#{beanCultivo.fechaInicio}" />                    
-
+                                
                         <p:commandButton value="Guardar" action="#{beanCultivo.crearCultivo}"/>
                     </h:panelGrid>                                                         
                 </p:tab>   

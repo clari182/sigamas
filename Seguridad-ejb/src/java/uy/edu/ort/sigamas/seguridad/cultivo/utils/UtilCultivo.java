@@ -22,11 +22,12 @@ import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
  */
 public class UtilCultivo {
 
-    public static void agregarCultivo(EntityManager em, String nombre, Parcela parcela, Date fechaInicio) {
+    public static void agregarCultivo(EntityManager em, String nombre, Parcela parcela, Date fechaInicio, String cultivar) {
         Cultivo cultivo = new Cultivo();
         cultivo.setNombre(nombre);
         cultivo.setIdParcela(parcela);
         cultivo.setFechaInicio(fechaInicio);
+        cultivo.setCultivar(cultivar);
         em.persist(cultivo);
     }
 

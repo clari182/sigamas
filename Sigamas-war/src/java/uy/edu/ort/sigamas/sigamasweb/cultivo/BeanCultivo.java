@@ -43,6 +43,7 @@ public class BeanCultivo {
     private Date fechaInicio;
     private Parcela parcela;
     private List<Cultivo> cultivos;
+    private String cultivar;
 
     public BeanCultivo() {
     }
@@ -100,8 +101,9 @@ public class BeanCultivo {
     }
 
     public String crearCultivo() {
-        cultivoBeanLocal.agregarCultivo(nombre, parcela, fechaInicio);
-        return "HomeClient";
+        cultivoBeanLocal.agregarCultivo(nombre, parcela, fechaInicio, cultivar);
+        beanSesionUsuario.setTabSelected(4);
+        return "homeClient";
 
     }
 
@@ -132,4 +134,18 @@ public class BeanCultivo {
     public void setCultivos(List<Cultivo> cultivos) {
         this.cultivos = cultivos;
     }   
+
+    /**
+     * @return the cultivar
+     */
+    public String getCultivar() {
+        return cultivar;
+    }
+
+    /**
+     * @param cultivar the cultivar to set
+     */
+    public void setCultivar(String cultivar) {
+        this.cultivar = cultivar;
+    }
 }

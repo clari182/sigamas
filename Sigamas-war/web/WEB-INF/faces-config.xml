@@ -92,4 +92,11 @@
             <to-view-id>/Usuario/usuariosCuenta.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/Parcela/crearParcela.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>homeClient</from-outcome>
+            <to-view-id>/Home/homeClient.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

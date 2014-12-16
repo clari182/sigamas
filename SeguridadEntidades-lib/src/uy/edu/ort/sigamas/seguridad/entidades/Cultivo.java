@@ -36,6 +36,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cultivo.findByNombre", query = "SELECT c FROM Cultivo c WHERE c.nombre = :nombre"),
     @NamedQuery(name = "Cultivo.findByFechaInicio", query = "SELECT c FROM Cultivo c WHERE c.fechaInicio = :fechaInicio")})
 public class Cultivo implements Serializable {
+    @Column(name = "cultivar", length = 45)
+    private String cultivar;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -119,6 +121,14 @@ public class Cultivo implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Cultivo[ idCultivo=" + idCultivo + " ]";
+    }
+
+    public String getCultivar() {
+        return cultivar;
+    }
+
+    public void setCultivar(String cultivar) {
+        this.cultivar = cultivar;
     }
     
 }
