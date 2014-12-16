@@ -81,8 +81,11 @@
                         <p:column headerText="Cuando">
                             <h:outputText value="#{notificacion.anterioridadDias} días antes del evento" />
                         </p:column>
+                        <p:column headerText="Eliminar"></p:column>
 
                     </p:dataTable> 
+                    <!-- Acá irá una tabla con las tareas que no tienen una notificación asignada -->
+                    
                     <br/>
                     <p:separator/>
                     <br/>
@@ -108,8 +111,11 @@
                         <p:column headerText="Cuando">
                             <h:outputText value="#{notificacion.anterioridadDias} días antes del evento" />
                         </p:column>
-
+                        <p:column headerText="Eliminar"></p:column>
                     </p:dataTable>  
+                    
+                    <!-- Acá irá una tabla con las tareas que no tienen una notificación asignada -->
+                    
                     <br/><p:separator/><br/>
                     <h3>PRESUPUESTO - Mano de Obra</h3>
                     <p:dataTable id="tabla-notificaciones-mano-obra" 
@@ -131,8 +137,11 @@
                         <p:column headerText="Cuando">
                             <h:outputText value="#{notificacion.anterioridadDias} días antes del evento" />
                         </p:column>
+                        <p:column headerText="Eliminar"></p:column>
 
                     </p:dataTable>
+                    <!-- Acá irá una tabla con las tareas que no tienen una notificación asignada -->
+                    
                     <br/><p:separator/><br/>
                     <h3>PRESUPUESTO - Materiales</h3>
                     <p:dataTable id="tabla-notificaciones-material" 
@@ -154,8 +163,11 @@
                         <p:column headerText="Cuando">
                             <h:outputText value="#{notificacion.anterioridadDias} días antes del evento" />
                         </p:column>
+                        <p:column headerText="Eliminar"></p:column>
 
-                    </p:dataTable>    
+                    </p:dataTable> 
+                    <!-- Acá irá una tabla con las tareas que no tienen una notificación asignada -->
+                    
                     <p:dialog widgetVar="dialogNotificacion" header="Visualización Notificación" modal="true" minHeight="215">
                         <h:panelGrid  id="detalleNotificacion" columns="2" columnClasses="column" cellpadding="5">
                             <h:outputLabel for="tipoNotificacion" value="Tipo de notificación:" />

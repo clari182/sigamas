@@ -32,8 +32,8 @@
                                     <f:selectItem itemLabel="Seleccionar parcela" itemValue="" noSelectionOption="true" />
                                     <f:selectItems value="#{beanParcela.parcelas}" var="parcela" itemValue="#{parcela.idParcela}" itemLabel="#{parcela.nombre} #{parcela.padron}"/>
                                 </p:selectOneMenu>
-                                <h:outputLabel for="popup" value="Fecha de inicio: *"/>
-                               <p:calendar id="popup" value="#{beanCultivo.fechaInicio}" />                    
+                                <h:outputLabel for="siembraDatePicker" value="Fecha de siembra: *"/>
+                               <p:calendar id="siembraDatePicker" value="#{beanCultivo.fechaInicio}" />                    
 
                                 <p:commandButton value="Guardar" action="#{beanCultivo.crearCultivo}"/>
                             </h:panelGrid>                    

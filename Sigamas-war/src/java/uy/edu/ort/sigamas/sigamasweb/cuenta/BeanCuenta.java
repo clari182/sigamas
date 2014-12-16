@@ -274,7 +274,7 @@ public class BeanCuenta {
      * onFlowProcess controla el manejo del wizard para la creacion de cuenta
      *
      * @param event
-     * @return
+     * @return String
      */
     public String onFlowProcess(FlowEvent event) {
 
