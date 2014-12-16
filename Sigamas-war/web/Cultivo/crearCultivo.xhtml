@@ -26,14 +26,24 @@
 
                         <h:outputLabel for="parcelaCultivo" value="Parcela" />                            
                         <p:selectOneMenu id="parcelaCultivo" value="#{beanCultivo.parcela}" style="width:150px">
-
+                            
                             <f:selectItem itemLabel="Seleccionar parcela" itemValue="" noSelectionOption="true" />
-                            <f:selectItems value="#{beanParcela.parcelas}" var="parcela" itemValue="#{parcela.idParcela}" itemLabel="#{parcela.nombre} #{parcela.padron}"/>
+                            <f:selectItems value="#{beanParcela.parcelasSelect}" />
                         </p:selectOneMenu>
                         <h:outputLabel for="siembraDatePicker" value="Fecha de siembra: *"/>
-                        <p:calendar id="siembraDatePicker" value="#{beanCultivo.fechaInicio}" />                    
+                        <p:calendar id="siembraDatePicker" value="#{beanCultivo.fechaInicio}" />    
+                        <h:outputLabel for="cultivarCultivo" value="Cultivar: " />                            
+                        <p:selectOneMenu id="cultivarCultivo" value="#{beanCultivo.cultivar}" style="width:150px">
 
-                        <p:commandButton value="Guardar" action="#{beanCultivo.crearCultivo}"/>
+                            <f:selectItem itemLabel="Seleccionar cultivar" itemValue="" noSelectionOption="true" />
+                            <f:selectItem itemLabel="Soja" itemValue="soja"/>
+                            <f:selectItem itemLabel="Sorgo" itemValue="sorgo"/>                           
+                            <f:selectItem itemLabel="Trigo" itemValue="trigo" />                            
+                            <f:selectItem itemLabel="Maiz" itemValue="maiz" />                            
+                            <f:selectItem itemLabel="Girasol" itemValue="girasol" />                                                        
+                        </p:selectOneMenu>
+
+                        <p:commandButton value="Guardar" action="#{beanCultivo.crearCultivo}" update="@form"/>
                     </h:panelGrid>                                                         
                 </p:tab>   
 

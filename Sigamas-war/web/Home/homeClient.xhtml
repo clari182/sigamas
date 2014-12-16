@@ -56,9 +56,38 @@
                             </h:panelGrid>
                         </p:tab>
                         <p:tab title="Mis tareas">
-                            <h:panelGrid columns="2" cellpadding="10">
-
-                            </h:panelGrid>
+                            <p:panel header="Filtros">
+                                Filtros
+                                <p:panelGrid columns="6">
+                                    <h:outputText value="Fecha" />      
+                                    <p:selectOneMenu >
+                                        <f:selectItem itemLabel="Hoy"/>
+                                        <f:selectItem itemLabel="Esta semana"/>
+                                        <f:selectItem itemLabel="Este mes"/>
+                                    </p:selectOneMenu>
+                                    <h:outputText value="Proyecto" />      
+                                    <p:selectOneMenu >
+                                        <f:selectItem itemLabel="Cultivo Soja 1 - Artigas"/>
+                                        <f:selectItem itemLabel="Cultivo Trigo - Tacuarembo"/>                                        
+                                    </p:selectOneMenu>
+                                    <h:outputText value="Zona" />      
+                                    <p:selectOneMenu >
+                                        <f:selectItem itemLabel="Artigas"/>
+                                        <f:selectItem itemLabel="Tacuarembo"/>
+                                        <f:selectItem itemLabel="Rocha"/>
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+                            </p:panel>
+                            <p:outputPanel>
+                                <p:dataTable value="#{beanSeguimiento.tareas}" var="item">
+                                    <p:column headerText="Fecha" width="100px">
+                                        <p:calendar disabled="true" value="#{item.fechaPrevista}"/>
+                                    </p:column>
+                                    <p:column headerText="Actividad">
+                                        #{item.titulo}
+                                    </p:column>
+                                </p:dataTable>
+                            </p:outputPanel>
                         </p:tab>
                         <p:tab title="Mis cultivos">
                             <p:commandButton icon="ui-icon-plus" action="#{beanCultivo.abrirCreacionCultivo}"/>
