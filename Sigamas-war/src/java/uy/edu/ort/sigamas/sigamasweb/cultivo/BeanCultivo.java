@@ -100,12 +100,6 @@ public class BeanCultivo {
         this.parcela = parcela;
     }
 
-    public String crearCultivo() {
-        cultivoBeanLocal.agregarCultivo(nombre, parcela, fechaInicio, cultivar);
-        beanSesionUsuario.setTabSelected(4);
-        return "homeClient";
-
-    }
 
     /**
      * @return the cultivoBeanLocal
@@ -147,5 +141,13 @@ public class BeanCultivo {
      */
     public void setCultivar(String cultivar) {
         this.cultivar = cultivar;
+    }
+    
+    
+    public String crearCultivo() {
+        cultivoBeanLocal.agregarCultivo(nombre, parcela, fechaInicio, cultivar);
+        beanSesionUsuario.setTabSelected(4);
+        return "homeClient";
+
     }
 }
