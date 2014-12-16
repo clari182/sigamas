@@ -13,3 +13,6 @@ dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
+/Mailing-ejb/nbproject/private/
+/Seguimiento-ejb/nbproject/private/
+/SeguimientoEntidades-lib/nbproject/private/

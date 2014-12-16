@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uy.edu.ort.sigamas.seguridad.entidades;
+package uy.edu.ort.sigamas.entidades.seguridad;
 
 import java.io.Serializable;
 import javax.persistence.Basic;

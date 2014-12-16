@@ -12,14 +12,11 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import org.primefaces.model.map.DefaultMapModel;
-import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
-import org.primefaces.model.map.Marker;
-import uy.edu.ort.sigamas.seguridad.entidades.Departamento;
-import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
+import uy.edu.ort.sigamas.entidades.seguridad.Departamento;
+import uy.edu.ort.sigamas.entidades.seguridad.Parcela;
 import uy.edu.ort.sigamas.seguridad.parcela.ParcelaBeanLocal;
 
 import uy.edu.ort.sigamas.seguridad.parcela.excepciones.ParcelaPadronExistenteException;

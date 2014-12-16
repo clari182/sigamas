@@ -7,9 +7,9 @@ package uy.edu.ort.sigamas.seguridad.parcela;
 
 import java.util.List;
 import javax.ejb.Local;
-import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
-import uy.edu.ort.sigamas.seguridad.entidades.Departamento;
-import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
+import uy.edu.ort.sigamas.entidades.seguridad.Cuenta;
+import uy.edu.ort.sigamas.entidades.seguridad.Departamento;
+import uy.edu.ort.sigamas.entidades.seguridad.Parcela;
 import uy.edu.ort.sigamas.seguridad.parcela.excepciones.ParcelaPadronExistenteException;
 
 /**

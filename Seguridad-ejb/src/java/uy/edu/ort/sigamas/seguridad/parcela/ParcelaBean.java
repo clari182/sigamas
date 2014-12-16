@@ -9,9 +9,9 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
-import uy.edu.ort.sigamas.seguridad.entidades.Departamento;
-import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
+import uy.edu.ort.sigamas.entidades.seguridad.Cuenta;
+import uy.edu.ort.sigamas.entidades.seguridad.Departamento;
+import uy.edu.ort.sigamas.entidades.seguridad.Parcela;
 import uy.edu.ort.sigamas.seguridad.parcela.excepciones.ParcelaPadronExistenteException;
 import uy.edu.ort.sigamas.seguridad.parcela.utils.UtilParcela;
 

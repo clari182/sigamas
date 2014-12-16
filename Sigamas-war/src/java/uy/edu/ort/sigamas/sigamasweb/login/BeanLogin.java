@@ -15,7 +15,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
-import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
+import uy.edu.ort.sigamas.entidades.seguridad.Cuenta;
 import uy.edu.ort.sigamas.seguridad.login.LoginBeanLocal;
 import uy.edu.ort.sigamas.seguridad.login.excepciones.ClaveInvalidaException;
 import uy.edu.ort.sigamas.seguridad.login.excepciones.UsuarioInvalidoException;

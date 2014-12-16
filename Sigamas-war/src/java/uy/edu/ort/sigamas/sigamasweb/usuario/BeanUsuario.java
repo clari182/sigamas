@@ -12,7 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.event.FlowEvent;
-import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
+import uy.edu.ort.sigamas.entidades.seguridad.Usuario;
 import uy.edu.ort.sigamas.seguridad.usuario.UsuarioBeanLocal;
 import uy.edu.ort.sigamas.seguridad.usuario.excepciones.UsuarioExistenteException;
 import uy.edu.ort.sigamas.seguridad.usuario.excepciones.ViejaContraseñaIncorrectaException;

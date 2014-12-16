@@ -10,8 +10,8 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 //import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
-import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
+import uy.edu.ort.sigamas.entidades.seguridad.Cuenta;
+import uy.edu.ort.sigamas.entidades.seguridad.Usuario;
 
 /**
  *

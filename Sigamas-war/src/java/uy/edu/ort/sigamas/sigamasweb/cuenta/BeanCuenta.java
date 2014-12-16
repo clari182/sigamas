@@ -10,7 +10,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.SelectEvent;
@@ -19,7 +18,7 @@ import uy.edu.ort.sigamas.sigamasweb.utils.UtilsMensajes;
 import uy.edu.ort.sigamas.seguridad.cuenta.CuentaBeanLocal;
 import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CreacionCuentaInvalidaException;
 import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CuentaExistenteException;
-import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
+import uy.edu.ort.sigamas.entidades.seguridad.Cuenta;
 
 /**
  *

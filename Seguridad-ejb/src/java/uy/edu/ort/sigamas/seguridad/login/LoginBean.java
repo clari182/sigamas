@@ -8,7 +8,7 @@ package uy.edu.ort.sigamas.seguridad.login;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
+import uy.edu.ort.sigamas.entidades.seguridad.Usuario;
 import uy.edu.ort.sigamas.seguridad.login.excepciones.ClaveInvalidaException;
 import uy.edu.ort.sigamas.seguridad.login.excepciones.UsuarioInvalidoException;
 import uy.edu.ort.sigamas.seguridad.login.utils.UtilLogin;

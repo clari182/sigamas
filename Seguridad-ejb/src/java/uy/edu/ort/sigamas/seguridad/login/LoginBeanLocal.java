@@ -7,7 +7,7 @@
 package uy.edu.ort.sigamas.seguridad.login;
 
 import javax.ejb.Local;
-import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
+import uy.edu.ort.sigamas.entidades.seguridad.Usuario;
 import uy.edu.ort.sigamas.seguridad.login.excepciones.ClaveInvalidaException;
 import uy.edu.ort.sigamas.seguridad.login.excepciones.UsuarioInvalidoException;
 

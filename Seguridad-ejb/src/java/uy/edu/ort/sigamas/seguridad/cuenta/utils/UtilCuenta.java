@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CreacionCuentaInvalidaException;
 import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CuentaExistenteException;
-import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
+import uy.edu.ort.sigamas.entidades.seguridad.Cuenta;
 
 /**
  *

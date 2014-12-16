@@ -9,7 +9,7 @@ import java.util.List;
 import javax.ejb.Local;
 import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CreacionCuentaInvalidaException;
 import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CuentaExistenteException;
-import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
+import uy.edu.ort.sigamas.entidades.seguridad.Cuenta;
 
 /**
  *

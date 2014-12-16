@@ -5,13 +5,9 @@
  */
 package uy.edu.ort.sigamas.seguridad.login.utils;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
-import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
+import uy.edu.ort.sigamas.entidades.seguridad.Usuario;
 
 import uy.edu.ort.sigamas.seguridad.login.excepciones.ClaveInvalidaException;
 import uy.edu.ort.sigamas.seguridad.login.excepciones.UsuarioInvalidoException;

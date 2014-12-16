@@ -7,8 +7,8 @@ package uy.edu.ort.sigamas.seguridad.usuario;
 
 import java.util.List;
 import javax.ejb.Local;
-import uy.edu.ort.sigamas.seguridad.entidades.Rol;
-import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
+import uy.edu.ort.sigamas.entidades.seguridad.Rol;
+import uy.edu.ort.sigamas.entidades.seguridad.Usuario;
 import uy.edu.ort.sigamas.seguridad.usuario.excepciones.UsuarioExistenteException;
 import uy.edu.ort.sigamas.seguridad.usuario.excepciones.ViejaContraseñaIncorrectaException;
 

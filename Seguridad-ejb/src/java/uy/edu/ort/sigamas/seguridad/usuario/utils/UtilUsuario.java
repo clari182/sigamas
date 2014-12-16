@@ -2,8 +2,8 @@ package uy.edu.ort.sigamas.seguridad.usuario.utils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import uy.edu.ort.sigamas.seguridad.entidades.Rol;
-import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
+import uy.edu.ort.sigamas.entidades.seguridad.Rol;
+import uy.edu.ort.sigamas.entidades.seguridad.Usuario;
 import uy.edu.ort.sigamas.seguridad.usuario.excepciones.UsuarioExistenteException;
 import uy.edu.ort.sigamas.seguridad.usuario.excepciones.ViejaContraseñaIncorrectaException;
 
