@@ -5,7 +5,9 @@
  */
 package uy.edu.ort.sigamas.sigamasweb.receta;
 
+import java.io.Serializable;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import org.primefaces.event.SelectEvent;
@@ -14,9 +16,9 @@ import org.primefaces.event.SelectEvent;
  *
  * @author Pikachuss
  */
-@Named(value = "beanReceta")
+@ManagedBean(name = "beanReceta")
 @ViewScoped
-public class BeanReceta {
+public class BeanReceta implements Serializable{
 
     private List<String> listaRecetasPersonalizadas;
     private String recetaSeleccionada;

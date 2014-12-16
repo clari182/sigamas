@@ -19,30 +19,22 @@
 
             <p:tabView style="margin: 0 auto; width: 60%;">
                 <p:tab id="parcela" title="Creación de un cultivo">
-                    <p:layout style="height: 100%">
-                        <p:layoutUnit position="west" style="width: 50%">
-                            <p:messages />
-                            <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
-                                <h:outputLabel for="nombreCultivo" value="Nombre del cultivo *:" />
-                                <p:inputText id="nombreCultivo" value="#{beanCultivo.nombre}" required="true" label="text"/>
+                    <p:messages />
+                    <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
+                        <h:outputLabel for="nombreCultivo" value="Nombre del cultivo *:" />
+                        <p:inputText id="nombreCultivo" value="#{beanCultivo.nombre}" required="true" label="text"/>
 
-                                <h:outputLabel for="parcelaCultivo" value="Parcela" />                            
-                                <p:selectOneMenu id="parcelaCultivo" value="#{beanCultivo.parcela}" style="width:150px">
-                                    <p:ajax listener="#{beanParcela.centrarMapa}" event="change" update="mapa"/>
-                                    <f:selectItem itemLabel="Seleccionar parcela" itemValue="" noSelectionOption="true" />
-                                    <f:selectItems value="#{beanParcela.parcelas}" var="parcela" itemValue="#{parcela.idParcela}" itemLabel="#{parcela.nombre} #{parcela.padron}"/>
-                                </p:selectOneMenu>
-                                <h:outputLabel for="siembraDatePicker" value="Fecha de siembra: *"/>
-                               <p:calendar id="siembraDatePicker" value="#{beanCultivo.fechaInicio}" />                    
+                        <h:outputLabel for="parcelaCultivo" value="Parcela" />                            
+                        <p:selectOneMenu id="parcelaCultivo" value="#{beanCultivo.parcela}" style="width:150px">
 
-                                <p:commandButton value="Guardar" action="#{beanCultivo.crearCultivo}"/>
-                            </h:panelGrid>                    
-                        </p:layoutUnit>
-                        <p:layoutUnit position="center" style="width:50%">
-                            <p:gmap id="mapa" center="#{beanParcela.actualLatitud}, #{beanParcela.actualLongitud}" zoom="#{beanParcela.actualZoom}" type="HYBRID" style="width:600px;height:400px" widgetVar="#{beanParcela.mapModel}" model="#{beanParcela.mapModel}"/>
-                        </p:layoutUnit>
+                            <f:selectItem itemLabel="Seleccionar parcela" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{beanParcela.parcelas}" var="parcela" itemValue="#{parcela.idParcela}" itemLabel="#{parcela.nombre} #{parcela.padron}"/>
+                        </p:selectOneMenu>
+                        <h:outputLabel for="siembraDatePicker" value="Fecha de siembra: *"/>
+                        <p:calendar id="siembraDatePicker" value="#{beanCultivo.fechaInicio}" />                    
 
-                    </p:layout>
+                        <p:commandButton value="Guardar" action="#{beanCultivo.crearCultivo}"/>
+                    </h:panelGrid>                                                         
                 </p:tab>   
 
             </p:tabView>

@@ -203,18 +203,20 @@ public class BeanParcela implements Serializable {
     }
 
     //</editor-fold>
-    /*@PostConstruct
+    @PostConstruct
     public void init() {
         parcelas = parcelaBeanLocal.obtenerParcelas();
         departamentos = new ArrayList<>();
         departamentos = parcelaBeanLocal.obtenerDepartamentos();
-    }*/
+    }
 
-    public void crearParcela() {
+    public String crearParcela() {
         try {
             parcelaBeanLocal.crearParcela(nombre, padron, departamento, beanSesionUsuario.getCuentaActual());
+            return "HomeClient";
         } catch (ParcelaPadronExistenteException exp) {
             UtilsMensajes.mostrarMensajeError(null, "Error", "Ya existe una parcela asociada a al padrón " + padron + ", porfavor elija otro padrón");
+            return "";
         }
     }
 

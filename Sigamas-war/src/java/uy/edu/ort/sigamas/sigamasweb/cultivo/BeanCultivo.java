@@ -99,8 +99,9 @@ public class BeanCultivo {
         this.parcela = parcela;
     }
 
-    public void crearCultivo() {
+    public String crearCultivo() {
         cultivoBeanLocal.agregarCultivo(nombre, parcela, fechaInicio);
+        return "HomeClient";
 
     }
 
@@ -130,6 +131,5 @@ public class BeanCultivo {
      */
     public void setCultivos(List<Cultivo> cultivos) {
         this.cultivos = cultivos;
-    }
-
+    }   
 }
