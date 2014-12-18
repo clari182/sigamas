@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./../Templates/topHeaderTemplate.xhtml"
@@ -9,33 +10,57 @@
 
 
     <ui:define name="content">
-        <h:form id="form">   
+        
+        <script>
+            function deleteTarea() {
+                document.getElementById('form:j_idt31:j_idt34:tarea1').outerHTML = "";
+                document.getElementById('form:j_idt31:j_idt34:tarea11').outerHTML = "";
+            }
+        </script>
+        <h:form id="form">              
             <p:breadCrumb id="mainBreadCrumb">
                 <p:menuitem value="Home" outcome="homeClient"/>                                 
             </p:breadCrumb>
             <p:layout style="margin-top: 20px;">
                 <p:layoutUnit position="west" resizable="true" size="80%">
-                    <p:tabView style="border: none">
+                    <p:tabView style="border: none" activeIndex="#{beanSesionUsuario.tabSelected}">
                         <p:tab title="Página principal">                       
                             <!--<h:panelGrid columns="2" cellpadding="10">-->
                             <div style="height:500px">
                                 <h:form>
-                                    <!--<p:growl id="msgs" showDetail="true" />-->
-                                    <!--<p:dashboard id="board">#{dashboardView.model}"> Ver porque no anda -->
-                                        <!--<p:ajax event="reorder" listener="#{dashboardView.handleReorder}" update="msgs" />-->
-                                    <h:outputLabel>Por ahora se deja hardcoded, despues cuando se tenga la entidad tarea se hará uso de la misma. No corresponde al scope actual</h:outputLabel>
-                                    <p:panel style="width:400px;height:400px" id="drag-tareas" header="Información sobre sus tareas">
-                                        <h:outputText value="Usted tiene X tareas pendientes"  />
-                                    </p:panel>
-                                    <p:draggable for="drag-tareas" />
+                                    <p:growl id="msg" />
+                                    <h:outputLabel></h:outputLabel>
 
+                                    <p:panel style="width:400px;height:400px; display: inline" id="drag-tareas" header="Información sobre sus tareas">
+                                        <h:outputText id="tp" value="Usted tiene #{beanSesionUsuario.tareasPendientes} tarea pendiente para el cultivo ''Cultivo Soja Canelones'':"  />
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <p:link id="tarea1" outcome="detalleTarea" value="Aplicar Fungicida Stinger"/>
+                                            <p:selectBooleanCheckbox id="tarea11" value="0" onchange="deleteTarea()">
+                                                <p:ajax update="tp" listener="#{beanSesionUsuario.validarTarea}"/>
+                                            </p:selectBooleanCheckbox>
+                                        </h:panelGrid>
+                                        <p:separator />
+                                        <h:outputText id="tp2" value="Usted tiene #{beanSesionUsuario.tareasPendientes + 1} tareas pendientes para el cultivo ''Cultivo Trigo Canelones2'':"  />
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <p:link id="tarea2" outcome="detalleTarea" value="Aplicar INSECTICIDA Ectan"/>
+                                            <p:selectBooleanCheckbox id="tarea112" value="0" >
+                                               
+                                            </p:selectBooleanCheckbox>
+                                            <p:link id="tarea3" outcome="detalleTarea" value="Aplicar HERBICIDA Venceweed Extra 100"/>
+                                            <p:selectBooleanCheckbox id="tarea113" value="0">
+                                              
+                                            </p:selectBooleanCheckbox>                                            
+                                        </h:panelGrid>
+                                    </p:panel>
+                                    <p:panel style="width:400px;height:400px;display: inline" id="drag-chart" header="Evolución de costos">
+                                        <p:chart type="line" model="#{beanSesionUsuario.lineModel1}" style="height:300px;"/>
+                                    </p:panel>
 
                                 </h:form>  
-                            </div>
-                            <!--</h:panelGrid>-->
+                            </div>                            
                         </p:tab>
                         <p:tab title="Mis parcelas">
-                            <p:commandButton icon="ui-icon-plus" action="#{beanParcela.abrirCreacionParcela}"/>
+                            <p:commandButton icon="ui-icon-plus" action="crearParcela"/>
                             <p:dataTable var="parcela" value="#{beanParcela.parcelas}" style="width:50%">
                                 <p:column headerText="Nombre">
                                     <h:outputText value="#{parcela.nombre}" />                                
@@ -50,18 +75,52 @@
                                 </p:column> 
                             </p:dataTable>
                         </p:tab>
-                        <p:tab title="Mis cronogramas">
-                            <h:panelGrid columns="2" cellpadding="10">
+                        <p:tab title="Cronograma">
+                                                     
+                                <p:schedule id="schedule" value="#{beanSesionUsuario.eventModel}" widgetVar="myschedule" timeZone="GMT+2">
 
-                            </h:panelGrid>
+                                    <p:ajax event="eventResize" listener="#{beanSesionUsuario.onEventSelect}"/>
+
+                                </p:schedule>
                         </p:tab>
                         <p:tab title="Mis tareas">
-                            <h:panelGrid columns="2" cellpadding="10">
-
-                            </h:panelGrid>
+                            <p:panel header="Filtros">
+                                Filtros
+                                <p:panelGrid columns="6">
+                                    <h:outputText value="Fecha" />      
+                                    <p:selectOneMenu >
+                                        <f:selectItem itemLabel="Hoy"/>
+                                        <f:selectItem itemLabel="Esta semana"/>
+                                        <f:selectItem itemLabel="Este mes"/>
+                                    </p:selectOneMenu>
+                                    <h:outputText value="Proyecto" />      
+                                    <p:selectOneMenu >
+                                        <f:selectItem itemLabel="Todos" value="-1"/>
+                                        <f:selectItems value="#{beanProyecto.proyectos}"/>                                        
+                                    </p:selectOneMenu>
+                                    <h:outputText value="Zona" />      
+                                    <p:selectOneMenu >
+                                        <f:selectItem itemLabel="Todos" value="-1"/>
+                                        <f:selectItems value="#{beanParcela.departamentos}"/>
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+                            </p:panel>
+                            <p:outputPanel>
+                                <p:dataTable value="#{beanSeguimiento.tareas}" var="item">
+                                    <p:column headerText="Fecha" width="100px">
+                                        <p:calendar disabled="true" value="#{item.fechaPrevista}"/>
+                                    </p:column>
+                                    <p:column headerText="Actividad">
+                                        #{item.titulo}
+                                    </p:column>
+                                    <p:column headerText="Cultivo">
+                                        #{item.cultivo}
+                                    </p:column>
+                                </p:dataTable>
+                            </p:outputPanel>
                         </p:tab>
                         <p:tab title="Mis cultivos">
-                            <p:commandButton icon="ui-icon-plus" action="#{beanCultivo.abrirCreacionCultivo}"/>
+                            <p:commandButton icon="ui-icon-plus" action="crearProyecto"/>
                             <p:dataTable var="cultivo" value="#{beanCultivo.cultivos}" style="width:50%">
                                 <p:column headerText="Nombre">
                                     <h:outputText value="#{cultivo.nombre}" />                                
@@ -81,7 +140,11 @@
                 <p:layoutUnit position="center">
                     <!--<script type="text/javascript" src="http://voap.weather.com/weather/oap/USGA0028?template=ALERV&par=3000000007&unit=1&key=twciweatherwidget"></script>-->
                     <p:panel style="width:90%" id="drag-clima" header="Notificaciones climáticas">
-
+                        <a href="http://www.accuweather.com/es/uy/montevideo/349269/weather-forecast/349269" class="aw-widget-legal">
+                            <!--
+                            By accessing and/or using this code snippet, you agree to AccuWeather’s terms and conditions (in English) which can be found at http://www.accuweather.com/en/free-weather-widgets/terms and AccuWeather’s Privacy Statement (in English) which can be found at http://www.accuweather.com/en/privacy.
+                            -->
+                        </a><div id="awcc1418751484873" class="aw-widget-current"  data-locationkey="349269" data-unit="c" data-language="es" data-useip="false" data-uid="awcc1418751484873"></div><script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>   
                     </p:panel>
                     <p:draggable for="drag-clima" />
 
@@ -94,4 +157,3 @@
         </h:form>
     </ui:define>
 </ui:composition>
-

@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../Templates/topHeaderTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+    <ui:define name="content">
+        <h:form id="form">   
+            <p:breadCrumb id="mainBreadCrumb">
+                <p:menuitem value="Home" outcome="homeClient"/>                 
+                <p:menuitem value="Creación de proyecto" outcome="crearProyecto"/>                 
+            </p:breadCrumb>
+            <p:growl id="growl" sticky="true" showDetail="true"/>
+
+            <p:tabView style="margin: 0 auto; width: 60%;">
+                <p:tab id="parcela" title="Creación de un proyecto">
+                    <p:messages />
+                    <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
+                        <h:outputLabel for="nombreCultivo" value="Nombre del cultivo *:" />
+                        <p:inputText id="nombreCultivo" value="#{beanCultivo.nombre}" required="true" label="text"/>
+
+                        <h:outputLabel for="parcelaCultivo" value="Parcela* :" />                            
+                        <p:selectOneMenu id="parcelaCultivo" style="width:150px">
+                            
+                            <f:selectItem itemLabel="Seleccionar parcela" itemValue="" noSelectionOption="true" />
+
+                            <f:selectItems value="#{beanParcela.parcelasSelect}" />
+                        </p:selectOneMenu>
+                        <h:outputLabel for="siembraDatePicker" value="Fecha de siembra: *"/>
+
+                        <p:calendar id="siembraDatePicker" value="#{beanProyecto.fechaInicio}" />    
+
+                        <h:outputLabel for="cultivoProyecto" value="Cultivar: " />                            
+                        <p:selectOneMenu id="cultivoProyecto" value="#{beanProyecto.cultivo}" style="width:150px">
+
+                            <f:selectItem itemLabel="Seleccionar cultivo" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{beanProyecto.cultivos}" />                                                        
+                        </p:selectOneMenu>
+                        <p:commandButton value="Guardar" action="#{beanProyecto.crearProyecto}" update="@form"/>
+
+                    </h:panelGrid>                                                         
+                </p:tab>   
+
+            </p:tabView>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

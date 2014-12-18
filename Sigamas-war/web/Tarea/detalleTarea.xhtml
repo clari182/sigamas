@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../Templates/topHeaderTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="form">
+            <p:breadCrumb id="mainBreadCrumb">
+                <p:menuitem value="Home" outcome="homeClient"/>              
+                <p:menuitem value="Tareas" outcome="homeClient"/>                 
+                <p:menuitem value="Detalle tarea"/>                 
+            </p:breadCrumb>
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+            <p:dialog modal="true" widgetVar="statusDialog" header="Espere por favor"
+                      draggable="false" closable="false" resizable="false" style="text-align: center;">
+                <h:graphicImage value="resources/img/ajax-loader.gif" />
+            </p:dialog>
+            <p:growl id="growl" sticky="true" showDetail="true" />
+            <p:panel style="margin: 0 auto; width: 60%;"> 
+
+
+
+                <p:messages id="messages1" closable="true" autoUpdate="true" for="btnPerfil"/>
+                <h:panelGrid columns="2" cellpadding="5" id="detallePerfil">
+
+                    <h:outputLabel for="nombre" value="Nombre: " />
+
+                    <h:outputLabel id="nombre" value="tarea1"/>
+
+                    <h:outputLabel for="fecha" value="Fecha: " />
+
+                    <h:outputLabel id="fecha" value="16/12/2014"/>
+                    
+                    <p:commandButton value="Validar" action="homeClient" ajax="false"/>
+                </h:panelGrid>
+                
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

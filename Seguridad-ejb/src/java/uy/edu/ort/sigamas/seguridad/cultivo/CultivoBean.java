@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
+import uy.edu.ort.sigamas.entidades.seguimiento.Proyecto;
 import uy.edu.ort.sigamas.seguridad.cultivo.utils.UtilCultivo;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.entidades.Cultivo;
@@ -28,8 +29,8 @@ public class CultivoBean implements CultivoBeanLocal {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     @Override
-    public void agregarCultivo(String nombre, Parcela parcela, Date fechaInicio){
-        UtilCultivo.agregarCultivo(em, nombre, parcela, fechaInicio);
+    public void agregarCultivo(String nombre, Parcela parcela, Date fechaInicio, String cultivar){
+        UtilCultivo.agregarCultivo(em, nombre, parcela, fechaInicio, cultivar);
     }
     
     @Override
@@ -38,7 +39,12 @@ public class CultivoBean implements CultivoBeanLocal {
     }
     
     @Override
-    public List<Cultivo> obtenerCultivos(Cuenta cuentaActual){
-        return UtilCultivo.obtenerCultivos(em, cuentaActual);
+    public List<Cultivo> obtenerCultivos(){
+        return UtilCultivo.obtenerCultivos(em);
+    }
+    
+    @Override
+    public List<Proyecto> obtenerProyectos(Cuenta cuentaActual){
+        return UtilCultivo.obtenerProyectos(em, cuentaActual);
     }
 }

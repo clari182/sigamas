@@ -79,11 +79,11 @@ public class Usuario implements Serializable {
     private String profesion;
     @ManyToMany(mappedBy = "usuarioList", fetch = FetchType.EAGER)
     private List<Cuenta> cuentaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario", fetch = FetchType.EAGER)
+    private List<Login> loginList;
     @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")
     @ManyToOne(fetch = FetchType.EAGER)
     private Rol idRol;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario", fetch = FetchType.EAGER)
-    private List<Login> loginList;
 
     public Usuario() {
     }
@@ -189,14 +189,6 @@ public class Usuario implements Serializable {
         this.cuentaList = cuentaList;
     }
 
-    public Rol getIdRol() {
-        return idRol;
-    }
-
-    public void setIdRol(Rol idRol) {
-        this.idRol = idRol;
-    }
-
     @XmlTransient
     public List<Login> getLoginList() {
         return loginList;
@@ -204,6 +196,14 @@ public class Usuario implements Serializable {
 
     public void setLoginList(List<Login> loginList) {
         this.loginList = loginList;
+    }
+
+    public Rol getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(Rol idRol) {
+        this.idRol = idRol;
     }
 
     @Override

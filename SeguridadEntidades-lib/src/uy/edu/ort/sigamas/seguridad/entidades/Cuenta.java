@@ -40,10 +40,6 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Cuenta implements Serializable {
     @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
     private List<Login> loginList;
-    @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
-    private List<Insumo> insumoList;
-    @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
-    private List<Campo> campoList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,6 +61,10 @@ public class Cuenta implements Serializable {
     private List<Usuario> usuarioList;
     @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
     private List<Parcela> parcelaList;
+    @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
+    private List<Campo> campoList;
+    @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
+    private List<Insumo> insumoList;
 
     public Cuenta() {
     }
@@ -129,6 +129,24 @@ public class Cuenta implements Serializable {
         this.parcelaList = parcelaList;
     }
 
+    @XmlTransient
+    public List<Campo> getCampoList() {
+        return campoList;
+    }
+
+    public void setCampoList(List<Campo> campoList) {
+        this.campoList = campoList;
+    }
+
+    @XmlTransient
+    public List<Insumo> getInsumoList() {
+        return insumoList;
+    }
+
+    public void setInsumoList(List<Insumo> insumoList) {
+        this.insumoList = insumoList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -152,24 +170,6 @@ public class Cuenta implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Cuenta[ idCuenta=" + idCuenta + " ]";
-    }
-
-    @XmlTransient
-    public List<Insumo> getInsumoList() {
-        return insumoList;
-    }
-
-    public void setInsumoList(List<Insumo> insumoList) {
-        this.insumoList = insumoList;
-    }
-
-    @XmlTransient
-    public List<Campo> getCampoList() {
-        return campoList;
-    }
-
-    public void setCampoList(List<Campo> campoList) {
-        this.campoList = campoList;
     }
 
     @XmlTransient

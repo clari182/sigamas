@@ -35,11 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Parcela.findByIdParcela", query = "SELECT p FROM Parcela p WHERE p.idParcela = :idParcela"),
     @NamedQuery(name = "Parcela.findByNombre", query = "SELECT p FROM Parcela p WHERE p.nombre = :nombre"),
     @NamedQuery(name = "Parcela.findByPadron", query = "SELECT p FROM Parcela p WHERE p.padron = :padron"),
-    @NamedQuery(name = "Parcela.findByDepartamento", query = "SELECT p FROM Parcela p WHERE p.departamento = :departamento"),
-    @NamedQuery(name = "Parcela.findByCuenta", query = "SELECT p FROM Parcela p WHERE p.idCuenta = :idCuenta")})
+    @NamedQuery(name = "Parcela.findByDepartamento", query = "SELECT p FROM Parcela p WHERE p.departamento = :departamento")})
 public class Parcela implements Serializable {
-    @OneToMany(mappedBy = "idParcela", fetch = FetchType.EAGER)
-    private List<Cultivo> cultivoList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,6 +51,8 @@ public class Parcela implements Serializable {
     private String padron;
     @Column(name = "departamento", length = 45)
     private String departamento;
+    @OneToMany(mappedBy = "idParcela", fetch = FetchType.EAGER)
+    private List<Proyecto> proyectoList;
     @JoinColumn(name = "id_cuenta", referencedColumnName = "id_cuenta")
     @ManyToOne(fetch = FetchType.EAGER)
     private Cuenta idCuenta;
@@ -103,6 +102,15 @@ public class Parcela implements Serializable {
         this.departamento = departamento;
     }
 
+    @XmlTransient
+    public List<Proyecto> getProyectoList() {
+        return proyectoList;
+    }
+
+    public void setProyectoList(List<Proyecto> proyectoList) {
+        this.proyectoList = proyectoList;
+    }
+
     public Cuenta getIdCuenta() {
         return idCuenta;
     }
@@ -134,15 +142,6 @@ public class Parcela implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Parcela[ idParcela=" + idParcela + " ]";
-    }
-
-    @XmlTransient
-    public List<Cultivo> getCultivoList() {
-        return cultivoList;
-    }
-
-    public void setCultivoList(List<Cultivo> cultivoList) {
-        this.cultivoList = cultivoList;
     }
     
 }
