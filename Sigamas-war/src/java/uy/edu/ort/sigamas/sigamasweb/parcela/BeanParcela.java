@@ -5,6 +5,7 @@
  */
 package uy.edu.ort.sigamas.sigamasweb.parcela;
 
+import com.sun.org.apache.bcel.internal.generic.Select;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +45,8 @@ public class BeanParcela implements Serializable {
     private String nombre;
     private String padron;
     private String departamento;
-    private List<Parcela> parcelas;
-    private List<Departamento> departamentos;
+    private List<SelectItem> parcelas;
+    private List<SelectItem> departamentos;
     private String departamentoSeleccionado;
     private String actualLatitud = "-32.5583168";
     private String actualLongitud = "-55.8117213";
@@ -54,7 +55,7 @@ public class BeanParcela implements Serializable {
     private List<SelectItem> parcelasSelect;
 
     /**
-     * Creates a new instance of BeanPredio
+     * Creates a new instance of BeanParcela
      */
     public BeanParcela() {
     }
@@ -91,28 +92,28 @@ public class BeanParcela implements Serializable {
     /**
      * @return the parcelas
      */
-    public List<Parcela> getParcelas() {
+    public List<SelectItem> getParcelas() {
         return parcelas;
     }
 
     /**
      * @param parcelas the parcelas to set
      */
-    public void setParcelas(List<Parcela> parcelas) {
+    public void setParcelas(List<SelectItem> parcelas) {
         this.parcelas = parcelas;
     }
 
     /**
      * @return the departamentos
      */
-    public List<Departamento> getDepartamentos() {
+    public List<SelectItem> getDepartamentos() {
         return departamentos;
     }
 
     /**
      * @param departamentos the departamentos to set
      */
-    public void setDepartamentos(List<Departamento> departamentos) {
+    public void setDepartamentos(List<SelectItem> departamentos) {
         this.departamentos = departamentos;
     }
 
@@ -201,14 +202,18 @@ public class BeanParcela implements Serializable {
     }
 
     //</editor-fold>
+    
     @PostConstruct
     public void init() {
-        parcelas = parcelaBeanLocal.obtenerParcelas();
+        List<Parcela> parcelasAux = parcelaBeanLocal.obtenerParcelas();
         departamentos = new ArrayList<>();
-        departamentos = parcelaBeanLocal.obtenerDepartamentos();
-        parcelasSelect = new ArrayList<SelectItem>();
-        for (Parcela p : parcelas) {
-            parcelasSelect.add(new SelectItem(p, p.getNombre() + "-" + p.getDepartamento()));
+        List<Departamento> departamentosAux = parcelaBeanLocal.obtenerDepartamentos();
+        for (Departamento dep : departamentosAux) {
+            departamentos.add(new SelectItem(dep.getIdDepartamento(), dep.getNombre()));
+        }
+        parcelas = new ArrayList<>();
+        for (Parcela p : parcelasAux) {
+            parcelas.add(new SelectItem(p, p.getNombre() + "-" + p.getDepartamento()));
         }
     }
 
@@ -220,10 +225,6 @@ public class BeanParcela implements Serializable {
             UtilsMensajes.mostrarMensajeError(null, "Error", "Ya existe una parcela asociada a al padrón " + padron + ", porfavor elija otro padrón");
             return "";
         }
-    }
-
-    public String abrirCreacionParcela() {
-        return "crearParcela";
     }
 
     public void centrarMapa() {

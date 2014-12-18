@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
+import uy.edu.ort.sigamas.entidades.seguimiento.Proyecto;
 import uy.edu.ort.sigamas.seguridad.cultivo.utils.UtilCultivo;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.entidades.Cultivo;
@@ -40,5 +41,10 @@ public class CultivoBean implements CultivoBeanLocal {
     @Override
     public List<Cultivo> obtenerCultivos(){
         return UtilCultivo.obtenerCultivos(em);
+    }
+    
+    @Override
+    public List<Proyecto> obtenerProyectos(Cuenta cuentaActual){
+        return UtilCultivo.obtenerProyectos(em, cuentaActual);
     }
 }

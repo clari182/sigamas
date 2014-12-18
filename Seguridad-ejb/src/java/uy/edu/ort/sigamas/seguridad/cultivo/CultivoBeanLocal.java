@@ -8,6 +8,7 @@ package uy.edu.ort.sigamas.seguridad.cultivo;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
+import uy.edu.ort.sigamas.entidades.seguimiento.Proyecto;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.entidades.Cultivo;
 import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
@@ -23,4 +24,6 @@ public interface CultivoBeanLocal {
     void modificarCultivo(String nombre);
 
     List<Cultivo> obtenerCultivos();
+
+    List<Proyecto> obtenerProyectos(Cuenta cuentaActual);
 }

@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NamedQuery;
 import javax.persistence.Query;
+import uy.edu.ort.sigamas.entidades.seguimiento.Proyecto;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.entidades.Cultivo;
 //import uy.edu.ort.sigamas.seguridad.entidades.Cultivo;
@@ -34,6 +35,15 @@ public class UtilCultivo {
 
     public static List<Cultivo> obtenerCultivos(EntityManager em) {
         return em.createNamedQuery("Cultivo.findAll").getResultList();
+    }
+
+    public static List<Proyecto> obtenerProyectos(EntityManager em, Cuenta cuentaActual) {
+        if (cuentaActual == null){
+            return em.createNamedQuery("Proyecto.findAll").getResultList();
+        } else {
+            return em.createNamedQuery("Proyecto.findByIdCuenta").setParameter("idCuenta", cuentaActual.getIdCuenta()).getResultList();
+        }
+        
     }
 
 }

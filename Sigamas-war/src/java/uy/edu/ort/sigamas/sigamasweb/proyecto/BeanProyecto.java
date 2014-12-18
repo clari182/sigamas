@@ -16,11 +16,11 @@ import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
+import uy.edu.ort.sigamas.entidades.seguimiento.Proyecto;
 import uy.edu.ort.sigamas.seguridad.cultivo.CultivoBeanLocal;
 import uy.edu.ort.sigamas.seguridad.entidades.Cultivo;
 //import uy.edu.ort.sigamas.seguridad.entidades.Cultivo;
 import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
-import uy.edu.ort.sigamas.seguridad.entidades.Proyecto;
 import uy.edu.ort.sigamas.sigamasweb.login.BeanSesionUsuario;
 import uy.edu.ort.sigamas.sigamasweb.parcela.BeanParcela;
 
@@ -30,7 +30,7 @@ import uy.edu.ort.sigamas.sigamasweb.parcela.BeanParcela;
  */
 @Named(value = "beanProyecto")
 @ViewScoped
-public class BeanProyecto implements Serializable{
+public class BeanProyecto implements Serializable {
 
     /**
      * Creates a new instance of BeanProyecto
@@ -40,7 +40,7 @@ public class BeanProyecto implements Serializable{
 
     @ManagedProperty(value = "#{beanSesionUsuario}")
     private BeanSesionUsuario beanSesionUsuario;
- 
+
     public void setBeanSesionUsuario(BeanSesionUsuario beanSesionUsuario) {
         this.beanSesionUsuario = beanSesionUsuario;
     }
@@ -49,8 +49,8 @@ public class BeanProyecto implements Serializable{
     private Date fechaInicio;
     private Parcela parcela;
     private int parcelaSeleccionada;
-   
-    private List<Proyecto> proyectos;
+
+    private List<SelectItem> proyectos;
     private String cultivo;
     private List<SelectItem> cultivos;
 
@@ -59,13 +59,18 @@ public class BeanProyecto implements Serializable{
 
     @PostConstruct
     public void init() {
-      List<Cultivo> cultivosAux = cultivoBeanLocal.obtenerCultivos();
-      cultivos = new ArrayList<>();
-        for (Cultivo cultivo : cultivosAux) {            
-            cultivos.add(new SelectItem(cultivo.getIdCultivo(), cultivo.getNombre()));
+        List<Cultivo> cultivosAux = cultivoBeanLocal.obtenerCultivos();
+        cultivos = new ArrayList<>();
+        for (Cultivo c : cultivosAux) {
+            cultivos.add(new SelectItem(c.getIdCultivo(), c.getNombre()));
+        }
+        List<Proyecto> proyectosAux = cultivoBeanLocal.obtenerProyectos(beanSesionUsuario.getCuentaActual());
+        proyectos = new ArrayList<>();
+        for (Proyecto proyecto : proyectosAux) {
+            proyectos.add(new SelectItem(proyecto.getIdProyecto(), proyecto.getNombre()));
         }
     }
- 
+
 // <editor-fold defaultstate="collapsed" desc="Gets y Sets"> 
     /**
      * @return the nombre
@@ -126,14 +131,14 @@ public class BeanProyecto implements Serializable{
     /**
      * @return the proyectos
      */
-    public List<Proyecto> getProyectos() {
+    public List<SelectItem> getProyectos() {
         return proyectos;
     }
 
     /**
      * @param cultivos the proyectos to set
      */
-    public void setProyectos(List<Proyecto> proyectos) {
+    public void setProyectos(List<SelectItem> proyectos) {
         this.proyectos = proyectos;
     }
 
@@ -151,7 +156,7 @@ public class BeanProyecto implements Serializable{
     public int getParcelaSeleccionada() {
         return parcelaSeleccionada;
     }
-        
+
     /**
      * @return the cultivos
      */
@@ -166,7 +171,7 @@ public class BeanProyecto implements Serializable{
         this.cultivos = cultivos;
     }
 // </editor-fold>
-    
+
     /**
      * @param parcelaSeleccionada the parcelaSeleccionada to set
      */
@@ -179,13 +184,5 @@ public class BeanProyecto implements Serializable{
         beanSesionUsuario.setTabSelected(3);
         return "homeClient";
     }
-    
-    
-    public String abrirCreacionProyecto() {
-        return "crearProyecto";
-    }
-
-
-      
 
 }
