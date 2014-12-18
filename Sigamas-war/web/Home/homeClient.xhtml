@@ -121,7 +121,7 @@
                             </p:outputPanel>
                         </p:tab>
                         <p:tab title="Mis cultivos">
-                            <p:commandButton icon="ui-icon-plus" action="#{beanCultivo.abrirCreacionCultivo}"/>
+                            <p:commandButton icon="ui-icon-plus" action="#{beanCultivo.abrirCreacionProyecto}"/>
                             <p:dataTable var="cultivo" value="#{beanCultivo.cultivos}" style="width:50%">
                                 <p:column headerText="Nombre">
                                     <h:outputText value="#{cultivo.nombre}" />                                

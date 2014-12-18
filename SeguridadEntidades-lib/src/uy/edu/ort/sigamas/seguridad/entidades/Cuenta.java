@@ -38,6 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cuenta.findByEmpresa", query = "SELECT c FROM Cuenta c WHERE c.empresa = :empresa"),
     @NamedQuery(name = "Cuenta.findByRut", query = "SELECT c FROM Cuenta c WHERE c.rut = :rut")})
 public class Cuenta implements Serializable {
+    @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
+    private List<Login> loginList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,13 +60,11 @@ public class Cuenta implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Usuario> usuarioList;
     @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
-    private List<Insumo> insumoList;
-    @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
-    private List<Login> loginList;
-    @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
     private List<Parcela> parcelaList;
     @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
     private List<Campo> campoList;
+    @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
+    private List<Insumo> insumoList;
 
     public Cuenta() {
     }
@@ -121,24 +121,6 @@ public class Cuenta implements Serializable {
     }
 
     @XmlTransient
-    public List<Insumo> getInsumoList() {
-        return insumoList;
-    }
-
-    public void setInsumoList(List<Insumo> insumoList) {
-        this.insumoList = insumoList;
-    }
-
-    @XmlTransient
-    public List<Login> getLoginList() {
-        return loginList;
-    }
-
-    public void setLoginList(List<Login> loginList) {
-        this.loginList = loginList;
-    }
-
-    @XmlTransient
     public List<Parcela> getParcelaList() {
         return parcelaList;
     }
@@ -154,6 +136,15 @@ public class Cuenta implements Serializable {
 
     public void setCampoList(List<Campo> campoList) {
         this.campoList = campoList;
+    }
+
+    @XmlTransient
+    public List<Insumo> getInsumoList() {
+        return insumoList;
+    }
+
+    public void setInsumoList(List<Insumo> insumoList) {
+        this.insumoList = insumoList;
     }
 
     @Override
@@ -179,6 +170,15 @@ public class Cuenta implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Cuenta[ idCuenta=" + idCuenta + " ]";
+    }
+
+    @XmlTransient
+    public List<Login> getLoginList() {
+        return loginList;
+    }
+
+    public void setLoginList(List<Login> loginList) {
+        this.loginList = loginList;
     }
     
 }

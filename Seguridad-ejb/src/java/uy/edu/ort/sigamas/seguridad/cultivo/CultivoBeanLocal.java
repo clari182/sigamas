@@ -22,5 +22,5 @@ public interface CultivoBeanLocal {
     void agregarCultivo(String nombre, Parcela parcela, Date fechaInicio, String cultivar);
     void modificarCultivo(String nombre);
 
-    List<Cultivo> obtenerCultivos(Cuenta cuentaActual);
+    List<Cultivo> obtenerCultivos();
 }

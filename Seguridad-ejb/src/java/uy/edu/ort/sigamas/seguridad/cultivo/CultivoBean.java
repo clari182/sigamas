@@ -38,7 +38,7 @@ public class CultivoBean implements CultivoBeanLocal {
     }
     
     @Override
-    public List<Cultivo> obtenerCultivos(Cuenta cuentaActual){
-        return UtilCultivo.obtenerCultivos(em, cuentaActual);
+    public List<Cultivo> obtenerCultivos(){
+        return UtilCultivo.obtenerCultivos(em);
     }
 }

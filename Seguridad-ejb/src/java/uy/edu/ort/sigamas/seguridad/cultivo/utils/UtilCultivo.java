@@ -25,9 +25,6 @@ public class UtilCultivo {
     public static void agregarCultivo(EntityManager em, String nombre, Parcela parcela, Date fechaInicio, String cultivar) {
         Cultivo cultivo = new Cultivo();
         cultivo.setNombre(nombre);
-        cultivo.setIdParcela(parcela);
-        cultivo.setFechaInicio(fechaInicio);
-        cultivo.setCultivar(cultivar);
         em.persist(cultivo);
     }
 
@@ -35,26 +32,8 @@ public class UtilCultivo {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public static List<Cultivo> obtenerCultivos(EntityManager em, Cuenta cuentaActual) {
-       List<Parcela> parcelasCuenta = new ArrayList<>();
-       List<Cultivo> cultivosCuenta = new ArrayList<>();
-       if (cuentaActual != null){
-       Query query = em.createNamedQuery("Parcela.findByCuenta").setParameter("idCuenta", cuentaActual.getIdCuenta());
-       if (!query.getResultList().isEmpty()){
-           parcelasCuenta = query.getResultList();
-       }
-       Query qFor = em.createNamedQuery("Cultivo.findByParcela");
-       List<Cultivo> cultivosAux;
-        for (Parcela parcelaCuenta : parcelasCuenta) {
-            cultivosAux = qFor.setParameter("idParcela", parcelaCuenta.getIdParcela()).getResultList();
-            cultivosCuenta.addAll(cultivosAux);
-        }
-        return cultivosCuenta;
-       }
-       else{
-           return em.createNamedQuery("Cultivo.findAll").getResultList();
-       }
-       
+    public static List<Cultivo> obtenerCultivos(EntityManager em) {
+        return em.createNamedQuery("Cultivo.findAll").getResultList();
     }
-    
+
 }

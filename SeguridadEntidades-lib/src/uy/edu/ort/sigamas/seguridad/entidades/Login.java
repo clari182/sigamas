@@ -36,6 +36,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Login.findByFecha", query = "SELECT l FROM Login l WHERE l.fecha = :fecha"),
     @NamedQuery(name = "Login.findByIp", query = "SELECT l FROM Login l WHERE l.ip = :ip")})
 public class Login implements Serializable {
+    @JoinColumn(name = "id_cuenta", referencedColumnName = "id_cuenta")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Cuenta idCuenta;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,9 +51,6 @@ public class Login implements Serializable {
     private Date fecha;
     @Column(name = "ip", length = 45)
     private String ip;
-    @JoinColumn(name = "id_cuenta", referencedColumnName = "id_cuenta")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Cuenta idCuenta;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Usuario idUsuario;
@@ -91,14 +91,6 @@ public class Login implements Serializable {
         this.ip = ip;
     }
 
-    public Cuenta getIdCuenta() {
-        return idCuenta;
-    }
-
-    public void setIdCuenta(Cuenta idCuenta) {
-        this.idCuenta = idCuenta;
-    }
-
     public Usuario getIdUsuario() {
         return idUsuario;
     }
@@ -130,6 +122,14 @@ public class Login implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Login[ idLogin=" + idLogin + " ]";
+    }
+
+    public Cuenta getIdCuenta() {
+        return idCuenta;
+    }
+
+    public void setIdCuenta(Cuenta idCuenta) {
+        this.idCuenta = idCuenta;
     }
     
 }

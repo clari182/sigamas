@@ -14,6 +14,12 @@
     <class>uy.edu.ort.sigamas.seguridad.entidades.Campo</class>
     <class>uy.edu.ort.sigamas.seguridad.entidades.Valor</class>
     <class>uy.edu.ort.sigamas.seguridad.entidades.Insumo</class>
+    <class>uy.edu.ort.sigamas.seguridad.entidades.Proyecto</class>
+    <class>uy.edu.ort.sigamas.seguridad.entidades.Parcela_1</class>
+    <class>uy.edu.ort.sigamas.seguridad.entidades.Cuenta_1</class>
+    <class>uy.edu.ort.sigamas.seguridad.entidades.TareaPlanificada</class>
+    <class>uy.edu.ort.sigamas.seguridad.entidades.TareaReal</class>
+    <class>uy.edu.ort.sigamas.seguridad.entidades.Fase</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sigamas?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

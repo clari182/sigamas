@@ -34,6 +34,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Notificacion.findByAnterioridadDias", query = "SELECT n FROM Notificacion n WHERE n.anterioridadDias = :anterioridadDias"),
     @NamedQuery(name = "Notificacion.findByTipo", query = "SELECT n FROM Notificacion n WHERE n.tipo = :tipo")})
 public class Notificacion implements Serializable {
+    @JoinColumn(name = "id_tarea", referencedColumnName = "id_tarea_real")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private TareaReal idTarea;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -120,6 +123,14 @@ public class Notificacion implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Notificacion[ idNotificacion=" + idNotificacion + " ]";
+    }
+
+    public TareaReal getIdTarea() {
+        return idTarea;
+    }
+
+    public void setIdTarea(TareaReal idTarea) {
+        this.idTarea = idTarea;
     }
     
 }

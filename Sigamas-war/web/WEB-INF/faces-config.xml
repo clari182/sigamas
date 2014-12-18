@@ -65,8 +65,8 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>crearCultivo</from-outcome>
-            <to-view-id>/Cultivo/crearCultivo.xhtml</to-view-id>
+            <from-outcome>crearProyecto</from-outcome>
+            <to-view-id>/Cultivo/crearProyecto.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>

@@ -52,7 +52,7 @@ public class Parcela implements Serializable {
     @Column(name = "departamento", length = 45)
     private String departamento;
     @OneToMany(mappedBy = "idParcela", fetch = FetchType.EAGER)
-    private List<Cultivo> cultivoList;
+    private List<Proyecto> proyectoList;
     @JoinColumn(name = "id_cuenta", referencedColumnName = "id_cuenta")
     @ManyToOne(fetch = FetchType.EAGER)
     private Cuenta idCuenta;
@@ -103,12 +103,12 @@ public class Parcela implements Serializable {
     }
 
     @XmlTransient
-    public List<Cultivo> getCultivoList() {
-        return cultivoList;
+    public List<Proyecto> getProyectoList() {
+        return proyectoList;
     }
 
-    public void setCultivoList(List<Cultivo> cultivoList) {
-        this.cultivoList = cultivoList;
+    public void setProyectoList(List<Proyecto> proyectoList) {
+        this.proyectoList = proyectoList;
     }
 
     public Cuenta getIdCuenta() {
