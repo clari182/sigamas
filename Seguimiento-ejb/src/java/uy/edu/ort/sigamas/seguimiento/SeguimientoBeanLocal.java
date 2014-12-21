@@ -6,7 +6,7 @@
 package uy.edu.ort.sigamas.seguimiento;
 
 import javax.ejb.Local;
-import uy.edu.ort.sigamas.entidades.seguimiento.Proyecto;
+import uy.edu.ort.sigamas.seguridad.entidades.Proyecto;
 
 /**
  *

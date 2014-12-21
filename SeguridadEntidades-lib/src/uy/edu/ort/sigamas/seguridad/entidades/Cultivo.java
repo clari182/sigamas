@@ -7,33 +7,40 @@ package uy.edu.ort.sigamas.seguridad.entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Pikachuss
  */
 @Entity
-@Table(name = "cultivo", catalog = "sigamas", schema = "")
+@Table(name = "cultivo", catalog = "sigamas_sigamas", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cultivo.findAll", query = "SELECT c FROM Cultivo c"),
     @NamedQuery(name = "Cultivo.findByIdCultivo", query = "SELECT c FROM Cultivo c WHERE c.idCultivo = :idCultivo"),
     @NamedQuery(name = "Cultivo.findByNombre", query = "SELECT c FROM Cultivo c WHERE c.nombre = :nombre"),
-    @NamedQuery(name = "Cultivo.findByTipo", query = "SELECT c FROM Cultivo c WHERE c.tipo = :tipo")})
+    @NamedQuery(name = "Cultivo.findByTipo", query = "SELECT c FROM Cultivo c WHERE c.tipo = :tipo"),
+    @NamedQuery(name = "Cultivo.findByCoeficiente", query = "SELECT c FROM Cultivo c WHERE c.coeficiente = :coeficiente")})
 public class Cultivo implements Serializable {
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "coeficiente", precision = 6, scale = 4)
-    private BigDecimal coeficiente;
+    @OneToMany(mappedBy = "idCultivo", fetch = FetchType.EAGER)
+    private List<Proyecto> proyectoList;
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_cultivo", nullable = false)
     private Integer idCultivo;
@@ -41,6 +48,11 @@ public class Cultivo implements Serializable {
     private String nombre;
     @Column(name = "tipo")
     private Integer tipo;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "coeficiente", precision = 6, scale = 4)
+    private BigDecimal coeficiente;
+    @OneToMany(mappedBy = "idCultivo", fetch = FetchType.EAGER)
+    private List<Subfase> subfaseList;
 
     public Cultivo() {
     }
@@ -73,6 +85,23 @@ public class Cultivo implements Serializable {
         this.tipo = tipo;
     }
 
+    public BigDecimal getCoeficiente() {
+        return coeficiente;
+    }
+
+    public void setCoeficiente(BigDecimal coeficiente) {
+        this.coeficiente = coeficiente;
+    }
+
+    @XmlTransient
+    public List<Subfase> getSubfaseList() {
+        return subfaseList;
+    }
+
+    public void setSubfaseList(List<Subfase> subfaseList) {
+        this.subfaseList = subfaseList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -98,12 +127,13 @@ public class Cultivo implements Serializable {
         return "uy.edu.ort.sigamas.seguridad.entidades.Cultivo[ idCultivo=" + idCultivo + " ]";
     }
 
-    public BigDecimal getCoeficiente() {
-        return coeficiente;
+    @XmlTransient
+    public List<Proyecto> getProyectoList() {
+        return proyectoList;
     }
 
-    public void setCoeficiente(BigDecimal coeficiente) {
-        this.coeficiente = coeficiente;
+    public void setProyectoList(List<Proyecto> proyectoList) {
+        this.proyectoList = proyectoList;
     }
     
 }

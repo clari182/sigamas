@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Pikachuss
  */
 @Entity
-@Table(name = "fase", catalog = "sigamas", schema = "")
+@Table(name = "fase", catalog = "sigamas_sigamas", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Fase.findAll", query = "SELECT f FROM Fase f"),
@@ -45,6 +45,8 @@ public class Fase implements Serializable {
     private String nombreCorto;
     @Column(name = "nombre", length = 45)
     private String nombre;
+    @OneToMany(mappedBy = "idFase", fetch = FetchType.EAGER)
+    private List<Subfase> subfaseList;
     @OneToMany(mappedBy = "idFase", fetch = FetchType.EAGER)
     private List<TareaPlanificada> tareaPlanificadaList;
     @OneToMany(mappedBy = "idFase", fetch = FetchType.EAGER)
@@ -84,6 +86,15 @@ public class Fase implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    @XmlTransient
+    public List<Subfase> getSubfaseList() {
+        return subfaseList;
+    }
+
+    public void setSubfaseList(List<Subfase> subfaseList) {
+        this.subfaseList = subfaseList;
     }
 
     @XmlTransient

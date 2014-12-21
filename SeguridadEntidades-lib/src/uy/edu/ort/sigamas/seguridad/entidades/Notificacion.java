@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Pikachuss
  */
 @Entity
-@Table(name = "notificacion", catalog = "sigamas", schema = "")
+@Table(name = "notificacion", catalog = "sigamas_sigamas", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Notificacion.findAll", query = "SELECT n FROM Notificacion n"),
@@ -34,9 +34,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Notificacion.findByAnterioridadDias", query = "SELECT n FROM Notificacion n WHERE n.anterioridadDias = :anterioridadDias"),
     @NamedQuery(name = "Notificacion.findByTipo", query = "SELECT n FROM Notificacion n WHERE n.tipo = :tipo")})
 public class Notificacion implements Serializable {
-    @JoinColumn(name = "id_tarea", referencedColumnName = "id_tarea_real")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private TareaReal idTarea;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,6 +46,9 @@ public class Notificacion implements Serializable {
     private Integer anterioridadDias;
     @Column(name = "tipo")
     private Integer tipo;
+    @JoinColumn(name = "id_tarea", referencedColumnName = "id_tarea_real")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private TareaReal idTarea;
     @JoinColumn(name = "id_tipo_notificacion", referencedColumnName = "id_tipo_notificacion")
     @ManyToOne(fetch = FetchType.EAGER)
     private TipoNotificacion idTipoNotificacion;
@@ -92,6 +92,14 @@ public class Notificacion implements Serializable {
         this.tipo = tipo;
     }
 
+    public TareaReal getIdTarea() {
+        return idTarea;
+    }
+
+    public void setIdTarea(TareaReal idTarea) {
+        this.idTarea = idTarea;
+    }
+
     public TipoNotificacion getIdTipoNotificacion() {
         return idTipoNotificacion;
     }
@@ -123,14 +131,6 @@ public class Notificacion implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Notificacion[ idNotificacion=" + idNotificacion + " ]";
-    }
-
-    public TareaReal getIdTarea() {
-        return idTarea;
-    }
-
-    public void setIdTarea(TareaReal idTarea) {
-        this.idTarea = idTarea;
     }
     
 }

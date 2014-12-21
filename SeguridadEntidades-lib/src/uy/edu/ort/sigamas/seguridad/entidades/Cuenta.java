@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Pikachuss
  */
 @Entity
-@Table(name = "cuenta", catalog = "sigamas", schema = "")
+@Table(name = "cuenta", catalog = "sigamas_sigamas", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cuenta.findAll", query = "SELECT c FROM Cuenta c"),
@@ -38,8 +38,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cuenta.findByEmpresa", query = "SELECT c FROM Cuenta c WHERE c.empresa = :empresa"),
     @NamedQuery(name = "Cuenta.findByRut", query = "SELECT c FROM Cuenta c WHERE c.rut = :rut")})
 public class Cuenta implements Serializable {
-    @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
-    private List<Login> loginList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,6 +57,8 @@ public class Cuenta implements Serializable {
         @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", nullable = false)})
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Usuario> usuarioList;
+    @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
+    private List<Login> loginList;
     @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
     private List<Parcela> parcelaList;
     @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
@@ -121,6 +121,15 @@ public class Cuenta implements Serializable {
     }
 
     @XmlTransient
+    public List<Login> getLoginList() {
+        return loginList;
+    }
+
+    public void setLoginList(List<Login> loginList) {
+        this.loginList = loginList;
+    }
+
+    @XmlTransient
     public List<Parcela> getParcelaList() {
         return parcelaList;
     }
@@ -170,15 +179,6 @@ public class Cuenta implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Cuenta[ idCuenta=" + idCuenta + " ]";
-    }
-
-    @XmlTransient
-    public List<Login> getLoginList() {
-        return loginList;
-    }
-
-    public void setLoginList(List<Login> loginList) {
-        this.loginList = loginList;
     }
     
 }

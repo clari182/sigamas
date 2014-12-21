@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
-import uy.edu.ort.sigamas.entidades.seguimiento.Tarea;
 
 /**
  *
@@ -32,28 +31,28 @@ public class beanSeguimiento implements Serializable{
     public beanSeguimiento() {
     }
     
-    private List<Tarea> tareas;
+    //private List<Tarea> tareas;
     @PostConstruct
     public void init() {
-        try {
-            tareas = new ArrayList<>();
-            SimpleDateFormat sdf = new  SimpleDateFormat("dd/MM/yyyy");
-            tareas.add(new Tarea(0, "Preparacion de la tierra", "Preparar la tierra para el cultivo", new Date(), null, "cultivo Trigo - Tacurembo"));
-            tareas.add(new Tarea(0, "Siembra", "Sembrar",sdf.parse("31/12/2014"), null, "cultivo Trigo - Tacurembo"));
-            tareas.add(new Tarea(0, "Aplicacion de Pesticidas", "Aplicar X pesticida", sdf.parse("15/01/2015"), null, "cultivo Trigo - Tacurembo"));
-            tareas.add(new Tarea(0, "Cosecha", "Cosechar", sdf.parse("15/02/2015"), null, "cultivo Trigo - Tacurembo"));
-        } catch (ParseException ex) {
-            Logger.getLogger(beanSeguimiento.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            tareas = new ArrayList<>();
+//            SimpleDateFormat sdf = new  SimpleDateFormat("dd/MM/yyyy");
+//            tareas.add(new Tarea(0, "Preparacion de la tierra", "Preparar la tierra para el cultivo", new Date(), null, "cultivo Trigo - Tacurembo"));
+//            tareas.add(new Tarea(0, "Siembra", "Sembrar",sdf.parse("31/12/2014"), null, "cultivo Trigo - Tacurembo"));
+//            tareas.add(new Tarea(0, "Aplicacion de Pesticidas", "Aplicar X pesticida", sdf.parse("15/01/2015"), null, "cultivo Trigo - Tacurembo"));
+//            tareas.add(new Tarea(0, "Cosecha", "Cosechar", sdf.parse("15/02/2015"), null, "cultivo Trigo - Tacurembo"));
+//        } catch (ParseException ex) {
+//            Logger.getLogger(beanSeguimiento.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
-    public List<Tarea> getTareas() {
-        return tareas;
-    }
-
-    public void setTareas(List<Tarea> tareas) {
-        this.tareas = tareas;
-    }
+//    public List<Tarea> getTareas() {
+//        return tareas;
+//    }
+//
+//    public void setTareas(List<Tarea> tareas) {
+//        this.tareas = tareas;
+//    }
     
     
    

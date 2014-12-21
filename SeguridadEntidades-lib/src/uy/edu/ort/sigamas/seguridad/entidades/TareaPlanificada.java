@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Pikachuss
  */
 @Entity
-@Table(name = "tarea_planificada", catalog = "sigamas", schema = "")
+@Table(name = "tarea_planificada", catalog = "sigamas_sigamas", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TareaPlanificada.findAll", query = "SELECT t FROM TareaPlanificada t"),
@@ -50,9 +50,9 @@ public class TareaPlanificada implements Serializable {
     private Date fecha;
     @Column(name = "validada")
     private Integer validada;
-    @JoinColumn(name = "id_fase", referencedColumnName = "id_fase")
+    @JoinColumn(name = "id_subfase", referencedColumnName = "id_subfase")
     @ManyToOne(fetch = FetchType.EAGER)
-    private Fase idFase;
+    private Subfase idSubfase;
     @JoinColumn(name = "id_proyecto", referencedColumnName = "id_proyecto")
     @ManyToOne(fetch = FetchType.EAGER)
     private Proyecto idProyecto;
@@ -99,12 +99,12 @@ public class TareaPlanificada implements Serializable {
         this.validada = validada;
     }
 
-    public Fase getIdFase() {
-        return idFase;
+    public Subfase getIdSubfase() {
+        return idSubfase;
     }
 
-    public void setIdFase(Fase idFase) {
-        this.idFase = idFase;
+    public void setIdSubfase(Subfase idSubfase) {
+        this.idSubfase = idSubfase;
     }
 
     public Proyecto getIdProyecto() {
