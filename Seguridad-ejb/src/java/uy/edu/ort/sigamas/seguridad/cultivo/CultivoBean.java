@@ -47,4 +47,9 @@ public class CultivoBean implements CultivoBeanLocal {
     public List<Proyecto> obtenerProyectos(Cuenta cuentaActual){
         return UtilCultivo.obtenerProyectos(em, cuentaActual);
     }
+    
+    @Override
+    public Cultivo obtenerCultivo(int i){
+        return em.find(Cultivo.class, i);
+    }
 }

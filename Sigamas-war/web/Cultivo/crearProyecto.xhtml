@@ -25,7 +25,7 @@
                         <p:inputText id="nombreCultivo" value="#{beanCultivo.nombre}" required="true" label="text"/>
 
                         <h:outputLabel for="parcelaCultivo" value="Parcela* :" />                            
-                        <p:selectOneMenu id="parcelaCultivo" style="width:150px">
+                        <p:selectOneMenu id="parcelaCultivo" style="width:150px" value="#{beanProyecto.parcela}">
                             
                             <f:selectItem itemLabel="Seleccionar parcela" itemValue="" noSelectionOption="true" />
 

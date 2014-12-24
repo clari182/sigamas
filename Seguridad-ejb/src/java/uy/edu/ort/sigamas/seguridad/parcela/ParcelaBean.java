@@ -44,4 +44,9 @@ public class ParcelaBean implements ParcelaBeanLocal {
     public Departamento obtenerDepartamento(String departamento){
         return UtilParcela.obtenerDepartamento(em, departamento);
     }
+    
+    @Override
+    public Parcela obtenerParcela(int id){
+        return em.find(Parcela.class, id);
+    }
 }

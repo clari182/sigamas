@@ -26,4 +26,6 @@ public interface CultivoBeanLocal {
     List<Cultivo> obtenerCultivos();
 
     List<Proyecto> obtenerProyectos(Cuenta cuentaActual);
+
+    Cultivo obtenerCultivo(int i);
 }

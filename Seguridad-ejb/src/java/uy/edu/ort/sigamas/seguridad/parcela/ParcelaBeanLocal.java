@@ -27,4 +27,6 @@ public interface ParcelaBeanLocal {
 
     Departamento obtenerDepartamento(String departamento);
     
+    Parcela obtenerParcela(int id);
+    
 }

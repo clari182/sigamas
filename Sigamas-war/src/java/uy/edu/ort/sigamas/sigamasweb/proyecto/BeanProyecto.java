@@ -16,11 +16,14 @@ import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
+import uy.edu.ort.sigamas.seguimiento.SeguimientoBean;
+import uy.edu.ort.sigamas.seguimiento.SeguimientoBeanLocal;
 import uy.edu.ort.sigamas.seguridad.cultivo.CultivoBeanLocal;
 import uy.edu.ort.sigamas.seguridad.entidades.Cultivo;
 //import uy.edu.ort.sigamas.seguridad.entidades.Cultivo;
 import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
 import uy.edu.ort.sigamas.seguridad.entidades.Proyecto;
+import uy.edu.ort.sigamas.seguridad.parcela.ParcelaBeanLocal;
 import uy.edu.ort.sigamas.sigamasweb.login.BeanSesionUsuario;
 import uy.edu.ort.sigamas.sigamasweb.parcela.BeanParcela;
 
@@ -36,7 +39,13 @@ public class BeanProyecto implements Serializable {
      * Creates a new instance of BeanProyecto
      */
     @EJB
+    private SeguimientoBeanLocal seguimientoBeanLocal;
+
+    @EJB
     private CultivoBeanLocal cultivoBeanLocal;
+    
+    @EJB
+    private ParcelaBeanLocal parcelaBeanLocal;
 
     @ManagedProperty(value = "#{beanSesionUsuario}")
     private BeanSesionUsuario beanSesionUsuario;
@@ -48,10 +57,11 @@ public class BeanProyecto implements Serializable {
     private String nombre;
     private Date fechaInicio;
     private Parcela parcela;
-    private int parcelaSeleccionada;
+    private SelectItem parcelaSeleccionada;
 
     private List<SelectItem> proyectos;
-    private String cultivo;
+    private List<SelectItem> parcelas;
+    private SelectItem cultivo;
     private List<SelectItem> cultivos;
 
     public BeanProyecto() {
@@ -142,19 +152,26 @@ public class BeanProyecto implements Serializable {
         this.proyectos = proyectos;
     }
 
-    public String getCultivo() {
+    public SelectItem getCultivo() {
         return cultivo;
     }
 
-    public void setCultio(String cultivo) {
+    public void setCultivo(SelectItem cultivo) {
         this.cultivo = cultivo;
     }
 
     /**
      * @return the parcelaSeleccionada
      */
-    public int getParcelaSeleccionada() {
+    public SelectItem getParcelaSeleccionada() {
         return parcelaSeleccionada;
+    }
+
+    /**
+     * @param parcelaSeleccionada the parcelaSeleccionada to set
+     */
+    public void setParcelaSeleccionada(SelectItem parcelaSeleccionada) {
+        this.parcelaSeleccionada = parcelaSeleccionada;
     }
 
     /**
@@ -170,19 +187,51 @@ public class BeanProyecto implements Serializable {
     public void setCultivos(List<SelectItem> cultivos) {
         this.cultivos = cultivos;
     }
-// </editor-fold>
 
     /**
-     * @param parcelaSeleccionada the parcelaSeleccionada to set
+     * @return the seguimientoBeanLocal
      */
-    public void setParcelaSeleccionada(int parcelaSeleccionada) {
-        this.parcelaSeleccionada = parcelaSeleccionada;
+    public SeguimientoBeanLocal getSeguimientoBeanLocal() {
+        return seguimientoBeanLocal;
     }
 
+    /**
+     * @param seguimientoBeanLocal the seguimientoBeanLocal to set
+     */
+    public void setSeguimientoBeanLocal(SeguimientoBeanLocal seguimientoBeanLocal) {
+        this.seguimientoBeanLocal = seguimientoBeanLocal;
+    }
+
+// </editor-fold>
     public String crearProyecto() {
         //cultivoBeanLocal.agregarCultivo(nombre, parcela, fechaInicio);
+        Proyecto proyecto = new Proyecto();
+        int out = -1;
+        Integer.parseInt(cultivo.getLabel(), out);
+        Cultivo c = cultivoBeanLocal.obtenerCultivo(out);
+        proyecto.setNombre(nombre);
+        proyecto.setFechaInicio(fechaInicio);
+        out = -1;
+        Integer.parseInt(parcelaSeleccionada.getLabel(), out);
+        Parcela p = parcelaBeanLocal.obtenerParcela(out);
+        proyecto.setIdParcela(p);
+        seguimientoBeanLocal.nuevoProyecto(proyecto);
         beanSesionUsuario.setTabSelected(3);
         return "homeClient";
+    }
+
+    /**
+     * @return the parcelaBeanLocal
+     */
+    public ParcelaBeanLocal getParcelaBeanLocal() {
+        return parcelaBeanLocal;
+    }
+
+    /**
+     * @param parcelaBeanLocal the parcelaBeanLocal to set
+     */
+    public void setParcelaBeanLocal(ParcelaBeanLocal parcelaBeanLocal) {
+        this.parcelaBeanLocal = parcelaBeanLocal;
     }
 
 }
