@@ -61,7 +61,7 @@
                         </p:tab>
                         <p:tab title="Mis parcelas">
                             <p:commandButton icon="ui-icon-plus" action="crearParcela"/>
-                            <p:dataTable var="parcela" value="#{beanParcela.parcelas}" style="width:50%">
+                            <p:dataTable var="parcela" value="#{beanParcela.parcelasHome}" style="width:50%">
                                 <p:column headerText="Nombre">
                                     <h:outputText value="#{parcela.nombre}" />                                
                                 </p:column>

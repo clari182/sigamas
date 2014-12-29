@@ -46,6 +46,7 @@ public class BeanParcela implements Serializable {
     private String padron;
     private String departamento;
     private List<SelectItem> parcelas;
+    private List<Parcela> parcelasHome;
     private List<SelectItem> departamentos;
     private String departamentoSeleccionado;
     private String actualLatitud = "-32.5583168";
@@ -201,18 +202,26 @@ public class BeanParcela implements Serializable {
         this.actualZoom = actualZoom;
     }
 
+    public List<SelectItem> getParcelasSelect() {
+        return parcelasSelect;
+    }
+
+    public void setParcelasSelect(List<SelectItem> parcelasSelect) {
+        this.parcelasSelect = parcelasSelect;
+    }
+
     //</editor-fold>
     
     @PostConstruct
     public void init() {
-        List<Parcela> parcelasAux = parcelaBeanLocal.obtenerParcelas();
+        parcelasHome = parcelaBeanLocal.obtenerParcelas();
         departamentos = new ArrayList<>();
         List<Departamento> departamentosAux = parcelaBeanLocal.obtenerDepartamentos();
         for (Departamento dep : departamentosAux) {
             departamentos.add(new SelectItem(dep.getIdDepartamento(), dep.getNombre()));
         }
         parcelas = new ArrayList<>();
-        for (Parcela p : parcelasAux) {
+        for (Parcela p : parcelasHome) {
             parcelas.add(new SelectItem(p, p.getNombre() + "-" + p.getDepartamento()));
         }
     }
@@ -236,13 +245,17 @@ public class BeanParcela implements Serializable {
         }
     }
 
-    public List<SelectItem> getParcelasSelect() {
-        return parcelasSelect;
+    /**
+     * @return the parcelasHome
+     */
+    public List<Parcela> getParcelasHome() {
+        return parcelasHome;
     }
 
-    public void setParcelasSelect(List<SelectItem> parcelasSelect) {
-        this.parcelasSelect = parcelasSelect;
+    /**
+     * @param parcelasHome the parcelasHome to set
+     */
+    public void setParcelasHome(List<Parcela> parcelasHome) {
+        this.parcelasHome = parcelasHome;
     }
-    
-    
 }
