@@ -5,7 +5,9 @@
  */
 package uy.edu.ort.sigamas.seguimiento;
 
+import java.util.List;
 import javax.ejb.Local;
+import javax.faces.model.SelectItem;
 import uy.edu.ort.sigamas.seguridad.entidades.Proyecto;
 
 /**
@@ -16,5 +18,9 @@ import uy.edu.ort.sigamas.seguridad.entidades.Proyecto;
 public interface SeguimientoBeanLocal {
 
     void nuevoProyecto(Proyecto nuevoProyecto);
+
+    Proyecto obtenerProyecto(String label);
+
+    List<SelectItem> obtenerTareas(Proyecto proyecto);
     
 }

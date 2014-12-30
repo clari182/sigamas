@@ -37,8 +37,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Subfase.findByDias", query = "SELECT s FROM Subfase s WHERE s.dias = :dias"),
     @NamedQuery(name = "Subfase.findByDescripcion", query = "SELECT s FROM Subfase s WHERE s.descripcion = :descripcion")})
 public class Subfase implements Serializable {
-    @OneToMany(mappedBy = "idSubfase", fetch = FetchType.EAGER)
-    private List<TareaPlanificada> tareaPlanificadaList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,6 +55,8 @@ public class Subfase implements Serializable {
     @JoinColumn(name = "id_fase", referencedColumnName = "id_fase")
     @ManyToOne(fetch = FetchType.EAGER)
     private Fase idFase;
+    @OneToMany(mappedBy = "idFaseActual", fetch = FetchType.EAGER)
+    private List<Proyecto> proyectoList;
 
     public Subfase() {
     }
@@ -113,6 +113,15 @@ public class Subfase implements Serializable {
         this.idFase = idFase;
     }
 
+    @XmlTransient
+    public List<Proyecto> getProyectoList() {
+        return proyectoList;
+    }
+
+    public void setProyectoList(List<Proyecto> proyectoList) {
+        this.proyectoList = proyectoList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -136,15 +145,6 @@ public class Subfase implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Subfase[ idSubfase=" + idSubfase + " ]";
-    }
-
-    @XmlTransient
-    public List<TareaPlanificada> getTareaPlanificadaList() {
-        return tareaPlanificadaList;
-    }
-
-    public void setTareaPlanificadaList(List<TareaPlanificada> tareaPlanificadaList) {
-        this.tareaPlanificadaList = tareaPlanificadaList;
     }
     
 }

@@ -7,7 +7,6 @@ package uy.edu.ort.sigamas.seguridad.entidades;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,12 +18,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -39,10 +36,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Proyecto.findByNombre", query = "SELECT p FROM Proyecto p WHERE p.nombre = :nombre"),
     @NamedQuery(name = "Proyecto.findByFechaInicio", query = "SELECT p FROM Proyecto p WHERE p.fechaInicio = :fechaInicio")})
 public class Proyecto implements Serializable {
-    @OneToMany(mappedBy = "idProyecto", fetch = FetchType.EAGER)
-    private List<TareaPlanificada> tareaPlanificadaList;
-    @OneToMany(mappedBy = "idProyecto", fetch = FetchType.EAGER)
-    private List<TareaReal> tareaRealList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,12 +48,15 @@ public class Proyecto implements Serializable {
     @Column(name = "fecha_inicio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaInicio;
-    @JoinColumn(name = "id_parcela", referencedColumnName = "id_parcela")
+    @JoinColumn(name = "id_fase_actual", referencedColumnName = "id_subfase")
     @ManyToOne(fetch = FetchType.EAGER)
-    private Parcela idParcela;
+    private Subfase idFaseActual;
     @JoinColumn(name = "id_cultivo", referencedColumnName = "id_cultivo")
     @ManyToOne(fetch = FetchType.EAGER)
     private Cultivo idCultivo;
+    @JoinColumn(name = "id_parcela", referencedColumnName = "id_parcela")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Parcela idParcela;
 
     public Proyecto() {
     }
@@ -98,12 +94,12 @@ public class Proyecto implements Serializable {
         this.fechaInicio = fechaInicio;
     }
 
-    public Parcela getIdParcela() {
-        return idParcela;
+    public Subfase getIdFaseActual() {
+        return idFaseActual;
     }
 
-    public void setIdParcela(Parcela idParcela) {
-        this.idParcela = idParcela;
+    public void setIdFaseActual(Subfase idFaseActual) {
+        this.idFaseActual = idFaseActual;
     }
 
     public Cultivo getIdCultivo() {
@@ -112,6 +108,14 @@ public class Proyecto implements Serializable {
 
     public void setIdCultivo(Cultivo idCultivo) {
         this.idCultivo = idCultivo;
+    }
+
+    public Parcela getIdParcela() {
+        return idParcela;
+    }
+
+    public void setIdParcela(Parcela idParcela) {
+        this.idParcela = idParcela;
     }
 
     @Override
@@ -137,24 +141,6 @@ public class Proyecto implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Proyecto[ idProyecto=" + idProyecto + " ]";
-    }
-
-    @XmlTransient
-    public List<TareaPlanificada> getTareaPlanificadaList() {
-        return tareaPlanificadaList;
-    }
-
-    public void setTareaPlanificadaList(List<TareaPlanificada> tareaPlanificadaList) {
-        this.tareaPlanificadaList = tareaPlanificadaList;
-    }
-
-    @XmlTransient
-    public List<TareaReal> getTareaRealList() {
-        return tareaRealList;
-    }
-
-    public void setTareaRealList(List<TareaReal> tareaRealList) {
-        this.tareaRealList = tareaRealList;
     }
     
 }

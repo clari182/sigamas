@@ -5,14 +5,18 @@
  */
 package uy.edu.ort.sigamas.seguimiento;
 
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import uy.edu.ort.sigamas.seguridad.entidades.Proyecto;
 import uy.edu.ort.sigamas.seguridad.entidades.Subfase;
 import uy.edu.ort.sigamas.seguridad.entidades.TareaPlanificada;
+import uy.edu.ort.sigamas.seguridad.entidades.TareaReal;
 
 ;
 
@@ -28,20 +32,35 @@ public class SeguimientoBean implements SeguimientoBeanLocal {
 
     @Override
     public void nuevoProyecto(Proyecto nuevoProyecto) {
-        List<Subfase> subFases = em.createNativeQuery("SELECT s FROM Subfase s WHERE s.id_cultivo = :idCultivo")
-                .setParameter("idCultivo", nuevoProyecto.getIdCultivo().getIdCultivo()).getResultList();
-        for (Subfase subFase : subFases) {
-            TareaPlanificada tarea = new TareaPlanificada();
-            tarea.setIdProyecto(nuevoProyecto);
-            Long time = nuevoProyecto.getFechaInicio().getTime() + (subFase.getDias() * 24 * 60 * 60 * 1000);
-            Date fecha = new Date();
-            fecha.setTime(time);
-            tarea.setFecha(fecha);
-            tarea.setNombre(subFase.getNombre());
-            tarea.setIdSubfase(subFase);
-            em.persist(tarea);
+        if (nuevoProyecto.getIdCultivo() != null) {
+            Subfase subFase = (Subfase) em.createNativeQuery("SELECT s FROM Subfase s WHERE s.id_cultivo = :idCultivo and s.dias = 0")
+                    .setParameter("idCultivo", nuevoProyecto.getIdCultivo().getIdCultivo()).getResultList().get(0);
+            nuevoProyecto.setIdFaseActual(subFase);
+            em.persist(nuevoProyecto);
         }
-        em.persist(nuevoProyecto);
+    }
+
+    @Override
+    public Proyecto obtenerProyecto(String label) {
+        int out = -1;
+        Integer.parseInt(label, out);
+        return em.find(Proyecto.class, out);
+    }
+
+    @Override
+    public List<SelectItem> obtenerTareas(Proyecto proyecto) {
+        List<SelectItem> tareas = new ArrayList<SelectItem>();
+        List tareasProyecto = em.
+                createNativeQuery("select * from tarea_planificada tp\n"
+                        + "where (tp.id_tarea_real is null \n"
+                        + "or tp.id_tarea_real in (select tr.id_tarea_real from tarea_real tr where id_proyecto = :idProyecto))\n"
+                        + "and tp.id_proyecto = :idProyecto\n"
+                        + "order by fecha desc").
+                setParameter("idProyecto", proyecto.getIdProyecto()).getResultList();
+        for (Object tp : tareasProyecto) {
+            
+        }
+        return null;
     }
 
 }
