@@ -33,8 +33,9 @@ public class SeguimientoBean implements SeguimientoBeanLocal {
     @Override
     public void nuevoProyecto(Proyecto nuevoProyecto) {
         if (nuevoProyecto.getIdCultivo() != null) {
-            Subfase subFase = (Subfase) em.createNativeQuery("SELECT s FROM Subfase s WHERE s.id_cultivo = :idCultivo and s.dias = 0")
+            Subfase subFase = (Subfase) em.createNamedQuery("Subfase.findPrimeraFase")
                     .setParameter("idCultivo", nuevoProyecto.getIdCultivo().getIdCultivo()).getResultList().get(0);
+            nuevoProyecto.setIdFasePlanificada(subFase);
             nuevoProyecto.setIdFaseActual(subFase);
             em.persist(nuevoProyecto);
         }
@@ -50,17 +51,15 @@ public class SeguimientoBean implements SeguimientoBeanLocal {
     @Override
     public List<SelectItem> obtenerTareas(Proyecto proyecto) {
         List<SelectItem> tareas = new ArrayList<SelectItem>();
-        List tareasProyecto = em.
-                createNativeQuery("select * from tarea_planificada tp\n"
-                        + "where (tp.id_tarea_real is null \n"
-                        + "or tp.id_tarea_real in (select tr.id_tarea_real from tarea_real tr where id_proyecto = :idProyecto))\n"
-                        + "and tp.id_proyecto = :idProyecto\n"
-                        + "order by fecha desc").
-                setParameter("idProyecto", proyecto.getIdProyecto()).getResultList();
-        for (Object tp : tareasProyecto) {
-            
-        }
         return null;
+    }
+    
+    @Override
+    public void pasarProyectoDeFase(Proyecto proyecto){
+        List<Subfase> subfases = em.createNamedQuery("Subfase.findFaseSiguiente").setParameter("idSubfase", proyecto.getIdFaseActual()).getResultList();
+        if(!subfases.isEmpty()){
+            proyecto.setIdFaseActual(subfases.get(0));
+        }
     }
 
 }

@@ -35,8 +35,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Subfase.findByIdSubfase", query = "SELECT s FROM Subfase s WHERE s.idSubfase = :idSubfase"),
     @NamedQuery(name = "Subfase.findByNombre", query = "SELECT s FROM Subfase s WHERE s.nombre = :nombre"),
     @NamedQuery(name = "Subfase.findByDias", query = "SELECT s FROM Subfase s WHERE s.dias = :dias"),
+    @NamedQuery(name = "Subfase.findPrimeraFase", query = "SELECT s FROM Subfase s WHERE s.dias = 0 and s.idCultivo = :idCultivo"),
+    @NamedQuery(name = "Subfase.findSiguienteFase", query = "SELECT s FROM Subfase s, Subfase s1 WHERE s.etapa = s1.etapa + 1 and s1.id_subfase = :idSubfase and s1.id_cultivo = s.id_cultivo"),
     @NamedQuery(name = "Subfase.findByDescripcion", query = "SELECT s FROM Subfase s WHERE s.descripcion = :descripcion")})
 public class Subfase implements Serializable {
+    @Column(name = "etapa", length = 45)
+    private String etapa;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -145,6 +149,14 @@ public class Subfase implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.Subfase[ idSubfase=" + idSubfase + " ]";
+    }
+
+    public String getEtapa() {
+        return etapa;
+    }
+
+    public void setEtapa(String etapa) {
+        this.etapa = etapa;
     }
     
 }

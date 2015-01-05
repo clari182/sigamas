@@ -17,8 +17,17 @@ import uy.edu.ort.sigamas.seguridad.entidades.TipoNotificacion;
 @Local
 public interface NotificacionBeanLocal {
 
+    /**
+     * 
+     * @param mensaje
+     * @param tipoNotificacion
+     * @param anterioridad_dias
+     * @return  Notificacion
+     * Permite la creacion de una nueva Notificacion
+     */
     Notificacion agregarNotificacion(String mensaje, TipoNotificacion tipoNotificacion, int anterioridad_dias);
 
+    
     List<Notificacion> obtenerNotificacionesTarea();
 
     List<Notificacion> obtenerNotificacionesManoObra();

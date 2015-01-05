@@ -18,10 +18,31 @@ import uy.edu.ort.sigamas.seguridad.login.excepciones.UsuarioInvalidoException;
 @Local
 public interface LoginBeanLocal {
 
+    /**
+     * 
+     * @param nombreUsuario
+     * @param claveUsuario
+     * @return boolean
+     * @throws ClaveInvalidaException
+     * @throws UsuarioInvalidoException 
+     * Permite verificar que el usuario ingresado es el correcto
+     */
     boolean verificarUsuario(String nombreUsuario, String claveUsuario) throws ClaveInvalidaException, UsuarioInvalidoException;
 
+    /**
+     * 
+     * @param nombreUsuario
+     * @return Usuario
+     * @throws UsuarioInvalidoException 
+     * Permite obtener el objeto Usuario a partir del nombre de usuario
+     */
     Usuario obtenerUsuario(String nombreUsuario) throws UsuarioInvalidoException;
 
+    /**
+     * 
+     * @param usuarioLoggeado 
+     * Permite registrar en la bd un login con los datos del usuario y la fecha actual
+     */
     void agregarLogin(Usuario usuarioLoggeado);
     
 }

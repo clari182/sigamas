@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Proyecto.findAll", query = "SELECT p FROM Proyecto p"),
     @NamedQuery(name = "Proyecto.findByIdProyecto", query = "SELECT p FROM Proyecto p WHERE p.idProyecto = :idProyecto"),
     @NamedQuery(name = "Proyecto.findByNombre", query = "SELECT p FROM Proyecto p WHERE p.nombre = :nombre"),
+    @NamedQuery(name = "Proyecto.findByIdCultivo", query = "SELECT p FROM Proyecto p WHERE p.idCultivo = :idCultivo"),    
     @NamedQuery(name = "Proyecto.findByFechaInicio", query = "SELECT p FROM Proyecto p WHERE p.fechaInicio = :fechaInicio")})
 public class Proyecto implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -48,15 +49,18 @@ public class Proyecto implements Serializable {
     @Column(name = "fecha_inicio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaInicio;
-    @JoinColumn(name = "id_fase_actual", referencedColumnName = "id_subfase")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Subfase idFaseActual;
     @JoinColumn(name = "id_cultivo", referencedColumnName = "id_cultivo")
     @ManyToOne(fetch = FetchType.EAGER)
     private Cultivo idCultivo;
     @JoinColumn(name = "id_parcela", referencedColumnName = "id_parcela")
     @ManyToOne(fetch = FetchType.EAGER)
     private Parcela idParcela;
+    @JoinColumn(name = "id_fase_actual", referencedColumnName = "id_subfase")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Subfase idFaseActual;
+    @JoinColumn(name = "id_fase_planificada", referencedColumnName = "id_subfase")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Subfase idFasePlanificada;
 
     public Proyecto() {
     }
@@ -94,14 +98,6 @@ public class Proyecto implements Serializable {
         this.fechaInicio = fechaInicio;
     }
 
-    public Subfase getIdFaseActual() {
-        return idFaseActual;
-    }
-
-    public void setIdFaseActual(Subfase idFaseActual) {
-        this.idFaseActual = idFaseActual;
-    }
-
     public Cultivo getIdCultivo() {
         return idCultivo;
     }
@@ -116,6 +112,22 @@ public class Proyecto implements Serializable {
 
     public void setIdParcela(Parcela idParcela) {
         this.idParcela = idParcela;
+    }
+
+    public Subfase getIdFaseActual() {
+        return idFaseActual;
+    }
+
+    public void setIdFaseActual(Subfase idFaseActual) {
+        this.idFaseActual = idFaseActual;
+    }
+
+    public Subfase getIdFasePlanificada() {
+        return idFasePlanificada;
+    }
+
+    public void setIdFasePlanificada(Subfase idFasePlanificada) {
+        this.idFasePlanificada = idFasePlanificada;
     }
 
     @Override

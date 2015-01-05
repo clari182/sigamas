@@ -17,10 +17,32 @@ import uy.edu.ort.sigamas.seguridad.entidades.Proyecto;
 @Local
 public interface SeguimientoBeanLocal {
 
+    /**    
+     * @param nuevoProyecto 
+     * Permite la creacion de un nuevo proyecto y guardarlo en la bd
+     */
     void nuevoProyecto(Proyecto nuevoProyecto);
 
+    /**     
+     * @param label
+     * Permite obtener el objeto Proyecto a partir de su identificador
+     * @return Proyecto
+     */
     Proyecto obtenerProyecto(String label);
 
+    /**
+     * 
+     * @param proyecto
+     * @return List<SelectItem>
+     * Permite obtener la lista de tareas asociadas a un proyecto
+     */
     List<SelectItem> obtenerTareas(Proyecto proyecto);
+    
+    /**
+     * 
+     * @param proyecto 
+     * Permite pasar el proyecto a la siguiente fase en forma manual
+     */
+    void pasarProyectoDeFase(Proyecto proyecto);
     
 }

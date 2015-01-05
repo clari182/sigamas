@@ -19,6 +19,7 @@ import uy.edu.ort.sigamas.seguridad.parcela.excepciones.ParcelaPadronExistenteEx
 @Local
 public interface ParcelaBeanLocal {
 
+    
     List<Parcela> obtenerParcelas();
 
     void crearParcela(String nombre, String padron, String departamento, Cuenta cuentaActual) throws ParcelaPadronExistenteException;
