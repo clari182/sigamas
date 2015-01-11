@@ -5,10 +5,14 @@
  */
 package uy.edu.ort.sigamas.seguridad.notificacion.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.entidades.Notificacion;
+import uy.edu.ort.sigamas.seguridad.entidades.TareaPlanificada;
+import uy.edu.ort.sigamas.seguridad.entidades.TareaReal;
 import uy.edu.ort.sigamas.seguridad.entidades.TipoNotificacion;
 
 /**
@@ -52,6 +56,12 @@ public class UtilNotificacion {
 
     public static void modificarNotificacion(EntityManager em, Notificacion notificacionSeleccionada) {
         em.persist(notificacionSeleccionada);
+    }
+
+    public static List<TareaReal> obtenerTareasSinNotificacion(EntityManager em, Cuenta cuentaActual) {
+       List<TareaReal> tareasSinNotificacion = new ArrayList<>();
+       
+       return tareasSinNotificacion;
     }
     
 }

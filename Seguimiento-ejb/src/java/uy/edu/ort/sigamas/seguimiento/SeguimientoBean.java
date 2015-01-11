@@ -61,5 +61,5 @@ public class SeguimientoBean implements SeguimientoBeanLocal {
             proyecto.setIdFaseActual(subfases.get(0));
         }
     }
-
+    
 }

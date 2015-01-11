@@ -9,7 +9,10 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.entidades.Notificacion;
+import uy.edu.ort.sigamas.seguridad.entidades.TareaPlanificada;
+import uy.edu.ort.sigamas.seguridad.entidades.TareaReal;
 import uy.edu.ort.sigamas.seguridad.entidades.TipoNotificacion;
 import uy.edu.ort.sigamas.seguridad.notificacion.utils.UtilNotificacion;
 
@@ -32,21 +35,6 @@ public class NotificacionBean implements NotificacionBeanLocal {
     public List<Notificacion> obtenerNotificacionesTarea() {
         return UtilNotificacion.obtenerNotificacionesTarea(em);
     }
-
-    @Override
-    public List<Notificacion> obtenerNotificacionesManoObra() {
-        return UtilNotificacion.obtenerNotificacionesManoObra(em);
-    }
-
-    @Override
-    public List<Notificacion> obtenerNotificacionesMaquinaria() {
-        return UtilNotificacion.obtenerNotificaconesMaquinaria(em);
-    }
-
-    @Override
-    public List<Notificacion> obtenerNotificacionesMaterial() {
-        return UtilNotificacion.obtenerNotificacionesMaterial(em);
-    }
     
     @Override
     public List<TipoNotificacion> obtenerTiposNotificacion(){
@@ -56,5 +44,10 @@ public class NotificacionBean implements NotificacionBeanLocal {
     @Override
     public void modificarNotificacion(Notificacion notificacionSeleccionada){
         UtilNotificacion.modificarNotificacion(em, notificacionSeleccionada);
+    }
+    
+    @Override
+    public List<TareaReal> obtenerTareasSinNotificacion(Cuenta cuentaActual){
+        return UtilNotificacion.obtenerTareasSinNotificacion(em, cuentaActual);
     }
 }

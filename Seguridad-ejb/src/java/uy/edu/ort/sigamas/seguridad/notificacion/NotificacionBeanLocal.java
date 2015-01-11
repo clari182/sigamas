@@ -7,7 +7,10 @@ package uy.edu.ort.sigamas.seguridad.notificacion;
 
 import java.util.List;
 import javax.ejb.Local;
+import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.entidades.Notificacion;
+import uy.edu.ort.sigamas.seguridad.entidades.TareaPlanificada;
+import uy.edu.ort.sigamas.seguridad.entidades.TareaReal;
 import uy.edu.ort.sigamas.seguridad.entidades.TipoNotificacion;
 
 /**
@@ -30,14 +33,10 @@ public interface NotificacionBeanLocal {
     
     List<Notificacion> obtenerNotificacionesTarea();
 
-    List<Notificacion> obtenerNotificacionesManoObra();
-
-    List<Notificacion> obtenerNotificacionesMaquinaria();
-
-    List<Notificacion> obtenerNotificacionesMaterial();
-
     List<TipoNotificacion> obtenerTiposNotificacion();
 
     void modificarNotificacion(Notificacion notificacionSeleccionada);
+
+    List<TareaReal> obtenerTareasSinNotificacion(Cuenta cuentaActual);
     
 }

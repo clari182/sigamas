@@ -32,5 +32,11 @@
                 <id>jar</id>
             </reference>
         </references>
+        <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>corta</word>
+            <word>descripción</word>
+            <word>opcional</word>
+            <word>parámetros</word>
+        </spellchecker-wordlist>
     </configuration>
 </project>

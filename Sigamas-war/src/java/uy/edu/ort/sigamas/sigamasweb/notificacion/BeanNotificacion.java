@@ -13,6 +13,7 @@ import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -20,8 +21,11 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.SelectableDataModel;
 import uy.edu.ort.sigamas.seguridad.entidades.Notificacion;
+import uy.edu.ort.sigamas.seguridad.entidades.TareaPlanificada;
+import uy.edu.ort.sigamas.seguridad.entidades.TareaReal;
 import uy.edu.ort.sigamas.seguridad.entidades.TipoNotificacion;
 import uy.edu.ort.sigamas.seguridad.notificacion.NotificacionBeanLocal;
+import uy.edu.ort.sigamas.sigamasweb.login.BeanSesionUsuario;
 
 /**
  *
@@ -33,6 +37,13 @@ public class BeanNotificacion implements Serializable {
 
     @EJB
     private NotificacionBeanLocal notificacionBeanLocal;
+    
+    @ManagedProperty(value="#{beanSesionUsuario}")
+    private BeanSesionUsuario beanSesionUsuario;
+
+    public void setBeanSesionUsuario(BeanSesionUsuario beanSesionUsuario) {
+        this.beanSesionUsuario = beanSesionUsuario;
+    }
 
     private Notificacion notificacionSeleccionada;
 
@@ -42,9 +53,7 @@ public class BeanNotificacion implements Serializable {
     private String destino;
 
     private List<Notificacion> notificacionesTareas;
-    private List<Notificacion> notificacionesMaquinarias;
-    private List<Notificacion> notificacionesManoObra;
-    private List<Notificacion> notificacionesMateriales;
+    private List<TareaReal> tareasSinNotificacion;
     private List<TipoNotificacion> tiposNotificacion;
 
     /**
@@ -57,10 +66,8 @@ public class BeanNotificacion implements Serializable {
     public void init() {
         notificacionSeleccionada = new Notificacion();
         notificacionesTareas = notificacionBeanLocal.obtenerNotificacionesTarea();
-        notificacionesManoObra = notificacionBeanLocal.obtenerNotificacionesManoObra();
-        notificacionesMaquinarias = notificacionBeanLocal.obtenerNotificacionesMaquinaria();
-        notificacionesMateriales = notificacionBeanLocal.obtenerNotificacionesMaterial();
         tiposNotificacion = notificacionBeanLocal.obtenerTiposNotificacion();
+        setTareasSinNotificacion(notificacionBeanLocal.obtenerTareasSinNotificacion(beanSesionUsuario.getCuentaActual()));
     }
 
 // <editor-fold defaultstate="collapsed" desc="Gets y Sets">
@@ -133,49 +140,7 @@ public class BeanNotificacion implements Serializable {
     public void setNotificacionesTareas(List<Notificacion> notificacionesTareas) {
         this.notificacionesTareas = notificacionesTareas;
     }
-
-    /**
-     * @return the notificacionesMaquinarias
-     */
-    public List<Notificacion> getNotificacionesMaquinarias() {
-        return notificacionesMaquinarias;
-    }
-
-    /**
-     * @param notificacionesMaquinarias the notificacionesMaquinarias to set
-     */
-    public void setNotificacionesMaquinarias(List<Notificacion> notificacionesMaquinarias) {
-        this.notificacionesMaquinarias = notificacionesMaquinarias;
-    }
-
-    /**
-     * @return the notificacionesManoObra
-     */
-    public List<Notificacion> getNotificacionesManoObra() {
-        return notificacionesManoObra;
-    }
-
-    /**
-     * @param notificacionesManoObra the notificacionesManoObra to set
-     */
-    public void setNotificacionesManoObra(List<Notificacion> notificacionesManoObra) {
-        this.notificacionesManoObra = notificacionesManoObra;
-    }
-
-    /**
-     * @return the notificacionesMateriales
-     */
-    public List<Notificacion> getNotificacionesMateriales() {
-        return notificacionesMateriales;
-    }
-
-    /**
-     * @param notificacionesMateriales the notificacionesMateriales to set
-     */
-    public void setNotificacionesMateriales(List<Notificacion> notificacionesMateriales) {
-        this.notificacionesMateriales = notificacionesMateriales;
-    }
-
+ 
     /**
      * @return the destino
      */
@@ -221,24 +186,12 @@ public class BeanNotificacion implements Serializable {
 // </editor-fold>
     public void agregarNotificacion() {
         Notificacion nuevaNotificacion = notificacionBeanLocal.agregarNotificacion(mensaje, tipoNotificacion, anterioridad_dias);
-        switch (destino) {
-            case "tarea":
-                notificacionesTareas.add(nuevaNotificacion);
-                break;
-            case "manoObra":
-                notificacionesManoObra.add(nuevaNotificacion);
-                break;
-            case "maquinaria":
-                notificacionesMaquinarias.add(nuevaNotificacion);
-                break;
-            case "material":
-                notificacionesMateriales.add(nuevaNotificacion);
-                break;
-        }
+        notificacionesTareas.add(nuevaNotificacion);
+
     }
 
     public void seleccionNotificacion(SelectEvent event) {
-        notificacionSeleccionada = (Notificacion) event.getObject();          
+        notificacionSeleccionada = (Notificacion) event.getObject();
         RequestContext context = RequestContext.getCurrentInstance();
         context.execute("PF('dialogNotificacion').show();");
         RequestContext.getCurrentInstance().update("detalleNotificacion");
@@ -251,6 +204,20 @@ public class BeanNotificacion implements Serializable {
         if (notificacionSeleccionada != null) {
             notificacionBeanLocal.modificarNotificacion(notificacionSeleccionada);
         }
+    }
+
+    /**
+     * @return the tareasSinNotificacion
+     */
+    public List<TareaReal> getTareasSinNotificacion() {
+        return tareasSinNotificacion;
+    }
+
+    /**
+     * @param tareasSinNotificacion the tareasSinNotificacion to set
+     */
+    public void setTareasSinNotificacion(List<TareaReal> tareasSinNotificacion) {
+        this.tareasSinNotificacion = tareasSinNotificacion;
     }
 
 }
