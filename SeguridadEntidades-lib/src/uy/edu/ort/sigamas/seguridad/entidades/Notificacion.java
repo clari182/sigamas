@@ -32,6 +32,18 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Notificacion.findByIdNotificacion", query = "SELECT n FROM Notificacion n WHERE n.idNotificacion = :idNotificacion"),
     @NamedQuery(name = "Notificacion.findByMensaje", query = "SELECT n FROM Notificacion n WHERE n.mensaje = :mensaje"),
     @NamedQuery(name = "Notificacion.findByAnterioridadDias", query = "SELECT n FROM Notificacion n WHERE n.anterioridadDias = :anterioridadDias"),
+    @NamedQuery(name = "Notificacion.findByLeida", query = "SELECT n FROM Notificacion n WHERE n.leida = :leida"),
+    @NamedQuery(name = "Notificacion.findNotificacionesHoy", query = "SELECT n "
+            + "FROM Notificacion n join TareaReal r on n.idTareaReal = r.idTareaReal "
+            + "join proyecto p on p.idProyecto = r.idProyecto"
+            + "join parcela pa on pa.idParcela = p.idParcela"
+            + "WHERE n.leida = 0 "
+            + "and r.fecha - n.anterioridadDias >= curdate()"
+            + "and pa.idCuenta = :idCuenta"),
+    @NamedQuery(name = "Notificacion.findNotificacionesSms", query = "SELECT n "
+            + "FROM Notificacion n join TipoNotificacion t on n.idTipoNotificaicon = t.idTipoNotificacion "
+            + "WHERE n.leida = 0 "
+            + "and lower(t.medio) = lower('cel')"),
     @NamedQuery(name = "Notificacion.findByTipo", query = "SELECT n FROM Notificacion n WHERE n.tipo = :tipo")})
 public class Notificacion implements Serializable {
     @Column(name = "leida")

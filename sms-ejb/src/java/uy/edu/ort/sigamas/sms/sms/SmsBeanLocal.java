@@ -6,6 +6,7 @@
 package uy.edu.ort.sigamas.sms.sms;
 
 import javax.ejb.Local;
+import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 
 /**
  *
@@ -13,5 +14,5 @@ import javax.ejb.Local;
  */
 @Local
 public interface SmsBeanLocal {
-    
+    void enviarSms();
 }

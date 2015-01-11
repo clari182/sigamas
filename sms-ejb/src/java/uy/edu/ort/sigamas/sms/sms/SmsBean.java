@@ -5,7 +5,11 @@
  */
 package uy.edu.ort.sigamas.sms.sms;
 
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import uy.edu.ort.sigamas.seguridad.entidades.Notificacion;
 
 /**
  *
@@ -14,6 +18,12 @@ import javax.ejb.Stateless;
 @Stateless
 public class SmsBean implements SmsBeanLocal {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @PersistenceContext(unitName = "Seguridad-PU")
+    private EntityManager em;  
+    
+    @Override
+    public void enviarSms(){
+        List<Notificacion> notificacionesNoLeidas = em.createNamedQuery("Notificacion.findNotificacionesSms").getResultList();
+        
+    }
 }
