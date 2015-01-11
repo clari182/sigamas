@@ -40,6 +40,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TareaReal.findByFecha", query = "SELECT t FROM TareaReal t WHERE t.fecha = :fecha"),
     @NamedQuery(name = "TareaReal.findByValidada", query = "SELECT t FROM TareaReal t WHERE t.validada = :validada")})
 public class TareaReal implements Serializable {
+    @JoinColumn(name = "id_tarea_planificada", referencedColumnName = "id_tarea_planificada")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private TareaPlanificada idTareaPlanificada;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -160,6 +163,14 @@ public class TareaReal implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.TareaReal[ idTareaReal=" + idTareaReal + " ]";
+    }
+
+    public TareaPlanificada getIdTareaPlanificada() {
+        return idTareaPlanificada;
+    }
+
+    public void setIdTareaPlanificada(TareaPlanificada idTareaPlanificada) {
+        this.idTareaPlanificada = idTareaPlanificada;
     }
     
 }

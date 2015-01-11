@@ -187,7 +187,6 @@ public class BeanNotificacion implements Serializable {
     public void agregarNotificacion() {
         Notificacion nuevaNotificacion = notificacionBeanLocal.agregarNotificacion(mensaje, tipoNotificacion, anterioridad_dias);
         notificacionesTareas.add(nuevaNotificacion);
-
     }
 
     public void seleccionNotificacion(SelectEvent event) {

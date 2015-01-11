@@ -42,6 +42,7 @@
                             </h:panelGrid>
                         </f:facet>
                     </p:toolbar>
+                    <p:menu model="#{beanSesionUsuario.notificaciones}"/>
                     <p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom">
                         <p:submenu label="Administración de la cuenta">         
                             <p:menuitem value="Perfil" outcome="usuarioPerfil"/>

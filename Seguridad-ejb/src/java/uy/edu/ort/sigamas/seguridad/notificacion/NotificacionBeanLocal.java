@@ -38,5 +38,7 @@ public interface NotificacionBeanLocal {
     void modificarNotificacion(Notificacion notificacionSeleccionada);
 
     List<TareaReal> obtenerTareasSinNotificacion(Cuenta cuentaActual);
+
+    List<Notificacion> obtenerNotificacionesNoLeidas(Cuenta cuentaActual);
     
 }

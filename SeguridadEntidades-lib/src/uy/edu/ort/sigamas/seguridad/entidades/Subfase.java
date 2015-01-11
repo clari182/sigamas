@@ -39,6 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Subfase.findSiguienteFase", query = "SELECT s FROM Subfase s, Subfase s1 WHERE s.etapa = s1.etapa + 1 and s1.id_subfase = :idSubfase and s1.id_cultivo = s.id_cultivo"),
     @NamedQuery(name = "Subfase.findByDescripcion", query = "SELECT s FROM Subfase s WHERE s.descripcion = :descripcion")})
 public class Subfase implements Serializable {
+    @OneToMany(mappedBy = "idSubfase", fetch = FetchType.EAGER)
+    private List<TareaPlanificada> tareaPlanificadaList;
     @Column(name = "etapa", length = 45)
     private String etapa;
     private static final long serialVersionUID = 1L;
@@ -157,6 +159,15 @@ public class Subfase implements Serializable {
 
     public void setEtapa(String etapa) {
         this.etapa = etapa;
+    }
+
+    @XmlTransient
+    public List<TareaPlanificada> getTareaPlanificadaList() {
+        return tareaPlanificadaList;
+    }
+
+    public void setTareaPlanificadaList(List<TareaPlanificada> tareaPlanificadaList) {
+        this.tareaPlanificadaList = tareaPlanificadaList;
     }
     
 }

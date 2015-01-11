@@ -50,4 +50,9 @@ public class NotificacionBean implements NotificacionBeanLocal {
     public List<TareaReal> obtenerTareasSinNotificacion(Cuenta cuentaActual){
         return UtilNotificacion.obtenerTareasSinNotificacion(em, cuentaActual);
     }
+    
+    @Override
+    public List<Notificacion> obtenerNotificacionesNoLeidas(Cuenta cuentaActual){
+        return null;
+    }
 }

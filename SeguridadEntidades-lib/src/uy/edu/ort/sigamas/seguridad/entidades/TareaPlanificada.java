@@ -7,6 +7,7 @@ package uy.edu.ort.sigamas.seguridad.entidades;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,10 +19,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -37,6 +40,17 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TareaPlanificada.findByFecha", query = "SELECT t FROM TareaPlanificada t WHERE t.fecha = :fecha"),
     @NamedQuery(name = "TareaPlanificada.findByValidada", query = "SELECT t FROM TareaPlanificada t WHERE t.validada = :validada")})
 public class TareaPlanificada implements Serializable {
+    @Column(name = "dias")
+    private Integer dias;
+    @Column(name = "duracion_dias")
+    private Integer duracionDias;
+    @OneToMany(mappedBy = "idTareaPredecesora", fetch = FetchType.EAGER)
+    private List<TareaPlanificada> tareaPlanificadaList;
+    @JoinColumn(name = "id_tarea_predecesora", referencedColumnName = "id_tarea_planificada")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private TareaPlanificada idTareaPredecesora;
+    @OneToMany(mappedBy = "idTareaPlanificada", fetch = FetchType.EAGER)
+    private List<TareaReal> tareaRealList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -146,6 +160,48 @@ public class TareaPlanificada implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.TareaPlanificada[ idTareaPlanificada=" + idTareaPlanificada + " ]";
+    }
+
+    public Integer getDias() {
+        return dias;
+    }
+
+    public void setDias(Integer dias) {
+        this.dias = dias;
+    }
+
+    public Integer getDuracionDias() {
+        return duracionDias;
+    }
+
+    public void setDuracionDias(Integer duracionDias) {
+        this.duracionDias = duracionDias;
+    }
+
+    @XmlTransient
+    public List<TareaPlanificada> getTareaPlanificadaList() {
+        return tareaPlanificadaList;
+    }
+
+    public void setTareaPlanificadaList(List<TareaPlanificada> tareaPlanificadaList) {
+        this.tareaPlanificadaList = tareaPlanificadaList;
+    }
+
+    public TareaPlanificada getIdTareaPredecesora() {
+        return idTareaPredecesora;
+    }
+
+    public void setIdTareaPredecesora(TareaPlanificada idTareaPredecesora) {
+        this.idTareaPredecesora = idTareaPredecesora;
+    }
+
+    @XmlTransient
+    public List<TareaReal> getTareaRealList() {
+        return tareaRealList;
+    }
+
+    public void setTareaRealList(List<TareaReal> tareaRealList) {
+        this.tareaRealList = tareaRealList;
     }
     
 }
