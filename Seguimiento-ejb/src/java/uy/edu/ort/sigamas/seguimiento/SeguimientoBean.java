@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.entidades.Proyecto;
 import uy.edu.ort.sigamas.seguridad.entidades.Subfase;
 import uy.edu.ort.sigamas.seguridad.entidades.TareaPlanificada;
@@ -53,13 +54,24 @@ public class SeguimientoBean implements SeguimientoBeanLocal {
         List<SelectItem> tareas = new ArrayList<SelectItem>();
         return null;
     }
-    
+
     @Override
-    public void pasarProyectoDeFase(Proyecto proyecto){
+    public void pasarProyectoDeFase(Proyecto proyecto) {
         List<Subfase> subfases = em.createNamedQuery("Subfase.findFaseSiguiente").setParameter("idSubfase", proyecto.getIdFaseActual()).getResultList();
-        if(!subfases.isEmpty()){
+        if (!subfases.isEmpty()) {
             proyecto.setIdFaseActual(subfases.get(0));
         }
     }
-    
+
+    @Override
+    public List<TareaReal> obtenerTareasPendientes(Cuenta cuentaActual) {
+        List<TareaReal> tareasPendientes = new ArrayList<>();
+        if (cuentaActual != null) {
+            tareasPendientes = em.createNamedQuery("TareaReal.findTareasPendientes").setParameter("idCuenta", cuentaActual.getIdCuenta()).getResultList();
+        } else {
+            tareasPendientes = em.createNamedQuery("TareaReal.findAll").getResultList();
+        }
+        return tareasPendientes;
+    }
+
 }

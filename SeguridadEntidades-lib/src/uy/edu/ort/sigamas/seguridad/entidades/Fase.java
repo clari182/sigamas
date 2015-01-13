@@ -46,11 +46,7 @@ public class Fase implements Serializable {
     @Column(name = "nombre", length = 45)
     private String nombre;
     @OneToMany(mappedBy = "idFase", fetch = FetchType.EAGER)
-    private List<Subfase> subfaseList;
-    @OneToMany(mappedBy = "idFase", fetch = FetchType.EAGER)
-    private List<TareaPlanificada> tareaPlanificadaList;
-    @OneToMany(mappedBy = "idFase", fetch = FetchType.EAGER)
-    private List<TareaReal> tareaRealList;
+    private List<Subfase> subfaseList;    
 
     public Fase() {
     }
@@ -95,25 +91,7 @@ public class Fase implements Serializable {
 
     public void setSubfaseList(List<Subfase> subfaseList) {
         this.subfaseList = subfaseList;
-    }
-
-    @XmlTransient
-    public List<TareaPlanificada> getTareaPlanificadaList() {
-        return tareaPlanificadaList;
-    }
-
-    public void setTareaPlanificadaList(List<TareaPlanificada> tareaPlanificadaList) {
-        this.tareaPlanificadaList = tareaPlanificadaList;
-    }
-
-    @XmlTransient
-    public List<TareaReal> getTareaRealList() {
-        return tareaRealList;
-    }
-
-    public void setTareaRealList(List<TareaReal> tareaRealList) {
-        this.tareaRealList = tareaRealList;
-    }
+    }    
 
     @Override
     public int hashCode() {

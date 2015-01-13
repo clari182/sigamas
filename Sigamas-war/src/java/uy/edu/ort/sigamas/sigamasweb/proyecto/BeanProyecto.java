@@ -16,7 +16,6 @@ import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
-import uy.edu.ort.sigamas.seguimiento.SeguimientoBean;
 import uy.edu.ort.sigamas.seguimiento.SeguimientoBeanLocal;
 import uy.edu.ort.sigamas.seguridad.cultivo.CultivoBeanLocal;
 import uy.edu.ort.sigamas.seguridad.entidades.Cultivo;

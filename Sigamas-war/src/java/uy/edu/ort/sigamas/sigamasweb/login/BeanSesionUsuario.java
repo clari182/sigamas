@@ -19,11 +19,9 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
-import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
-import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
@@ -35,7 +33,6 @@ import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.entidades.Notificacion;
 import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
 import uy.edu.ort.sigamas.seguridad.notificacion.NotificacionBeanLocal;
-import uy.edu.ort.sigamas.sigamasweb.notificacion.BeanNotificacion;
 
 /**
  *
@@ -66,7 +63,7 @@ public class BeanSesionUsuario implements Serializable {
 
     @PostConstruct
     public void init() {
-        createLineModels();
+        /*createLineModels();
         setEventModel(new DefaultScheduleModel());
         getEventModel().addEvent(new DefaultScheduleEvent("siembra cultivo1", previousDay8Pm(), previousDay11Pm()));
         getEventModel().addEvent(new DefaultScheduleEvent("tarea1", today1Pm(), today6Pm()));
@@ -85,7 +82,7 @@ public class BeanSesionUsuario implements Serializable {
             menuItem.setCommand("#{beanSesionUsuario.show('" + notificacionId + "')}");            
             notificaciones.addElement(menuItem);
         }
-
+*/
     }
 
     public Usuario getUsuarioLoggeado() {

@@ -53,7 +53,7 @@
                                         </h:panelGrid>
                                     </p:panel>
                                     <p:panel style="width:400px;height:400px;display: inline" id="drag-chart" header="Evolución de costos">
-                                        <p:chart type="line" model="#{beanSesionUsuario.lineModel1}" style="height:300px;"/>
+                                      <!--  <p:chart type="line" model="#{beanSesionUsuario.lineModel1}" style="height:300px;"/>-->
                                     </p:panel>
 
                                 </h:form>  
@@ -96,19 +96,19 @@
                                     <h:outputText value="Proyecto" />      
                                     <p:selectOneMenu value="#{beanSeguimiento.proyectoSeleccionado}">
                                         <f:selectItem itemLabel="Todos" value="-1"/>
-                                        <f:selectItems value="#{beanProyecto.proyectos}">
+                                        <f:selectItems value="#{beanProyecto.proyectos}"></f:selectItems>
                                         <p:ajax event="change" update="detalleTareas"
-                                                listener="#{beanSeguimiento.actualizarTareasProyecto}" 
+                                                listener="#{beanSeguimiento.actualizarTareasProyecto}" />
                                 </p:selectOneMenu>
                                 <h:outputText value="Zona" />      
                                 <p:selectOneMenu >
                                     <f:selectItem itemLabel="Todos" value="-1"/>
-                                    <f:selectItems value="#{beanParcela.departamentos}"/>
+                                    <f:selectItems value="#{beanParcela.departamentos}"></f:selectItems>
                                 </p:selectOneMenu>
                             </p:panelGrid>
                         </p:panel>
                         <p:outputPanel>
-                            <p:dataTable value="#{beanSeguimiento.tareas}" var="item" id="detalleTareas">
+                            <!--<p:dataTable value="#{beanSeguimiento.tareas}" var="item" id="detalleTareas">
                                 <p:column headerText="Fecha" width="100px">
                                     <p:calendar disabled="true" value="#{item.fechaPrevista}"/>
                                 </p:column>
@@ -118,7 +118,7 @@
                                 <p:column headerText="Cultivo">
                                     #{item.cultivo}
                                 </p:column>
-                            </p:dataTable>
+                            </p:dataTable>-->
                         </p:outputPanel>
                     </p:tab>
                     <p:tab title="Mis cultivos">
