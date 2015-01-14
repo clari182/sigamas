@@ -95,30 +95,30 @@
                                     </p:selectOneMenu>
                                     <h:outputText value="Proyecto" />      
                                     <p:selectOneMenu value="#{beanSeguimiento.proyectoSeleccionado}">
-                                        <f:selectItem itemLabel="Todos" value="-1"/>
+                                        <f:selectItem itemLabel="Todos"/>
                                         <f:selectItems value="#{beanProyecto.proyectos}"></f:selectItems>
                                         <p:ajax event="change" update="detalleTareas"
                                                 listener="#{beanSeguimiento.actualizarTareasProyecto}" />
                                 </p:selectOneMenu>
                                 <h:outputText value="Zona" />      
                                 <p:selectOneMenu >
-                                    <f:selectItem itemLabel="Todos" value="-1"/>
+                                    <f:selectItem itemLabel="Todos"/>
                                     <f:selectItems value="#{beanParcela.departamentos}"></f:selectItems>
                                 </p:selectOneMenu>
                             </p:panelGrid>
                         </p:panel>
                         <p:outputPanel>
-                            <!--<p:dataTable value="#{beanSeguimiento.tareas}" var="item" id="detalleTareas">
+                            <p:dataTable value="#{beanSeguimiento.tareas}" var="item" id="detalleTareas">
                                 <p:column headerText="Fecha" width="100px">
-                                    <p:calendar disabled="true" value="#{item.fechaPrevista}"/>
+                                    <p:calendar disabled="true" value="#{item.fecha}"/>
                                 </p:column>
                                 <p:column headerText="Actividad">
-                                    #{item.titulo}
+                                    #{item.nombre}
                                 </p:column>
                                 <p:column headerText="Cultivo">
-                                    #{item.cultivo}
+                                    #{item.idProyecto.nombre}
                                 </p:column>
-                            </p:dataTable>-->
+                            </p:dataTable>
                         </p:outputPanel>
                     </p:tab>
                     <p:tab title="Mis cultivos">

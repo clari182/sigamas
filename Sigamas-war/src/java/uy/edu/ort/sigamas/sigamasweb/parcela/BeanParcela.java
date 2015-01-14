@@ -210,19 +210,39 @@ public class BeanParcela implements Serializable {
         this.parcelasSelect = parcelasSelect;
     }
 
+    /**
+     * @return the parcelasHome
+     */
+    public List<Parcela> getParcelasHome() {
+        return parcelasHome;
+    }
+
+    /**
+     * @param parcelasHome the parcelasHome to set
+     */
+    public void setParcelasHome(List<Parcela> parcelasHome) {
+        this.parcelasHome = parcelasHome;
+    }
     //</editor-fold>
-    
+
     @PostConstruct
     public void init() {
-        parcelasHome = parcelaBeanLocal.obtenerParcelas();
-        departamentos = new ArrayList<>();
-        List<Departamento> departamentosAux = parcelaBeanLocal.obtenerDepartamentos();
-        for (Departamento dep : departamentosAux) {
-            departamentos.add(new SelectItem(dep.getIdDepartamento(), dep.getNombre()));
-        }
-        parcelas = new ArrayList<>();
-        for (Parcela p : parcelasHome) {
-            parcelas.add(new SelectItem(p, p.getNombre() + "-" + p.getDepartamento()));
+        try {
+            if (parcelasHome != null && departamentos != null) {
+                return;
+            }
+            parcelasHome = parcelaBeanLocal.obtenerParcelas();
+            departamentos = new ArrayList<>();
+            List<Departamento> departamentosAux = parcelaBeanLocal.obtenerDepartamentos();
+            for (Departamento dep : departamentosAux) {
+                departamentos.add(new SelectItem(dep.getIdDepartamento(), dep.getNombre()));
+            }
+            parcelas = new ArrayList<>();
+            for (Parcela p : parcelasHome) {
+                parcelas.add(new SelectItem(p, p.getNombre() + "-" + p.getDepartamento()));
+            }
+        } catch (Exception e) {
+
         }
     }
 
@@ -245,17 +265,4 @@ public class BeanParcela implements Serializable {
         }
     }
 
-    /**
-     * @return the parcelasHome
-     */
-    public List<Parcela> getParcelasHome() {
-        return parcelasHome;
-    }
-
-    /**
-     * @param parcelasHome the parcelasHome to set
-     */
-    public void setParcelasHome(List<Parcela> parcelasHome) {
-        this.parcelasHome = parcelasHome;
-    }
 }

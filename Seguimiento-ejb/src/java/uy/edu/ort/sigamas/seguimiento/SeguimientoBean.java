@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
@@ -50,8 +49,8 @@ public class SeguimientoBean implements SeguimientoBeanLocal {
     }
 
     @Override
-    public List<SelectItem> obtenerTareas(Proyecto proyecto) {
-        List<SelectItem> tareas = new ArrayList<SelectItem>();
+    public List<TareaReal> obtenerTareas(Proyecto proyecto) {
+        List<TareaReal> tareas = new ArrayList<TareaReal>();
         return null;
     }
 

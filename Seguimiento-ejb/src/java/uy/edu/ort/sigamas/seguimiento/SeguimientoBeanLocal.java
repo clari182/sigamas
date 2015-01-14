@@ -38,7 +38,7 @@ public interface SeguimientoBeanLocal {
      * @return List<SelectItem>
      * Permite obtener la lista de tareas asociadas a un proyecto
      */
-    List<SelectItem> obtenerTareas(Proyecto proyecto);
+    List<TareaReal> obtenerTareas(Proyecto proyecto);
     
     /**
      * 
