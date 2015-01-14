@@ -55,4 +55,14 @@ public class NotificacionBean implements NotificacionBeanLocal {
     public List<Notificacion> obtenerNotificacionesNoLeidas(Cuenta cuentaActual){
         return null;
     }
+    
+    @Override
+    public void cambiarAnterioridadNotificacion(Notificacion notificacionSeleccionada, int anterioridad){
+        UtilNotificacion.cambiarAnterioridadNotificacion(em, notificacionSeleccionada, anterioridad);
+    }
+    
+    @Override
+    public void cambiarMensajeNotificacion(Notificacion notificacionSeleccionada, String mensaje){
+        UtilNotificacion.cambiarMensajeNotificacion(em, notificacionSeleccionada, mensaje);
+    }
 }

@@ -50,7 +50,7 @@ public class BeanSesionUsuario implements Serializable {
 
     @EJB
     private NotificacionBeanLocal notificacionBeanLocal;
-    
+
     private Usuario usuarioLoggeado;
     private Cuenta cuentaActual;
     private int tabSelected;
@@ -64,25 +64,27 @@ public class BeanSesionUsuario implements Serializable {
     @PostConstruct
     public void init() {
         /*createLineModels();
-        setEventModel(new DefaultScheduleModel());
-        getEventModel().addEvent(new DefaultScheduleEvent("siembra cultivo1", previousDay8Pm(), previousDay11Pm()));
-        getEventModel().addEvent(new DefaultScheduleEvent("tarea1", today1Pm(), today6Pm()));
-        getEventModel().addEvent(new DefaultScheduleEvent("siembra cultivo2", nextDay9Am(), nextDay11Am()));
-        getEventModel().addEvent(new DefaultScheduleEvent("Cambio de etapa", theDayAfter3Pm(), fourDaysLater3pm()));
-
+         setEventModel(new DefaultScheduleModel());
+         getEventModel().addEvent(new DefaultScheduleEvent("siembra cultivo1", previousDay8Pm(), previousDay11Pm()));
+         getEventModel().addEvent(new DefaultScheduleEvent("tarea1", today1Pm(), today6Pm()));
+         getEventModel().addEvent(new DefaultScheduleEvent("siembra cultivo2", nextDay9Am(), nextDay11Am()));
+         getEventModel().addEvent(new DefaultScheduleEvent("Cambio de etapa", theDayAfter3Pm(), fourDaysLater3pm()));
+         */
         notificacionesNoLeidas = notificacionBeanLocal.obtenerNotificacionesNoLeidas(this.getCuentaActual());
 
         notificaciones = new DefaultMenuModel();
         Integer menuItemId = 1;
-        for (Notificacion notificacion : notificacionesNoLeidas) {
-            menuItemId++;
-            DefaultMenuItem menuItem = new DefaultMenuItem(notificacion.getMensaje());
-            menuItem.setId(menuItemId.toString());
-            String notificacionId = notificacion.getIdNotificacion().toString();
-            menuItem.setCommand("#{beanSesionUsuario.show('" + notificacionId + "')}");            
-            notificaciones.addElement(menuItem);
+        if (notificacionesNoLeidas != null) {
+            for (Notificacion notificacion : notificacionesNoLeidas) {
+                menuItemId++;
+                DefaultMenuItem menuItem = new DefaultMenuItem(notificacion.getMensaje());
+                menuItem.setId(menuItemId.toString());
+                String notificacionId = notificacion.getIdNotificacion().toString();
+                menuItem.setCommand("#{beanSesionUsuario.show('" + notificacionId + "')}");
+                notificaciones.addElement(menuItem);
+            }
         }
-*/
+
     }
 
     public Usuario getUsuarioLoggeado() {

@@ -55,7 +55,19 @@ public class UtilNotificacion {
     }
 
     public static void modificarNotificacion(EntityManager em, Notificacion notificacionSeleccionada) {
-        em.persist(notificacionSeleccionada);
+        em.merge(notificacionSeleccionada);
+    }
+    
+    public static void cambiarAnterioridadNotificacion(EntityManager em, Notificacion notificacionSeleccionada, int anterioridad){
+        em.getTransaction().begin();
+        notificacionSeleccionada.setAnterioridadDias(anterioridad);
+        em.getTransaction().commit();
+    }
+    
+    public static void cambiarMensajeNotificacion(EntityManager em, Notificacion notificacionSeleccionada, String mensaje){
+        em.getTransaction().begin();
+        notificacionSeleccionada.setMensaje(mensaje);
+        em.getTransaction().commit();
     }
 
     public static List<TareaReal> obtenerTareasSinNotificacion(EntityManager em, Cuenta cuentaActual) {

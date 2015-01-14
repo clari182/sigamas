@@ -41,4 +41,8 @@ public interface NotificacionBeanLocal {
 
     List<Notificacion> obtenerNotificacionesNoLeidas(Cuenta cuentaActual);
     
+    void cambiarAnterioridadNotificacion(Notificacion notificacionSeleccionada, int anterioridad);
+    
+    void cambiarMensajeNotificacion(Notificacion notificacionSeleccionada, String mensaje);
+    
 }
