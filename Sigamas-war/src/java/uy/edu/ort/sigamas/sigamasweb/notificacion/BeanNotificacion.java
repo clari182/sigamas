@@ -20,10 +20,10 @@ import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.SelectableDataModel;
-import uy.edu.ort.sigamas.seguridad.entidades.Notificacion;
-import uy.edu.ort.sigamas.seguridad.entidades.TareaPlanificada;
-import uy.edu.ort.sigamas.seguridad.entidades.TareaReal;
-import uy.edu.ort.sigamas.seguridad.entidades.TipoNotificacion;
+import uy.edu.ort.sigamas.notificaciones.entidades.Notificacion;
+import uy.edu.ort.sigamas.seguimiento.entidades.TareaPlanificada;
+import uy.edu.ort.sigamas.seguimiento.entidades.TareaReal;
+import uy.edu.ort.sigamas.notificaciones.entidades.TipoNotificacion;
 import uy.edu.ort.sigamas.seguridad.notificacion.NotificacionBeanLocal;
 import uy.edu.ort.sigamas.sigamasweb.login.BeanSesionUsuario;
 

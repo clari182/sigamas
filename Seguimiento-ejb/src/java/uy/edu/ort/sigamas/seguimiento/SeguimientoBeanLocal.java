@@ -10,7 +10,7 @@ import javax.ejb.Local;
 import javax.faces.model.SelectItem;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.entidades.Proyecto;
-import uy.edu.ort.sigamas.seguridad.entidades.TareaReal;
+import uy.edu.ort.sigamas.seguimiento.entidades.TareaReal;
 
 /**
  *

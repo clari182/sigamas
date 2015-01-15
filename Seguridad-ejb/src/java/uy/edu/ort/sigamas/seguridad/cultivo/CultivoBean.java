@@ -13,8 +13,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import uy.edu.ort.sigamas.seguridad.cultivo.utils.UtilCultivo;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
-import uy.edu.ort.sigamas.seguridad.entidades.Cultivo;
-import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
+import uy.edu.ort.sigamas.cultivos.entidades.Cultivo;
+import uy.edu.ort.sigamas.campos.entidades.Parcela;
 import uy.edu.ort.sigamas.seguridad.entidades.Proyecto;
 
 /**

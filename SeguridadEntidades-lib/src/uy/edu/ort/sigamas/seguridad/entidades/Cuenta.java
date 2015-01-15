@@ -59,13 +59,7 @@ public class Cuenta implements Serializable {
     private List<Usuario> usuarioList;
     @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
     private List<Login> loginList;
-    @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
-    private List<Parcela> parcelaList;
-    @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
-    private List<Campo> campoList;
-    @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
-    private List<Insumo> insumoList;
-
+   
     public Cuenta() {
     }
 
@@ -127,33 +121,6 @@ public class Cuenta implements Serializable {
 
     public void setLoginList(List<Login> loginList) {
         this.loginList = loginList;
-    }
-
-    @XmlTransient
-    public List<Parcela> getParcelaList() {
-        return parcelaList;
-    }
-
-    public void setParcelaList(List<Parcela> parcelaList) {
-        this.parcelaList = parcelaList;
-    }
-
-    @XmlTransient
-    public List<Campo> getCampoList() {
-        return campoList;
-    }
-
-    public void setCampoList(List<Campo> campoList) {
-        this.campoList = campoList;
-    }
-
-    @XmlTransient
-    public List<Insumo> getInsumoList() {
-        return insumoList;
-    }
-
-    public void setInsumoList(List<Insumo> insumoList) {
-        this.insumoList = insumoList;
     }
 
     @Override

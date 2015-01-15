@@ -17,8 +17,8 @@ import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.MapModel;
-import uy.edu.ort.sigamas.seguridad.entidades.Departamento;
-import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
+import uy.edu.ort.sigamas.campos.entidades.Departamento;
+import uy.edu.ort.sigamas.campos.entidades.Parcela;
 import uy.edu.ort.sigamas.seguridad.parcela.ParcelaBeanLocal;
 
 import uy.edu.ort.sigamas.seguridad.parcela.excepciones.ParcelaPadronExistenteException;

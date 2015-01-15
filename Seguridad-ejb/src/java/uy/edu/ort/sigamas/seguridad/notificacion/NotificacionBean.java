@@ -10,10 +10,10 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
-import uy.edu.ort.sigamas.seguridad.entidades.Notificacion;
-import uy.edu.ort.sigamas.seguridad.entidades.TareaPlanificada;
-import uy.edu.ort.sigamas.seguridad.entidades.TareaReal;
-import uy.edu.ort.sigamas.seguridad.entidades.TipoNotificacion;
+import uy.edu.ort.sigamas.notificaciones.entidades.Notificacion;
+import uy.edu.ort.sigamas.seguimiento.entidades.TareaPlanificada;
+import uy.edu.ort.sigamas.seguimiento.entidades.TareaReal;
+import uy.edu.ort.sigamas.notificaciones.entidades.TipoNotificacion;
 import uy.edu.ort.sigamas.seguridad.notificacion.utils.UtilNotificacion;
 
 /**
