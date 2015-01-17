@@ -7,6 +7,7 @@ package uy.edu.ort.sigamas.seguimiento;
 
 import java.util.List;
 import javax.ejb.Local;
+import uy.edu.ort.sigamas.cultivos.entidades.Cultivo;
 import uy.edu.ort.sigamas.seguimiento.entidades.Proyecto;
 import uy.edu.ort.sigamas.seguimiento.entidades.TareaReal;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
@@ -46,5 +47,5 @@ public interface SeguimientoBeanLocal {
      */
     void pasarProyectoDeFase(Proyecto proyecto);
 
-    List<Object[]> obtenerTareasPendientes(Cuenta cuentaActual);    
+    List<TareaReal> obtenerTareasPendientes(Cuenta cuentaActual);    
 }

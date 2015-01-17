@@ -27,6 +27,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import uy.edu.ort.sigamas.cultivos.entidades.Cultivo;
 
 /**
  *
@@ -40,17 +41,18 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TareaReal.findByIdTareaReal", query = "SELECT t FROM TareaReal t WHERE t.idTareaReal = :idTareaReal"),
     @NamedQuery(name = "TareaReal.findByNombre", query = "SELECT t FROM TareaReal t WHERE t.nombre = :nombre"),
     @NamedQuery(name = "TareaReal.findByFecha", query = "SELECT t FROM TareaReal t WHERE t.fecha = :fecha"),    
-    @NamedQuery(name = "TareaReal.findTareasPendientes", query = "select distinct t, c from TareaReal t "
-            + "join t.idProyecto p "
-            + "join p.idParcela pa "
-            + "join p.idCultivo c "
-            + "where pa.idCuenta = :idCuenta "
+    @NamedQuery(name = "TareaReal.findTareasPendientes", query = "select distinct t from TareaReal t "
+            + "join t.idProyecto p "            
+            + "where p.idProyecto = :idProyecto "
             + "and t.validada = 0 "
             + "and t.fecha <= CURRENT_DATE "
-            + "order by c.idCultivo"
+            + "order by t.idCultivo"
     ),
     @NamedQuery(name = "TareaReal.findByIdFase", query = "SELECT t FROM TareaReal t WHERE t.idFase = :idFase")})
 public class TareaReal implements Serializable {
+    @JoinColumn(name = "id_cultivo", referencedColumnName = "id_cultivo")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Cultivo idCultivo;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -181,6 +183,14 @@ public class TareaReal implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.seguridad.entidades.TareaReal[ idTareaReal=" + idTareaReal + " ]";
+    }
+
+    public Cultivo getIdCultivo() {
+        return idCultivo;
+    }
+
+    public void setIdCultivo(Cultivo idCultivo) {
+        this.idCultivo = idCultivo;
     }
     
 }

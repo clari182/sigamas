@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import uy.edu.ort.sigamas.seguimiento.entidades.Proyecto;
+import uy.edu.ort.sigamas.seguimiento.entidades.TareaReal;
 
 /**
  *
@@ -37,6 +38,8 @@ import uy.edu.ort.sigamas.seguimiento.entidades.Proyecto;
     @NamedQuery(name = "Cultivo.findByTipo", query = "SELECT c FROM Cultivo c WHERE c.tipo = :tipo"),
     @NamedQuery(name = "Cultivo.findByCoeficiente", query = "SELECT c FROM Cultivo c WHERE c.coeficiente = :coeficiente")})
 public class Cultivo implements Serializable {
+    @OneToMany(mappedBy = "idCultivo", fetch = FetchType.EAGER)
+    private List<TareaReal> tareaRealList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -135,6 +138,15 @@ public class Cultivo implements Serializable {
     @Override
     public String toString() {
         return "uy.edu.ort.sigamas.cultivos.entidades.Cultivo[ idCultivo=" + idCultivo + " ]";
+    }
+
+    @XmlTransient
+    public List<TareaReal> getTareaRealList() {
+        return tareaRealList;
+    }
+
+    public void setTareaRealList(List<TareaReal> tareaRealList) {
+        this.tareaRealList = tareaRealList;
     }
     
 }

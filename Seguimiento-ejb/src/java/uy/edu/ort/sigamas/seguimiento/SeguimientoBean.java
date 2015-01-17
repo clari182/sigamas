@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import uy.edu.ort.sigamas.cultivos.entidades.Cultivo;
 import uy.edu.ort.sigamas.cultivos.entidades.Subfase;
 import uy.edu.ort.sigamas.seguimiento.entidades.Proyecto;
 import uy.edu.ort.sigamas.seguimiento.entidades.TareaReal;
@@ -58,14 +59,14 @@ public class SeguimientoBean implements SeguimientoBeanLocal {
     }
 
     @Override
-    public List<Object[]> obtenerTareasPendientes(Cuenta cuentaActual) {
-        List<Object[]> tareasPendientes = new ArrayList<>();
-        if (cuentaActual != null) {
-            tareasPendientes = em.createNamedQuery("TareaReal.findTareasPendientes").setParameter("idCuenta", cuentaActual.getIdCuenta()).getResultList();
-        } else {
-            tareasPendientes = em.createNamedQuery("TareaReal.findAll").getResultList();
+    public List<TareaReal> obtenerTareasPendientes(Cuenta cuentaActual) {
+        List<Proyecto> proyectos = em.createNamedQuery("Proyecto.findAll").getResultList();
+        List<TareaReal> tareasPendientes = new ArrayList();
+        for (Proyecto proyecto : proyectos) {
+            if (proyecto.getIdCuenta() == cuentaActual) {
+                tareasPendientes.addAll(em.createNamedQuery("TareaReal.findTareasPendientes").setParameter("idProyecto", proyecto.getIdProyecto()).getResultList());
+            }
         }
         return tareasPendientes;
     }
-
 }

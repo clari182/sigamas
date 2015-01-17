@@ -50,13 +50,8 @@ public class beanSeguimiento implements Serializable{
 
     @PostConstruct
     public void init() {
-        List<Object[]> tareasPendientes = seguimientoBeanLocal.obtenerTareasPendientes(beanSesionUsuario.getCuentaActual());        
-        Cultivo cultivoActual = null;
-        
-        for (Object[] ob : tareasPendientes) {
-            cultivoActual = (Cultivo)ob[0];
-            
-        }
+        List<TareaReal> tareasPendientes = seguimientoBeanLocal.obtenerTareasPendientes(beanSesionUsuario.getCuentaActual());        
+                       
         
         /*try {
             tareas = new ArrayList<>();
