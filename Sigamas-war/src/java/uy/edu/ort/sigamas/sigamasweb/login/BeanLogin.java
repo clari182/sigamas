@@ -132,6 +132,8 @@ public class BeanLogin implements Serializable {
         } catch (UsuarioInvalidoException exp) { // Hacer clase de excepcion
             UtilsMensajes.mostrarMensajeError(null, "Error inesperado", exp.getMessage());
             return "";
+        } catch (Exception exp) {
+            return "";
         }
     }   
 

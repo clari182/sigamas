@@ -9,11 +9,10 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.notificaciones.entidades.Notificacion;
-import uy.edu.ort.sigamas.seguimiento.entidades.TareaPlanificada;
-import uy.edu.ort.sigamas.seguimiento.entidades.TareaReal;
 import uy.edu.ort.sigamas.notificaciones.entidades.TipoNotificacion;
+import uy.edu.ort.sigamas.seguimiento.entidades.TareaReal;
+import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.notificacion.utils.UtilNotificacion;
 
 /**
@@ -35,24 +34,34 @@ public class NotificacionBean implements NotificacionBeanLocal {
     public List<Notificacion> obtenerNotificacionesTarea() {
         return UtilNotificacion.obtenerNotificacionesTarea(em);
     }
-    
+
     @Override
-    public List<TipoNotificacion> obtenerTiposNotificacion(){
+    public List<TipoNotificacion> obtenerTiposNotificacion() {
         return UtilNotificacion.obtenerTiposNotificacion(em);
     }
-    
+
     @Override
-    public void modificarNotificacion(Notificacion notificacionSeleccionada){
+    public void modificarNotificacion(Notificacion notificacionSeleccionada) {
         UtilNotificacion.modificarNotificacion(em, notificacionSeleccionada);
     }
-    
+
     @Override
-    public List<TareaReal> obtenerTareasSinNotificacion(Cuenta cuentaActual){
+    public List<TareaReal> obtenerTareasSinNotificacion(Cuenta cuentaActual) {
         return UtilNotificacion.obtenerTareasSinNotificacion(em, cuentaActual);
     }
-    
+
     @Override
-    public List<Notificacion> obtenerNotificacionesNoLeidas(Cuenta cuentaActual){
+    public List<Notificacion> obtenerNotificacionesNoLeidas(Cuenta cuentaActual) {
         return null;
+    }
+
+    @Override
+    public void cambiarAnterioridadNotificacion(Notificacion notificacionSeleccionada, int anterioridad) {
+        UtilNotificacion.cambiarAnterioridadNotificacion(em, notificacionSeleccionada, anterioridad);
+    }
+
+    @Override
+    public void cambiarMensajeNotificacion(Notificacion notificacionSeleccionada, String mensaje) {
+        UtilNotificacion.cambiarMensajeNotificacion(em, notificacionSeleccionada, mensaje);
     }
 }

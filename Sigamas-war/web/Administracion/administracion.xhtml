@@ -65,89 +65,7 @@
 
                     </p:dataTable> 
                     <!-- Acá irá una tabla con las tareas que no tienen una notificación asignada -->
-                    
-                    <br/>
-                    <p:separator/>
-                    <br/>
-                    <h3>PRESUPUESTO - Maquinaria</h3>
-
-                    <p:dataTable id="tabla-notificaciones-maquinaria" 
-                                 var="notificacion" 
-                                 value="#{beanNotificacion.notificacionesMaquinarias}" 
-                                 selectionMode="single"                                     
-                                 rowKey="#{notificacion.idNotificacion}"
-                                 selection="#{beanNotificacion.notificacionSeleccionada}">
-                        <p:ajax event="rowSelect" listener="#{beanNotificacion.seleccionNotificacion}"
-                                update=":form:tabViewAdministracion:detalleNotificacion"/>
-                        <p:ajax event="rowUnselect" listener="#{beanNotificacion.deseleccionNotificacion}" />
-                        <p:column headerText="Tipo de notificacion">
-                            <h:outputText value="#{notificacion.idTipoNotificacion.nombre}" />
-                        </p:column>
-
-                        <p:column headerText="Mensaje">
-                            <h:outputText value="#{notificacion.mensaje}" />
-                        </p:column>
-
-                        <p:column headerText="Cuando">
-                            <h:outputText value="#{notificacion.anterioridadDias} días antes del evento" />
-                        </p:column>
-                        <p:column headerText="Eliminar"></p:column>
-                    </p:dataTable>  
-                    
-                    <!-- Acá irá una tabla con las tareas que no tienen una notificación asignada -->
-                    
-                    <br/><p:separator/><br/>
-                    <h3>PRESUPUESTO - Mano de Obra</h3>
-                    <p:dataTable id="tabla-notificaciones-mano-obra" 
-                                 var="notificacion" 
-                                 value="#{beanNotificacion.notificacionesManoObra}" 
-                                 selectionMode="single"                                     
-                                 rowKey="#{notificacion.idNotificacion}"
-                                 selection="#{beanNotificacion.notificacionSeleccionada}">
-                        <p:ajax event="rowSelect" listener="#{beanNotificacion.seleccionNotificacion}" update=":form:tabViewAdministracion:detalleNotificacion"/>
-                        <p:ajax event="rowUnselect" listener="#{beanNotificacion.deseleccionNotificacion}" />
-                        <p:column headerText="Tipo de notificacion">
-                            <h:outputText value="#{notificacion.idTipoNotificacion.nombre}" />
-                        </p:column>
-
-                        <p:column headerText="Mensaje">
-                            <h:outputText value="#{notificacion.mensaje}" />
-                        </p:column>
-
-                        <p:column headerText="Cuando">
-                            <h:outputText value="#{notificacion.anterioridadDias} días antes del evento" />
-                        </p:column>
-                        <p:column headerText="Eliminar"></p:column>
-
-                    </p:dataTable>
-                    <!-- Acá irá una tabla con las tareas que no tienen una notificación asignada -->
-                    
-                    <br/><p:separator/><br/>
-                    <h3>PRESUPUESTO - Materiales</h3>
-                    <p:dataTable id="tabla-notificaciones-material" 
-                                 var="notificacion" 
-                                 value="#{beanNotificacion.notificacionesMateriales}" 
-                                 selectionMode="single"                                     
-                                 rowKey="#{notificacion.idNotificacion}"
-                                 selection="#{beanNotificacion.notificacionSeleccionada}">
-                        <p:ajax event="rowSelect" listener="#{beanNotificacion.seleccionNotificacion}" update=":form:tabViewAdministracion:detalleNotificacion"/>
-                        <p:ajax event="rowUnselect" listener="#{beanNotificacion.deseleccionNotificacion}" />
-                        <p:column headerText="Tipo de notificacion">
-                            <h:outputText value="#{notificacion.idTipoNotificacion.nombre}" />
-                        </p:column>
-
-                        <p:column headerText="Mensaje">
-                            <h:outputText value="#{notificacion.mensaje}" />
-                        </p:column>
-
-                        <p:column headerText="Cuando">
-                            <h:outputText value="#{notificacion.anterioridadDias} días antes del evento" />
-                        </p:column>
-                        <p:column headerText="Eliminar"></p:column>
-
-                    </p:dataTable> 
-                    <!-- Acá irá una tabla con las tareas que no tienen una notificación asignada -->
-                    
+                                        
                     <p:dialog widgetVar="dialogNotificacion" header="Visualización Notificación" modal="true" minHeight="215">
                         <h:panelGrid  id="detalleNotificacion" columns="2" columnClasses="column" cellpadding="5">
                             <h:outputLabel for="tipoNotificacion" value="Tipo de notificación:" />
@@ -168,7 +86,7 @@
                                 <f:selectItem itemLabel="10 días antes del evento" itemValue="10"/>
                                 <f:selectItem itemLabel="15 días antes del evento" itemValue="15"/>
                             </p:selectOneMenu>
-                            <p:commandButton value="Guardar" action="#{beanNotificacion.modificarNotificacion}"/>
+                            <p:commandButton value="Guardar" action="#{beanNotificacion.modificarNotificacion}" update="tabla-notificaciones-tarea"/>
                         </h:panelGrid>
                     </p:dialog> 
                 </p:tab>

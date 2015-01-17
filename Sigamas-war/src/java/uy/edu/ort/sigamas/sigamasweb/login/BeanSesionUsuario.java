@@ -24,9 +24,11 @@ import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
+import org.primefaces.model.menu.DefaultMenuItem;
+import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.MenuModel;
-import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.notificaciones.entidades.Notificacion;
+import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
 import uy.edu.ort.sigamas.seguridad.notificacion.NotificacionBeanLocal;
 
@@ -46,7 +48,7 @@ public class BeanSesionUsuario implements Serializable {
 
     @EJB
     private NotificacionBeanLocal notificacionBeanLocal;
-    
+
     private Usuario usuarioLoggeado;
     private Cuenta cuentaActual;
     private int tabSelected;
@@ -60,25 +62,27 @@ public class BeanSesionUsuario implements Serializable {
     @PostConstruct
     public void init() {
         /*createLineModels();
-        setEventModel(new DefaultScheduleModel());
-        getEventModel().addEvent(new DefaultScheduleEvent("siembra cultivo1", previousDay8Pm(), previousDay11Pm()));
-        getEventModel().addEvent(new DefaultScheduleEvent("tarea1", today1Pm(), today6Pm()));
-        getEventModel().addEvent(new DefaultScheduleEvent("siembra cultivo2", nextDay9Am(), nextDay11Am()));
-        getEventModel().addEvent(new DefaultScheduleEvent("Cambio de etapa", theDayAfter3Pm(), fourDaysLater3pm()));
-
+         setEventModel(new DefaultScheduleModel());
+         getEventModel().addEvent(new DefaultScheduleEvent("siembra cultivo1", previousDay8Pm(), previousDay11Pm()));
+         getEventModel().addEvent(new DefaultScheduleEvent("tarea1", today1Pm(), today6Pm()));
+         getEventModel().addEvent(new DefaultScheduleEvent("siembra cultivo2", nextDay9Am(), nextDay11Am()));
+         getEventModel().addEvent(new DefaultScheduleEvent("Cambio de etapa", theDayAfter3Pm(), fourDaysLater3pm()));
+         */
         notificacionesNoLeidas = notificacionBeanLocal.obtenerNotificacionesNoLeidas(this.getCuentaActual());
 
         notificaciones = new DefaultMenuModel();
         Integer menuItemId = 1;
-        for (Notificacion notificacion : notificacionesNoLeidas) {
-            menuItemId++;
-            DefaultMenuItem menuItem = new DefaultMenuItem(notificacion.getMensaje());
-            menuItem.setId(menuItemId.toString());
-            String notificacionId = notificacion.getIdNotificacion().toString();
-            menuItem.setCommand("#{beanSesionUsuario.show('" + notificacionId + "')}");            
-            notificaciones.addElement(menuItem);
+        if (notificacionesNoLeidas != null) {
+            for (Notificacion notificacion : notificacionesNoLeidas) {
+                menuItemId++;
+                DefaultMenuItem menuItem = new DefaultMenuItem(notificacion.getMensaje());
+                menuItem.setId(menuItemId.toString());
+                String notificacionId = notificacion.getIdNotificacion().toString();
+                menuItem.setCommand("#{beanSesionUsuario.show('" + notificacionId + "')}");
+                notificaciones.addElement(menuItem);
+            }
         }
-*/
+
     }
 
     public Usuario getUsuarioLoggeado() {
@@ -386,3 +390,4 @@ public class BeanSesionUsuario implements Serializable {
     }
 
 }
+

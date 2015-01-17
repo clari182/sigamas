@@ -94,68 +94,69 @@
                                         <f:selectItem itemLabel="Este mes"/>
                                     </p:selectOneMenu>
                                     <h:outputText value="Proyecto" />      
-<!--<p:selectOneMenu value="#{beanSeguimiento.proyectoSeleccionado}">
-                                        <f:selectItem itemLabel="Todos" value="-1"/>
+                                    <p:selectOneMenu value="#{beanSeguimiento.proyectoSeleccionado}">
+                                        <f:selectItem itemLabel="Todos"/>
                                         <f:selectItems value="#{beanProyecto.proyectos}"></f:selectItems>
                                         <p:ajax event="change" update="detalleTareas"
                                                 listener="#{beanSeguimiento.actualizarTareasProyecto}" />
-                                    </p:selectOneMenu>
-                                    <h:outputText value="Zona" />      
-                                    <p:selectOneMenu >
-                                        <f:selectItem itemLabel="Todos" value="-1"/>
-                                        <f:selectItems value="#{beanParcela.departamentos}"></f:selectItems>
-                                    </p:selectOneMenu>-->
-                                </p:panelGrid>
-                            </p:panel>
-                            <p:outputPanel>
-                                <!--<p:dataTable value="#{beanSeguimiento.tareas}" var="item" id="detalleTareas">
-                                    <p:column headerText="Fecha" width="100px">
-                                        <p:calendar disabled="true" value="#{item.fechaPrevista}"/>
-                                    </p:column>
-                                    <p:column headerText="Actividad">
-                                #{item.titulo}
-                            </p:column>
-                            <p:column headerText="Cultivo">
-                                #{item.cultivo}
-                            </p:column>
-                        </p:dataTable>-->
-                            </p:outputPanel>
-                        </p:tab>
-                        <p:tab title="Mis cultivos">
-                            <p:commandButton icon="ui-icon-plus" action="crearProyecto"/>
-                            <p:dataTable var="cultivo" value="#{beanCultivo.cultivos}" style="width:50%">
-                                <p:column headerText="Nombre">
-                                    <h:outputText value="#{cultivo.nombre}" />                                
+                                </p:selectOneMenu>
+                                <h:outputText value="Zona" />      
+                                <p:selectOneMenu >
+                                    <f:selectItem itemLabel="Todos"/>
+                                    <f:selectItems value="#{beanParcela.departamentos}"></f:selectItems>
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                        </p:panel>
+                        <p:outputPanel>
+                            <p:dataTable value="#{beanSeguimiento.tareas}" var="item" id="detalleTareas">
+                                <p:column headerText="Fecha" width="100px">
+                                    <p:calendar disabled="true" value="#{item.fecha}"/>
                                 </p:column>
-
-                                <p:column headerText="Departamento">
-                                    <h:outputText value="#{cultivo.idParcela.nombre}" />                                                            
-                                </p:column> 
-
-                                <p:column headerText="Padrón">
-                                    <h:outputText value="#{cultivo.fechaInicio}" />                                                            
-                                </p:column> 
+                                <p:column headerText="Actividad">
+                                    #{item.nombre}
+                                </p:column>
+                                <p:column headerText="Cultivo">
+                                    #{item.idProyecto.nombre}
+                                </p:column>
                             </p:dataTable>
-                        </p:tab>
-                    </p:tabView>
-                </p:layoutUnit>
-                <p:layoutUnit position="center">
-                    <!--<script type="text/javascript" src="http://voap.weather.com/weather/oap/USGA0028?template=ALERV&par=3000000007&unit=1&key=twciweatherwidget"></script>-->
-                    <p:panel style="width:90%" id="drag-clima" header="Notificaciones climáticas">
-                        <a href="http://www.accuweather.com/es/uy/montevideo/349269/weather-forecast/349269" class="aw-widget-legal">
-                            <!--
-                            By accessing and/or using this code snippet, you agree to AccuWeather’s terms and conditions (in English) which can be found at http://www.accuweather.com/en/free-weather-widgets/terms and AccuWeather’s Privacy Statement (in English) which can be found at http://www.accuweather.com/en/privacy.
-                            -->
-                        </a><div id="awcc1418751484873" class="aw-widget-current"  data-locationkey="349269" data-unit="c" data-language="es" data-useip="false" data-uid="awcc1418751484873"></div><script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>   
-                    </p:panel>
-                    <p:draggable for="drag-clima" />
+                        </p:outputPanel>
+                    </p:tab>
+                    <p:tab title="Mis cultivos">
+                        <p:commandButton icon="ui-icon-plus" action="crearProyecto"/>
+                        <p:dataTable var="cultivo" value="#{beanCultivo.cultivos}" style="width:50%">
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{cultivo.nombre}" />                                
+                            </p:column>
 
-                    <p:panel style="width:90%"  id="drag-noticias" header="Noticias varias">
-                        <h:outputText value="Aquí se consumirá info de algún WS de noticias agro (no corresponde al scope actual)" />
-                    </p:panel>
-                    <p:draggable for="drag-noticias" />
-                </p:layoutUnit>                    
-            </p:layout>
-        </h:form>
-    </ui:define>
+                            <p:column headerText="Departamento">
+                                <h:outputText value="#{cultivo.idParcela.nombre}" />                                                            
+                            </p:column> 
+
+                            <p:column headerText="Padrón">
+                                <h:outputText value="#{cultivo.fechaInicio}" />                                                            
+                            </p:column> 
+                        </p:dataTable>
+                    </p:tab>
+                </p:tabView>
+            </p:layoutUnit>
+            <p:layoutUnit position="center">
+                <!--<script type="text/javascript" src="http://voap.weather.com/weather/oap/USGA0028?template=ALERV&par=3000000007&unit=1&key=twciweatherwidget"></script>-->
+                <p:panel style="width:90%" id="drag-clima" header="Notificaciones climáticas">
+                    <a href="http://www.accuweather.com/es/uy/montevideo/349269/weather-forecast/349269" class="aw-widget-legal">
+                        <!--
+                        By accessing and/or using this code snippet, you agree to AccuWeather’s terms and conditions (in English) which can be found at http://www.accuweather.com/en/free-weather-widgets/terms and AccuWeather’s Privacy Statement (in English) which can be found at http://www.accuweather.com/en/privacy.
+                        -->
+                    </a><div id="awcc1418751484873" class="aw-widget-current"  data-locationkey="349269" data-unit="c" data-language="es" data-useip="false" data-uid="awcc1418751484873"></div><script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>   
+                </p:panel>
+                <p:draggable for="drag-clima" />
+
+                <p:panel style="width:90%"  id="drag-noticias" header="Noticias varias">
+                    <h:outputText value="Aquí se consumirá info de algún WS de noticias agro (no corresponde al scope actual)" />
+                </p:panel>
+                <p:draggable for="drag-noticias" />
+            </p:layoutUnit>                    
+        </p:layout>
+    </h:form>
+</ui:define>
+>>>>>>> upstream/main
 </ui:composition>

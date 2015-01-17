@@ -15,8 +15,8 @@ import javax.faces.view.ViewScoped;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import uy.edu.ort.sigamas.notificaciones.entidades.Notificacion;
-import uy.edu.ort.sigamas.seguimiento.entidades.TareaReal;
 import uy.edu.ort.sigamas.notificaciones.entidades.TipoNotificacion;
+import uy.edu.ort.sigamas.seguimiento.entidades.TareaReal;
 import uy.edu.ort.sigamas.seguridad.notificacion.NotificacionBeanLocal;
 import uy.edu.ort.sigamas.sigamasweb.login.BeanSesionUsuario;
 
@@ -30,8 +30,8 @@ public class BeanNotificacion implements Serializable {
 
     @EJB
     private NotificacionBeanLocal notificacionBeanLocal;
-    
-    @ManagedProperty(value="#{beanSesionUsuario}")
+
+    @ManagedProperty(value = "#{beanSesionUsuario}")
     private BeanSesionUsuario beanSesionUsuario;
 
     public void setBeanSesionUsuario(BeanSesionUsuario beanSesionUsuario) {
@@ -60,7 +60,9 @@ public class BeanNotificacion implements Serializable {
         notificacionSeleccionada = new Notificacion();
         notificacionesTareas = notificacionBeanLocal.obtenerNotificacionesTarea();
         tiposNotificacion = notificacionBeanLocal.obtenerTiposNotificacion();
-        setTareasSinNotificacion(notificacionBeanLocal.obtenerTareasSinNotificacion(beanSesionUsuario.getCuentaActual()));
+        if (beanSesionUsuario != null) {
+            setTareasSinNotificacion(notificacionBeanLocal.obtenerTareasSinNotificacion(beanSesionUsuario.getCuentaActual()));
+        }
     }
 
 // <editor-fold defaultstate="collapsed" desc="Gets y Sets">
@@ -133,7 +135,7 @@ public class BeanNotificacion implements Serializable {
     public void setNotificacionesTareas(List<Notificacion> notificacionesTareas) {
         this.notificacionesTareas = notificacionesTareas;
     }
- 
+
     /**
      * @return the destino
      */
@@ -194,7 +196,11 @@ public class BeanNotificacion implements Serializable {
 
     public void modificarNotificacion() {
         if (notificacionSeleccionada != null) {
+            //notificacionBeanLocal.cambiarAnterioridadNotificacion(notificacionSeleccionada, anterioridad_dias);
+            //notificacionBeanLocal.cambiarMensajeNotificacion(notificacionSeleccionada, mensaje);
             notificacionBeanLocal.modificarNotificacion(notificacionSeleccionada);
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.execute("PF('dialogNotificacion').hide();");        
         }
     }
 
@@ -213,3 +219,4 @@ public class BeanNotificacion implements Serializable {
     }
 
 }
+

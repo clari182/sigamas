@@ -11,7 +11,6 @@ import uy.edu.ort.sigamas.seguimiento.entidades.Proyecto;
 import uy.edu.ort.sigamas.seguimiento.entidades.TareaReal;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 
-
 /**
  *
  * @author Mattahari
@@ -19,11 +18,33 @@ import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 @Local
 public interface SeguimientoBeanLocal {
 
-    /**    
-     * @param nuevoProyecto 
-     * Permite la creacion de un nuevo proyecto y guardarlo en la bd
+    /**
+     * @param nuevoProyecto Permite la creacion de un nuevo proyecto y guardarlo
+     * en la bd
      */
-    void guardarProyecto(Proyecto nuevoProyecto);      
-    
+    void nuevoProyecto(Proyecto nuevoProyecto);
+
+    /**
+     * @param label Permite obtener el objeto Proyecto a partir de su
+     * identificador
+     * @return Proyecto
+     */
+    Proyecto obtenerProyecto(String label);
+
+    /**
+     *
+     * @param proyecto
+     * @return List<SelectItem>
+     * Permite obtener la lista de tareas asociadas a un proyecto
+     */
+    List<TareaReal> obtenerTareas(Proyecto proyecto);
+
+    /**
+     *
+     * @param proyecto Permite pasar el proyecto a la siguiente fase en forma
+     * manual
+     */
+    void pasarProyectoDeFase(Proyecto proyecto);
+
     List<TareaReal> obtenerTareasPendientes(Cuenta cuentaActual);
 }
