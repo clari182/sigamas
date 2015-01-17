@@ -5,7 +5,6 @@
  */
 package uy.edu.ort.sigamas.sigamasweb.parcela;
 
-import com.sun.org.apache.bcel.internal.generic.Select;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +16,9 @@ import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.MapModel;
-import uy.edu.ort.sigamas.seguridad.entidades.Departamento;
-import uy.edu.ort.sigamas.seguridad.entidades.Parcela;
+import uy.edu.ort.sigamas.campos.entidades.Departamento;
+import uy.edu.ort.sigamas.campos.entidades.Parcela;
 import uy.edu.ort.sigamas.seguridad.parcela.ParcelaBeanLocal;
-
 import uy.edu.ort.sigamas.seguridad.parcela.excepciones.ParcelaPadronExistenteException;
 import uy.edu.ort.sigamas.sigamasweb.login.BeanSesionUsuario;
 import uy.edu.ort.sigamas.sigamasweb.utils.UtilsMensajes;

@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import uy.edu.ort.sigamas.notificaciones.entidades.Notificacion;
+import uy.edu.ort.sigamas.notificaciones.entidades.TipoNotificacion;
+import uy.edu.ort.sigamas.seguimiento.entidades.TareaReal;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
-import uy.edu.ort.sigamas.seguridad.entidades.Notificacion;
-import uy.edu.ort.sigamas.seguridad.entidades.TareaPlanificada;
-import uy.edu.ort.sigamas.seguridad.entidades.TareaReal;
-import uy.edu.ort.sigamas.seguridad.entidades.TipoNotificacion;
+
 
 /**
  *
@@ -57,23 +57,23 @@ public class UtilNotificacion {
     public static void modificarNotificacion(EntityManager em, Notificacion notificacionSeleccionada) {
         em.merge(notificacionSeleccionada);
     }
-    
-    public static void cambiarAnterioridadNotificacion(EntityManager em, Notificacion notificacionSeleccionada, int anterioridad){
+
+    public static void cambiarAnterioridadNotificacion(EntityManager em, Notificacion notificacionSeleccionada, int anterioridad) {
         em.getTransaction().begin();
         notificacionSeleccionada.setAnterioridadDias(anterioridad);
         em.getTransaction().commit();
     }
-    
-    public static void cambiarMensajeNotificacion(EntityManager em, Notificacion notificacionSeleccionada, String mensaje){
+
+    public static void cambiarMensajeNotificacion(EntityManager em, Notificacion notificacionSeleccionada, String mensaje) {
         em.getTransaction().begin();
         notificacionSeleccionada.setMensaje(mensaje);
         em.getTransaction().commit();
     }
 
     public static List<TareaReal> obtenerTareasSinNotificacion(EntityManager em, Cuenta cuentaActual) {
-       List<TareaReal> tareasSinNotificacion = new ArrayList<>();
-       
-       return tareasSinNotificacion;
+        List<TareaReal> tareasSinNotificacion = new ArrayList<>();
+
+        return tareasSinNotificacion;
     }
-    
+
 }

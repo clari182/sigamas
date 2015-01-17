@@ -5,20 +5,15 @@
  */
 package uy.edu.ort.sigamas.seguimiento;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import uy.edu.ort.sigamas.cultivos.entidades.Subfase;
+import uy.edu.ort.sigamas.seguimiento.entidades.Proyecto;
+import uy.edu.ort.sigamas.seguimiento.entidades.TareaReal;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
-import uy.edu.ort.sigamas.seguridad.entidades.Proyecto;
-import uy.edu.ort.sigamas.seguridad.entidades.Subfase;
-import uy.edu.ort.sigamas.seguridad.entidades.TareaPlanificada;
-import uy.edu.ort.sigamas.seguridad.entidades.TareaReal;
-
-;
 
 /**
  *

@@ -6,13 +6,7 @@
 package uy.edu.ort.sigamas.sigamasweb.seguimiento;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.event.ValueChangeEvent;
@@ -20,7 +14,7 @@ import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import uy.edu.ort.sigamas.seguimiento.SeguimientoBeanLocal;
-import uy.edu.ort.sigamas.seguridad.entidades.Proyecto;
+import uy.edu.ort.sigamas.seguimiento.entidades.Proyecto;
 
 /**
  *
@@ -70,8 +64,8 @@ public class beanSeguimiento implements Serializable{
  
     public void actualizarTareasProyecto(ValueChangeEvent  event){
         proyectoSeleccionado = (SelectItem)event.getNewValue();
-        Proyecto proyecto = seguimientoBeanLocal.obtenerProyecto(proyectoSeleccionado.getLabel());
-        setTareas(seguimientoBeanLocal.obtenerTareas(proyecto));
+//        Proyecto proyecto = seguimientoBeanLocal.obtenerProyecto(proyectoSeleccionado.getLabel());
+//        setTareas(seguimientoBeanLocal.obtenerTareas(proyecto));
     }
 
     /**

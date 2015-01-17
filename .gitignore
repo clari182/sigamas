@@ -16,3 +16,10 @@ nb-configuration.xml
 /Mailing-ejb/nbproject/private/
 /Seguimiento-ejb/nbproject/private/
 /SeguimientoEntidades-lib/nbproject/private/
+/SeguimientoEntidades/nbproject/private/
+/NotificacionesEntidades-lib/nbproject/private/
+/NotificacionesEntidades/nbproject/private/
+/CultivosEntidades-lib/nbproject/private/
+/CamposEntidades-lib/nbproject/private/
+/InsumosEntidades-lib/nbproject/private/
+/CamposEntidades-lib/build
