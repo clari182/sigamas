@@ -5,17 +5,14 @@
  */
 package uy.edu.ort.sigamas.seguridad.cultivo.utils;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
-import javax.persistence.Query;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.cultivos.entidades.Cultivo;
 //import uy.edu.ort.sigamas.seguridad.entidades.Cultivo;
 import uy.edu.ort.sigamas.campos.entidades.Parcela;
-import uy.edu.ort.sigamas.seguridad.entidades.Proyecto;
+import uy.edu.ort.sigamas.seguimiento.entidades.Proyecto;
 
 /**
  *

@@ -9,7 +9,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CreacionCuentaInvalidaException;
 import uy.edu.ort.sigamas.seguridad.cuenta.excepciones.CuentaExistenteException;
 import uy.edu.ort.sigamas.seguridad.cuenta.utils.UtilCuenta;

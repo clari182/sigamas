@@ -12,7 +12,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
@@ -21,10 +20,9 @@ import uy.edu.ort.sigamas.seguridad.cultivo.CultivoBeanLocal;
 import uy.edu.ort.sigamas.cultivos.entidades.Cultivo;
 //import uy.edu.ort.sigamas.seguridad.entidades.Cultivo;
 import uy.edu.ort.sigamas.campos.entidades.Parcela;
-import uy.edu.ort.sigamas.seguridad.entidades.Proyecto;
+import uy.edu.ort.sigamas.seguimiento.entidades.Proyecto;
 import uy.edu.ort.sigamas.seguridad.parcela.ParcelaBeanLocal;
 import uy.edu.ort.sigamas.sigamasweb.login.BeanSesionUsuario;
-import uy.edu.ort.sigamas.sigamasweb.parcela.BeanParcela;
 
 /**
  *
@@ -213,8 +211,9 @@ public class BeanProyecto implements Serializable {
         out = -1;
         Integer.parseInt(parcelaSeleccionada.getLabel(), out);
         Parcela p = parcelaBeanLocal.obtenerParcela(out);
-        proyecto.setIdParcela(p);
-        seguimientoBeanLocal.nuevoProyecto(proyecto);
+        //TODO revisar
+       // proyecto.setIdParcela(p);
+        //seguimientoBeanLocal.nuevoProyecto(proyecto);
         beanSesionUsuario.setTabSelected(3);
         return "homeClient";
     }

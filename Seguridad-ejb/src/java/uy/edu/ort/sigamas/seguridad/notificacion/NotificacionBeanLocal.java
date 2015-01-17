@@ -9,7 +9,6 @@ import java.util.List;
 import javax.ejb.Local;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.notificaciones.entidades.Notificacion;
-import uy.edu.ort.sigamas.seguimiento.entidades.TareaPlanificada;
 import uy.edu.ort.sigamas.seguimiento.entidades.TareaReal;
 import uy.edu.ort.sigamas.notificaciones.entidades.TipoNotificacion;
 

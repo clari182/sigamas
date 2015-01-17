@@ -5,7 +5,6 @@
  */
 package uy.edu.ort.sigamas.sigamasweb.parcela;
 
-import com.sun.org.apache.bcel.internal.generic.Select;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

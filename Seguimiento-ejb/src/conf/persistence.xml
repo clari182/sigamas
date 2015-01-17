@@ -2,31 +2,17 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="Seguimiento-PU" transaction-type="JTA">
     <jta-data-source>jdbc/sigamas</jta-data-source>
-    <class>uy.edu.ort.sigamas.entidades.seguimiento.Tarea</class>
-    <class>uy.edu.ort.sigamas.entidades.seguridad.Cuenta</class>
-    <class>uy.edu.ort.sigamas.entidades.seguridad.Departamento</class>
-    <class>uy.edu.ort.sigamas.entidades.seguridad.Login</class>
-    <class>uy.edu.ort.sigamas.entidades.seguridad.Parcela</class>
-    <class>uy.edu.ort.sigamas.entidades.seguridad.Rol</class>
-    <class>uy.edu.ort.sigamas.entidades.seguridad.Usuario</class>
-    <class>uy.edu.ort.sigamas.seguridad.entidades.Proyecto</class>
-    <class>uy.edu.ort.sigamas.seguridad.entidades.Cultivo</class>
-    <class>uy.edu.ort.sigamas.seguridad.entidades.Campo</class>
+    <class>uy.edu.ort.sigamas.cultivos.entidades.Cultivo</class>
+    <class>uy.edu.ort.sigamas.cultivos.entidades.Fase</class>
+    <class>uy.edu.ort.sigamas.cultivos.entidades.Subfase</class>
+    <class>uy.edu.ort.sigamas.seguimiento.entidades.Proyecto</class>
+    <class>uy.edu.ort.sigamas.seguimiento.entidades.TareaPlanificada</class>
+    <class>uy.edu.ort.sigamas.seguimiento.entidades.TareaReal</class>
     <class>uy.edu.ort.sigamas.seguridad.entidades.Cuenta</class>
-    <class>uy.edu.ort.sigamas.seguridad.entidades.Departamento</class>
-    <class>uy.edu.ort.sigamas.seguridad.entidades.Fase</class>
-    <class>uy.edu.ort.sigamas.seguridad.entidades.Insumo</class>
-    <class>uy.edu.ort.sigamas.seguridad.entidades.Login</class>
-    <class>uy.edu.ort.sigamas.seguridad.entidades.Notificacion</class>
-    <class>uy.edu.ort.sigamas.seguridad.entidades.Parcela</class>
     <class>uy.edu.ort.sigamas.seguridad.entidades.Rol</class>
-    <class>uy.edu.ort.sigamas.seguridad.entidades.Subfase</class>
-    <class>uy.edu.ort.sigamas.seguridad.entidades.TareaPlanificada</class>
-    <class>uy.edu.ort.sigamas.seguridad.entidades.TareaReal</class>
-    <class>uy.edu.ort.sigamas.seguridad.entidades.TipoNotificacion</class>
     <class>uy.edu.ort.sigamas.seguridad.entidades.Usuario</class>
-    <class>uy.edu.ort.sigamas.seguridad.entidades.Valor</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <class>uy.edu.ort.sigamas.seguridad.entidades.Login</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>
 </persistence>

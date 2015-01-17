@@ -7,10 +7,10 @@ package uy.edu.ort.sigamas.seguimiento;
 
 import java.util.List;
 import javax.ejb.Local;
-import javax.faces.model.SelectItem;
-import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
-import uy.edu.ort.sigamas.seguridad.entidades.Proyecto;
+import uy.edu.ort.sigamas.seguimiento.entidades.Proyecto;
 import uy.edu.ort.sigamas.seguimiento.entidades.TareaReal;
+import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
+
 
 /**
  *
@@ -23,29 +23,7 @@ public interface SeguimientoBeanLocal {
      * @param nuevoProyecto 
      * Permite la creacion de un nuevo proyecto y guardarlo en la bd
      */
-    void nuevoProyecto(Proyecto nuevoProyecto);
-
-    /**     
-     * @param label
-     * Permite obtener el objeto Proyecto a partir de su identificador
-     * @return Proyecto
-     */
-    Proyecto obtenerProyecto(String label);
-
-    /**
-     * 
-     * @param proyecto
-     * @return List<SelectItem>
-     * Permite obtener la lista de tareas asociadas a un proyecto
-     */
-    List<SelectItem> obtenerTareas(Proyecto proyecto);
-    
-    /**
-     * 
-     * @param proyecto 
-     * Permite pasar el proyecto a la siguiente fase en forma manual
-     */
-    void pasarProyectoDeFase(Proyecto proyecto);
+    void guardarProyecto(Proyecto nuevoProyecto);      
     
     List<TareaReal> obtenerTareasPendientes(Cuenta cuentaActual);
 }
