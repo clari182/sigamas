@@ -143,7 +143,7 @@ public class Parcela implements Serializable {
 
     @Override
     public String toString() {
-        return "uy.edu.ort.sigamas.seguridad.entidades.Parcela[ idParcela=" + idParcela + " ]";
+        return "uy.edu.ort.sigamas.campos.entidades.Parcela[ idParcela=" + idParcela + " ]";
     }
     
 }

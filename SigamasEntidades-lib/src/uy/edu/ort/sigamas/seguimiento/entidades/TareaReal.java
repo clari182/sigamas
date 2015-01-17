@@ -39,8 +39,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TareaReal.findAll", query = "SELECT t FROM TareaReal t"),
     @NamedQuery(name = "TareaReal.findByIdTareaReal", query = "SELECT t FROM TareaReal t WHERE t.idTareaReal = :idTareaReal"),
     @NamedQuery(name = "TareaReal.findByNombre", query = "SELECT t FROM TareaReal t WHERE t.nombre = :nombre"),
-    @NamedQuery(name = "TareaReal.findByFecha", query = "SELECT t FROM TareaReal t WHERE t.fecha = :fecha"),
-    @NamedQuery(name = "TareaReal.findByValidada", query = "SELECT t FROM TareaReal t WHERE t.validada = :validada"),
+    @NamedQuery(name = "TareaReal.findByFecha", query = "SELECT t FROM TareaReal t WHERE t.fecha = :fecha"),    
+    @NamedQuery(name = "TareaReal.findTareasPendientes", query = "select distinct t, c from TareaReal t "
+            + "join t.idProyecto p "
+            + "join p.idParcela pa "
+            + "join p.idCultivo c "
+            + "where pa.idCuenta = :idCuenta "
+            + "and t.validada = 0 "
+            + "and t.fecha <= CURRENT_DATE "
+            + "order by c.idCultivo"
+    ),
     @NamedQuery(name = "TareaReal.findByIdFase", query = "SELECT t FROM TareaReal t WHERE t.idFase = :idFase")})
 public class TareaReal implements Serializable {
     private static final long serialVersionUID = 1L;

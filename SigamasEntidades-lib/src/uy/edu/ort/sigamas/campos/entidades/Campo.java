@@ -159,7 +159,7 @@ public class Campo implements Serializable {
 
     @Override
     public String toString() {
-        return "uy.edu.ort.sigamas.seguridad.entidades.Campo[ idCampo=" + idCampo + " ]";
+        return "uy.edu.ort.sigamas.campos.entidades.Campo[ idCampo=" + idCampo + " ]";
     }
     
 }

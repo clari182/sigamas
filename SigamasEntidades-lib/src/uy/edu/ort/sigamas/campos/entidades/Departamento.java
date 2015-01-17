@@ -122,7 +122,7 @@ public class Departamento implements Serializable {
 
     @Override
     public String toString() {
-        return "uy.edu.ort.sigamas.seguridad.entidades.Departamento[ idDepartamento=" + idDepartamento + " ]";
+        return "uy.edu.ort.sigamas.campos.entidades.Departamento[ idDepartamento=" + idDepartamento + " ]";
     }
     
 }

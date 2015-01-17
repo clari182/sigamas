@@ -115,7 +115,7 @@ public class Fase implements Serializable {
 
     @Override
     public String toString() {
-        return "uy.edu.ort.sigamas.seguridad.entidades.Fase[ idFase=" + idFase + " ]";
+        return "uy.edu.ort.sigamas.cultivos.entidades.Fase[ idFase=" + idFase + " ]";
     }
     
 }

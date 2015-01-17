@@ -6,6 +6,13 @@
             <file>file:/C:/Project/sigamas/SeguridadEntidades-lib/src/META-INF/persistence.xml</file>
         </group>
         <group name="Sigamas - Desarrollo - GitHub"/>
-        <group name="SIGAMAS"/>
+        <group name="SIGAMAS">
+            <file>file:/C:/Project/sigamas/SigamasEntidades-lib/src/uy/edu/ort/sigamas/campos/entidades/Departamento.java</file>
+            <file>file:/C:/Project/sigamas/SigamasEntidades-lib/src/uy/edu/ort/sigamas/campos/entidades/Campo.java</file>
+            <file>file:/C:/Project/sigamas/SigamasEntidades-lib/src/uy/edu/ort/sigamas/campos/entidades/Parcela.java</file>
+            <file>file:/C:/Project/sigamas/SigamasEntidades-lib/src/uy/edu/ort/sigamas/seguridad/entidades/Cuenta.java</file>
+            <file>file:/C:/Project/sigamas/SigamasEntidades-lib/src/uy/edu/ort/sigamas/cultivos/entidades/Fase.java</file>
+            <file>file:/C:/Project/sigamas/SigamasEntidades-lib/src/uy/edu/ort/sigamas/cultivos/entidades/Cultivo.java</file>
+        </group>
     </open-files>
 </project-private>

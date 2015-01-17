@@ -58,8 +58,8 @@ public class SeguimientoBean implements SeguimientoBeanLocal {
     }
 
     @Override
-    public List<TareaReal> obtenerTareasPendientes(Cuenta cuentaActual) {
-        List<TareaReal> tareasPendientes = new ArrayList<>();
+    public List<Object[]> obtenerTareasPendientes(Cuenta cuentaActual) {
+        List<Object[]> tareasPendientes = new ArrayList<>();
         if (cuentaActual != null) {
             tareasPendientes = em.createNamedQuery("TareaReal.findTareasPendientes").setParameter("idCuenta", cuentaActual.getIdCuenta()).getResultList();
         } else {

@@ -38,6 +38,7 @@ import uy.edu.ort.sigamas.seguimiento.entidades.TareaPlanificada;
     @NamedQuery(name = "Subfase.findByEtapa", query = "SELECT s FROM Subfase s WHERE s.etapa = :etapa"),
     @NamedQuery(name = "Subfase.findByNombre", query = "SELECT s FROM Subfase s WHERE s.nombre = :nombre"),
     @NamedQuery(name = "Subfase.findByDias", query = "SELECT s FROM Subfase s WHERE s.dias = :dias"),
+    @NamedQuery(name = "Subfase.findPrimeraFase", query = "SELECT s FROM Subfase s WHERE s.dias = 0 and s.idCultivo = :idCultivo"),
     @NamedQuery(name = "Subfase.findByDescripcion", query = "SELECT s FROM Subfase s WHERE s.descripcion = :descripcion")})
 public class Subfase implements Serializable {
     private static final long serialVersionUID = 1L;

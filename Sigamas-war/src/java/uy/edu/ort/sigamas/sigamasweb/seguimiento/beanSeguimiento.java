@@ -9,12 +9,16 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import uy.edu.ort.sigamas.cultivos.entidades.Cultivo;
 import uy.edu.ort.sigamas.seguimiento.SeguimientoBeanLocal;
 import uy.edu.ort.sigamas.seguimiento.entidades.Proyecto;
+import uy.edu.ort.sigamas.seguimiento.entidades.TareaReal;
+import uy.edu.ort.sigamas.sigamasweb.login.BeanSesionUsuario;
 
 /**
  *
@@ -26,29 +30,34 @@ public class beanSeguimiento implements Serializable{
 
     @EJB
     private SeguimientoBeanLocal seguimientoBeanLocal;
+    
+    @ManagedProperty(value = "#{beanSesionUsuario}")
+    private BeanSesionUsuario beanSesionUsuario;
+
+    public void setBeanSesionUsuario(BeanSesionUsuario beanSesionUsuario) {
+        this.beanSesionUsuario = beanSesionUsuario;
+    }
+    
     private SelectItem proyectoSeleccionado;
     private List<SelectItem> tareas;
+    private List<SelectItem> cultivosConTareasPendientes;
     
     /**
      * Creates a new instance of beanSeguimiento
      */
     public beanSeguimiento() {
     }
-       /**
-     * @return the proyectoSeleccionado
-     */
-    public SelectItem getProyectoSeleccionado() {
-        return proyectoSeleccionado;
-    }
 
-    /**
-     * @param proyectoSeleccionado the proyectoSeleccionado to set
-     */
-    public void setProyectoSeleccionado(SelectItem proyectoSeleccionado) {
-        this.proyectoSeleccionado = proyectoSeleccionado;
-    }
     @PostConstruct
     public void init() {
+        List<Object[]> tareasPendientes = seguimientoBeanLocal.obtenerTareasPendientes(beanSesionUsuario.getCuentaActual());        
+        Cultivo cultivoActual = null;
+        
+        for (Object[] ob : tareasPendientes) {
+            cultivoActual = (Cultivo)ob[0];
+            
+        }
+        
         /*try {
             tareas = new ArrayList<>();
             SimpleDateFormat sdf = new  SimpleDateFormat("dd/MM/yyyy");
@@ -96,7 +105,33 @@ public class beanSeguimiento implements Serializable{
         this.tareas = tareas;
     }
 
- 
+    /**
+     * @return the cultivosConTareasPendientes
+     */
+    public List<SelectItem> getCultivosConTareasPendientes() {
+        return cultivosConTareasPendientes;
+    }
+
+    /**
+     * @param cultivosConTareasPendientes the cultivosConTareasPendientes to set
+     */
+    public void setCultivosConTareasPendientes(List<SelectItem> cultivosConTareasPendientes) {
+        this.cultivosConTareasPendientes = cultivosConTareasPendientes;
+    }
+
+       /**
+     * @return the proyectoSeleccionado
+     */
+    public SelectItem getProyectoSeleccionado() {
+        return proyectoSeleccionado;
+    }
+
+    /**
+     * @param proyectoSeleccionado the proyectoSeleccionado to set
+     */
+    public void setProyectoSeleccionado(SelectItem proyectoSeleccionado) {
+        this.proyectoSeleccionado = proyectoSeleccionado;
+    } 
     
     
    

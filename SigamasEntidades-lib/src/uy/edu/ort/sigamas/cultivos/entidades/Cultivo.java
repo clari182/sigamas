@@ -134,7 +134,7 @@ public class Cultivo implements Serializable {
 
     @Override
     public String toString() {
-        return "uy.edu.ort.sigamas.seguridad.entidades.Cultivo[ idCultivo=" + idCultivo + " ]";
+        return "uy.edu.ort.sigamas.cultivos.entidades.Cultivo[ idCultivo=" + idCultivo + " ]";
     }
     
 }

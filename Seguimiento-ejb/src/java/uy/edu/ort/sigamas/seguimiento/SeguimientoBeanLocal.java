@@ -46,5 +46,5 @@ public interface SeguimientoBeanLocal {
      */
     void pasarProyectoDeFase(Proyecto proyecto);
 
-    List<TareaReal> obtenerTareasPendientes(Cuenta cuentaActual);
+    List<Object[]> obtenerTareasPendientes(Cuenta cuentaActual);    
 }
