@@ -30,28 +30,17 @@
                                 <h:form>
                                     <p:growl id="msg" />
                                     <h:outputLabel></h:outputLabel>
-
-                                    <p:panel style="width:400px;height:400px; display: inline" id="drag-tareas" header="Información sobre sus tareas">
-                                        <h:outputText id="tp" value="Usted tiene #{beanSesionUsuario.tareasPendientes} tarea pendiente para el cultivo ''Cultivo Soja Canelones'':"  />
-                                        <h:panelGrid columns="2" cellpadding="5">
-                                            <p:link id="tarea1" outcome="detalleTarea" value="Aplicar Fungicida Stinger"/>
-                                            <p:selectBooleanCheckbox id="tarea11" value="0" onchange="deleteTarea()">
-                                                <p:ajax update="tp" listener="#{beanSesionUsuario.validarTarea}"/>
-                                            </p:selectBooleanCheckbox>
-                                        </h:panelGrid>
-                                        <p:separator />
-                                        <h:outputText id="tp2" value="Usted tiene #{beanSesionUsuario.tareasPendientes + 1} tareas pendientes para el cultivo ''Cultivo Trigo Canelones2'':"  />
-                                        <h:panelGrid columns="2" cellpadding="5">
-                                            <p:link id="tarea2" outcome="detalleTarea" value="Aplicar INSECTICIDA Ectan"/>
-                                            <p:selectBooleanCheckbox id="tarea112" value="0" >
-
-                                            </p:selectBooleanCheckbox>
-                                            <p:link id="tarea3" outcome="detalleTarea" value="Aplicar HERBICIDA Venceweed Extra 100"/>
-                                            <p:selectBooleanCheckbox id="tarea113" value="0">
-
-                                            </p:selectBooleanCheckbox>                                            
-                                        </h:panelGrid>
-                                    </p:panel>
+                                    <p:dataList value="#{beanSeguimiento.cultivosConTareasPendientes}" var="cultivo" type="definition">
+                                        <b><h:outputText value="#{cultivo.nombre}" style="display:inline-block"/></b>
+                                        <p:dataList value="#{cultivo.tareasPendientes}" var="tarea" type="definition">
+                                            
+                                            <p:commandLink update=":form:detalleTarea" oncomplete="PF('tareasDialog').show()" title="Ver detalle" styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px">
+                                                <f:setPropertyActionListener value="#{tarea}" target="#{dataListView.selectedCar}" />
+                                                <h:outputText value="#{tarea.nombre}, #{tarea.fecha}" />
+                                            </p:commandLink>
+                                            <h:outputText value="#{tarea.brand}, #{tarea.year}" style="display:inline-block"/>
+                                        </p:dataList>
+                                    </p:dataList>
                                     <p:panel style="width:400px;height:400px;display: inline" id="drag-chart" header="Evolución de costos">
                                       <!--  <p:chart type="line" model="#{beanSesionUsuario.lineModel1}" style="height:300px;"/>-->
                                     </p:panel>
@@ -99,63 +88,63 @@
                                         <f:selectItems value="#{beanProyecto.proyectos}"></f:selectItems>
                                         <p:ajax event="change" update="detalleTareas"
                                                 listener="#{beanSeguimiento.actualizarTareasProyecto}" />
-                                </p:selectOneMenu>
-                                <h:outputText value="Zona" />      
-                                <p:selectOneMenu >
-                                    <f:selectItem itemLabel="Todos"/>
-                                    <f:selectItems value="#{beanParcela.departamentos}"></f:selectItems>
-                                </p:selectOneMenu>
-                            </p:panelGrid>
-                        </p:panel>
-                        <p:outputPanel>
-                            <p:dataTable value="#{beanSeguimiento.tareas}" var="item" id="detalleTareas">
-                                <p:column headerText="Fecha" width="100px">
-                                    <p:calendar disabled="true" value="#{item.fecha}"/>
+                                    </p:selectOneMenu>
+                                    <h:outputText value="Zona" />      
+                                    <p:selectOneMenu >
+                                        <f:selectItem itemLabel="Todos"/>
+                                        <f:selectItems value="#{beanParcela.departamentos}"></f:selectItems>
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+                            </p:panel>
+                            <p:outputPanel>
+                                <p:dataTable value="#{beanSeguimiento.tareas}" var="item" id="detalleTareas">
+                                    <p:column headerText="Fecha" width="100px">
+                                        <p:calendar disabled="true" value="#{item.fecha}"/>
+                                    </p:column>
+                                    <p:column headerText="Actividad">
+                                        #{item.nombre}
+                                    </p:column>
+                                    <p:column headerText="Cultivo">
+                                        #{item.idProyecto.nombre}
+                                    </p:column>
+                                </p:dataTable>
+                            </p:outputPanel>
+                        </p:tab>
+                        <p:tab title="Mis cultivos">
+                            <p:commandButton icon="ui-icon-plus" action="crearProyecto"/>
+                            <p:dataTable var="cultivo" value="#{beanCultivo.cultivos}" style="width:50%">
+                                <p:column headerText="Nombre">
+                                    <h:outputText value="#{cultivo.nombre}" />                                
                                 </p:column>
-                                <p:column headerText="Actividad">
-                                    #{item.nombre}
-                                </p:column>
-                                <p:column headerText="Cultivo">
-                                    #{item.idProyecto.nombre}
-                                </p:column>
+
+                                <p:column headerText="Departamento">
+                                    <h:outputText value="#{cultivo.idParcela.nombre}" />                                                            
+                                </p:column> 
+
+                                <p:column headerText="Padrón">
+                                    <h:outputText value="#{cultivo.fechaInicio}" />                                                            
+                                </p:column> 
                             </p:dataTable>
-                        </p:outputPanel>
-                    </p:tab>
-                    <p:tab title="Mis cultivos">
-                        <p:commandButton icon="ui-icon-plus" action="crearProyecto"/>
-                        <p:dataTable var="cultivo" value="#{beanCultivo.cultivos}" style="width:50%">
-                            <p:column headerText="Nombre">
-                                <h:outputText value="#{cultivo.nombre}" />                                
-                            </p:column>
+                        </p:tab>
+                    </p:tabView>
+                </p:layoutUnit>
+                <p:layoutUnit position="center">
+                    <!--<script type="text/javascript" src="http://voap.weather.com/weather/oap/USGA0028?template=ALERV&par=3000000007&unit=1&key=twciweatherwidget"></script>-->
+                    <p:panel style="width:90%" id="drag-clima" header="Notificaciones climáticas">
+                        <a href="http://www.accuweather.com/es/uy/montevideo/349269/weather-forecast/349269" class="aw-widget-legal">
+                            <!--
+                            By accessing and/or using this code snippet, you agree to AccuWeather’s terms and conditions (in English) which can be found at http://www.accuweather.com/en/free-weather-widgets/terms and AccuWeather’s Privacy Statement (in English) which can be found at http://www.accuweather.com/en/privacy.
+                            -->
+                        </a><div id="awcc1418751484873" class="aw-widget-current"  data-locationkey="349269" data-unit="c" data-language="es" data-useip="false" data-uid="awcc1418751484873"></div><script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>   
+                    </p:panel>
+                    <p:draggable for="drag-clima" />
 
-                            <p:column headerText="Departamento">
-                                <h:outputText value="#{cultivo.idParcela.nombre}" />                                                            
-                            </p:column> 
-
-                            <p:column headerText="Padrón">
-                                <h:outputText value="#{cultivo.fechaInicio}" />                                                            
-                            </p:column> 
-                        </p:dataTable>
-                    </p:tab>
-                </p:tabView>
-            </p:layoutUnit>
-            <p:layoutUnit position="center">
-                <!--<script type="text/javascript" src="http://voap.weather.com/weather/oap/USGA0028?template=ALERV&par=3000000007&unit=1&key=twciweatherwidget"></script>-->
-                <p:panel style="width:90%" id="drag-clima" header="Notificaciones climáticas">
-                    <a href="http://www.accuweather.com/es/uy/montevideo/349269/weather-forecast/349269" class="aw-widget-legal">
-                        <!--
-                        By accessing and/or using this code snippet, you agree to AccuWeather’s terms and conditions (in English) which can be found at http://www.accuweather.com/en/free-weather-widgets/terms and AccuWeather’s Privacy Statement (in English) which can be found at http://www.accuweather.com/en/privacy.
-                        -->
-                    </a><div id="awcc1418751484873" class="aw-widget-current"  data-locationkey="349269" data-unit="c" data-language="es" data-useip="false" data-uid="awcc1418751484873"></div><script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>   
-                </p:panel>
-                <p:draggable for="drag-clima" />
-
-                <p:panel style="width:90%"  id="drag-noticias" header="Noticias varias">
-                    <h:outputText value="Aquí se consumirá info de algún WS de noticias agro (no corresponde al scope actual)" />
-                </p:panel>
-                <p:draggable for="drag-noticias" />
-            </p:layoutUnit>                    
-        </p:layout>
-    </h:form>
-</ui:define>
+                    <p:panel style="width:90%"  id="drag-noticias" header="Noticias varias">
+                        <h:outputText value="Aquí se consumirá info de algún WS de noticias agro (no corresponde al scope actual)" />
+                    </p:panel>
+                    <p:draggable for="drag-noticias" />
+                </p:layoutUnit>                    
+            </p:layout>
+        </h:form>
+    </ui:define>
 </ui:composition>

@@ -56,7 +56,8 @@ public class BeanLogin implements Serializable {
     private String cuenta;
     private List<SelectItem> usuarios;
     private List<Cuenta> cuentas;
-
+    
+// <editor-fold defaultstate="collapsed" desc="Gets y Sets">
     public String getNombreUsuario() {
         return nombreUsuario;
     }
@@ -107,7 +108,7 @@ public class BeanLogin implements Serializable {
     public void setUsuarios(List<SelectItem> usuarios) {
         this.usuarios = usuarios;
     }
-
+// </editor-fold>
     public boolean validarUsuario() {
         try {
             loginSessionBean.verificarUsuario(nombreUsuario, claveUsuario);

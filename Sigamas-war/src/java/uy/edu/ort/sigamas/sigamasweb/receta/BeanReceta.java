@@ -28,7 +28,7 @@ public class BeanReceta implements Serializable{
      */
     public BeanReceta() {
     }
-
+// <editor-fold defaultstate="collapsed" desc="Gets y Sets">
     /**
      * @return the listaRecetasPersonalizadas
      */
@@ -76,5 +76,5 @@ public class BeanReceta implements Serializable{
     public void setNuevoNombre(String nuevoNombre) {
         this.nuevoNombre = nuevoNombre;
     }
-    
+    // </editor-fold>
 }

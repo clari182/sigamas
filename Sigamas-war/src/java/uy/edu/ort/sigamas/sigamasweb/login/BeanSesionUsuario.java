@@ -86,7 +86,7 @@ public class BeanSesionUsuario implements Serializable {
         }
 
     }
-
+// <editor-fold defaultstate="collapsed" desc="Gets y Sets">
     public Usuario getUsuarioLoggeado() {
         return usuarioLoggeado;
     }
@@ -130,7 +130,7 @@ public class BeanSesionUsuario implements Serializable {
     public void setTabSelected(int tabSelected) {
         this.tabSelected = tabSelected;
     }
-
+// </editor-fold>
     private LineChartModel initLinearModel() {
         LineChartModel model = new LineChartModel();
 
