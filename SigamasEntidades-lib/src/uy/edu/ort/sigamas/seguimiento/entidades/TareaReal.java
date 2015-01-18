@@ -50,6 +50,9 @@ import uy.edu.ort.sigamas.cultivos.entidades.Cultivo;
     ),
     @NamedQuery(name = "TareaReal.findByIdFase", query = "SELECT t FROM TareaReal t WHERE t.idFase = :idFase")})
 public class TareaReal implements Serializable {
+    @Column(name = "fecha_planificada")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaPlanificada;
     @JoinColumn(name = "id_cultivo", referencedColumnName = "id_cultivo")
     @ManyToOne(fetch = FetchType.EAGER)
     private Cultivo idCultivo;
@@ -191,6 +194,14 @@ public class TareaReal implements Serializable {
 
     public void setIdCultivo(Cultivo idCultivo) {
         this.idCultivo = idCultivo;
+    }
+
+    public Date getFechaPlanificada() {
+        return fechaPlanificada;
+    }
+
+    public void setFechaPlanificada(Date fechaPlanificada) {
+        this.fechaPlanificada = fechaPlanificada;
     }
     
 }

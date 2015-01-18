@@ -5,7 +5,10 @@
  */
 package uy.edu.ort.sigamas.seguimiento;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -13,6 +16,7 @@ import javax.persistence.PersistenceContext;
 import uy.edu.ort.sigamas.cultivos.entidades.Cultivo;
 import uy.edu.ort.sigamas.cultivos.entidades.Subfase;
 import uy.edu.ort.sigamas.seguimiento.entidades.Proyecto;
+import uy.edu.ort.sigamas.seguimiento.entidades.TareaPlanificada;
 import uy.edu.ort.sigamas.seguimiento.entidades.TareaReal;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 
@@ -68,5 +72,59 @@ public class SeguimientoBean implements SeguimientoBeanLocal {
             }
         }
         return tareasPendientes;
+    }
+
+    @Override
+    public void validarTarea(int idTarea) {
+        TareaReal tarea = em.find(TareaReal.class, idTarea);
+        Calendar hoy = Calendar.getInstance();
+        hoy.clear(Calendar.HOUR);
+        hoy.clear(Calendar.MINUTE);
+        hoy.clear(Calendar.SECOND);
+        Date fechaActual = hoy.getTime();
+        TareaPlanificada tareaPlanificada = em.find(TareaPlanificada.class, tarea.getIdTareaPlanificada());
+        boolean sePuedeValidar = false;
+
+        //Si la tarea todavia no ha sido validada y su fecha es anterior o igual a la fecha de hoy
+        if (tarea.getValidada() == 0 && fechaActual.compareTo(tarea.getFecha()) >= 0) {
+            sePuedeValidar = true;
+
+            TareaPlanificada tareaPlanificadaPredecesora = em.find(TareaPlanificada.class, tareaPlanificada.getIdTareaPredecesora());
+            List<TareaReal> tareasPredecesoras = tareaPlanificadaPredecesora.getTareaRealList();
+            if (tareasPredecesoras != null && tareasPredecesoras.size() > 0) {
+                for (TareaReal tareasPredecesora : tareasPredecesoras) {
+                    if (tareasPredecesora.getValidada() == 0) {
+                        sePuedeValidar = false;
+                        break;
+                    }
+                }
+            }
+        }
+        if (sePuedeValidar) {
+            tarea.setValidada(1);
+            //Si la fecha no es la misma que la planificada
+            long dif = Math.abs(tarea.getFecha().getTime() - tarea.getFechaPlanificada().getTime());
+            long diferenciaFechas = dif / (24 * 60 * 60 * 1000);
+            if (diferenciaFechas != 0) {
+                recalcularTareasSucesoras(tarea, tareaPlanificada, fechaActual, diferenciaFechas);
+            }
+        }
+    }
+
+    @Override
+    public void recalcularTareasSucesoras(TareaReal tarea, TareaPlanificada tareaPlanificada, Date fechaActual, long diferenciaFechas) {
+        int diasDeDiferencia = new BigDecimal(diferenciaFechas).intValueExact();
+        List<TareaPlanificada> tareasSucesoras = tareaPlanificada.getTareaPlanificadaList();
+        for (TareaPlanificada tareasSucesora : tareasSucesoras) {
+            List<TareaReal> tareasReales = tareasSucesora.getTareaRealList();
+            for (TareaReal tareaReal : tareasReales) {
+                Calendar nuevaFecha = Calendar.getInstance();
+                nuevaFecha.setTime(tareaReal.getFecha());
+                nuevaFecha.add(Calendar.DATE, diasDeDiferencia);                
+                tareaReal.setFecha(nuevaFecha.getTime());
+                em.merge(tareaReal);
+            }
+        }
+
     }
 }

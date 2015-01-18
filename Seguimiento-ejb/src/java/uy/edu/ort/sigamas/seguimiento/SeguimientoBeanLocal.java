@@ -5,10 +5,12 @@
  */
 package uy.edu.ort.sigamas.seguimiento;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 import uy.edu.ort.sigamas.cultivos.entidades.Cultivo;
 import uy.edu.ort.sigamas.seguimiento.entidades.Proyecto;
+import uy.edu.ort.sigamas.seguimiento.entidades.TareaPlanificada;
 import uy.edu.ort.sigamas.seguimiento.entidades.TareaReal;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 
@@ -48,4 +50,8 @@ public interface SeguimientoBeanLocal {
     void pasarProyectoDeFase(Proyecto proyecto);
 
     List<TareaReal> obtenerTareasPendientes(Cuenta cuentaActual);    
+    
+    void validarTarea(int idTarea);
+    
+    void recalcularTareasSucesoras(TareaReal tarea, TareaPlanificada tareaPlanificada, Date fechaActual, long diferenciaFechas);
 }
