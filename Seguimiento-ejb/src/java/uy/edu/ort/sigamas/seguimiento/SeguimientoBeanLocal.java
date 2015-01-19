@@ -53,5 +53,5 @@ public interface SeguimientoBeanLocal {
     
     void validarTarea(int idTarea);
     
-    void recalcularTareasSucesoras(TareaReal tarea, TareaPlanificada tareaPlanificada, Date fechaActual, long diferenciaFechas);
+    void recalcularTareasSucesoras(TareaReal tarea, TareaPlanificada tareaPlanificada, Date fechaActual, int diasDeDiferencia);
 }

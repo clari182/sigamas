@@ -91,8 +91,10 @@ public class SeguimientoBean implements SeguimientoBeanLocal {
 
             TareaPlanificada tareaPlanificadaPredecesora = em.find(TareaPlanificada.class, tareaPlanificada.getIdTareaPredecesora());
             List<TareaReal> tareasPredecesoras = tareaPlanificadaPredecesora.getTareaRealList();
+            //Si hay tareas predecesoras
             if (tareasPredecesoras != null && tareasPredecesoras.size() > 0) {
                 for (TareaReal tareasPredecesora : tareasPredecesoras) {
+                    //Si la tarea predecesora no ha sido validada no se puede validar la tarea sucesora
                     if (tareasPredecesora.getValidada() == 0) {
                         sePuedeValidar = false;
                         break;
@@ -102,20 +104,23 @@ public class SeguimientoBean implements SeguimientoBeanLocal {
         }
         if (sePuedeValidar) {
             tarea.setValidada(1);
-            //Si la fecha no es la misma que la planificada
-            long dif = Math.abs(tarea.getFecha().getTime() - tarea.getFechaPlanificada().getTime());
+            long dif = tarea.getFecha().getTime() - tarea.getFechaPlanificada().getTime();
             long diferenciaFechas = dif / (24 * 60 * 60 * 1000);
+            //Si las fechas son distintas
             if (diferenciaFechas != 0) {
-                recalcularTareasSucesoras(tarea, tareaPlanificada, fechaActual, diferenciaFechas);
+                int diasDeDiferencia = new BigDecimal(diferenciaFechas).intValueExact();
+                recalcularTareasSucesoras(tarea, tareaPlanificada, fechaActual, diasDeDiferencia);
             }
         }
     }
 
     @Override
-    public void recalcularTareasSucesoras(TareaReal tarea, TareaPlanificada tareaPlanificada, Date fechaActual, long diferenciaFechas) {
-        int diasDeDiferencia = new BigDecimal(diferenciaFechas).intValueExact();
+    public void recalcularTareasSucesoras(TareaReal tarea, TareaPlanificada tareaPlanificada, Date fechaActual, int diasDeDiferencia) {
+        
+        //Se obtiene la lista de tareas sucesoras
         List<TareaPlanificada> tareasSucesoras = tareaPlanificada.getTareaPlanificadaList();
         for (TareaPlanificada tareasSucesora : tareasSucesoras) {
+            //Se obtiene la tarea real correspondiente a la tarea planificada
             List<TareaReal> tareasReales = tareasSucesora.getTareaRealList();
             for (TareaReal tareaReal : tareasReales) {
                 Calendar nuevaFecha = Calendar.getInstance();
@@ -123,6 +128,8 @@ public class SeguimientoBean implements SeguimientoBeanLocal {
                 nuevaFecha.add(Calendar.DATE, diasDeDiferencia);                
                 tareaReal.setFecha(nuevaFecha.getTime());
                 em.merge(tareaReal);
+                //Se llama recursivamente a las siguientes tareas sucesoras
+                recalcularTareasSucesoras(tareaReal, tareasSucesora, fechaActual, diasDeDiferencia);
             }
         }
 
