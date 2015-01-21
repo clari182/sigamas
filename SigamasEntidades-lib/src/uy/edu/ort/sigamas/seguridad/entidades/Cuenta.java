@@ -11,6 +11,7 @@ import uy.edu.ort.sigamas.campos.entidades.Campo;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -61,7 +62,7 @@ public class Cuenta implements Serializable {
     @JoinTable(name = "cuenta_usuario", joinColumns = {
         @JoinColumn(name = "id_cuenta", referencedColumnName = "id_cuenta", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", nullable = false)})
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<Usuario> usuarioList;
     @OneToMany(mappedBy = "idCuenta", fetch = FetchType.EAGER)
     private List<Campo> campoList;

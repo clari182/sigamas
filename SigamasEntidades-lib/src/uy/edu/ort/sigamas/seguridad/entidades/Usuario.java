@@ -77,7 +77,7 @@ public class Usuario implements Serializable {
     private String sexo;
     @Column(name = "profesion", length = 45)
     private String profesion;
-    @ManyToMany(mappedBy = "usuarioList", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "usuarioList", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<Cuenta> cuentaList;
     @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")
     @ManyToOne(fetch = FetchType.EAGER)

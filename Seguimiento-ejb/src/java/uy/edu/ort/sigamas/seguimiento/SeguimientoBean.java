@@ -116,7 +116,7 @@ public class SeguimientoBean implements SeguimientoBeanLocal {
 
     @Override
     public void recalcularTareasSucesoras(TareaReal tarea, TareaPlanificada tareaPlanificada, Date fechaActual, int diasDeDiferencia) {
-        
+
         //Se obtiene la lista de tareas sucesoras
         List<TareaPlanificada> tareasSucesoras = tareaPlanificada.getTareaPlanificadaList();
         for (TareaPlanificada tareasSucesora : tareasSucesoras) {
@@ -125,7 +125,7 @@ public class SeguimientoBean implements SeguimientoBeanLocal {
             for (TareaReal tareaReal : tareasReales) {
                 Calendar nuevaFecha = Calendar.getInstance();
                 nuevaFecha.setTime(tareaReal.getFecha());
-                nuevaFecha.add(Calendar.DATE, diasDeDiferencia);                
+                nuevaFecha.add(Calendar.DATE, diasDeDiferencia);
                 tareaReal.setFecha(nuevaFecha.getTime());
                 em.merge(tareaReal);
                 //Se llama recursivamente a las siguientes tareas sucesoras
@@ -133,5 +133,10 @@ public class SeguimientoBean implements SeguimientoBeanLocal {
             }
         }
 
+    }
+
+    @Override
+    public List<Proyecto> obtenerProyectosConTareasPendientes(Cuenta cuentaActual) {
+        return cuentaActual.getProyectoList();
     }
 }

@@ -28,6 +28,9 @@ import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.MenuModel;
 import uy.edu.ort.sigamas.notificaciones.entidades.Notificacion;
+import uy.edu.ort.sigamas.seguimiento.SeguimientoBean;
+import uy.edu.ort.sigamas.seguimiento.SeguimientoBeanLocal;
+import uy.edu.ort.sigamas.seguimiento.entidades.Proyecto;
 import uy.edu.ort.sigamas.seguridad.entidades.Cuenta;
 import uy.edu.ort.sigamas.seguridad.entidades.Usuario;
 import uy.edu.ort.sigamas.seguridad.notificacion.NotificacionBeanLocal;
@@ -49,6 +52,9 @@ public class BeanSesionUsuario implements Serializable {
     @EJB
     private NotificacionBeanLocal notificacionBeanLocal;
 
+    @EJB
+    private SeguimientoBeanLocal seguimientoBeanLocal;
+
     private Usuario usuarioLoggeado;
     private Cuenta cuentaActual;
     private int tabSelected;
@@ -58,6 +64,7 @@ public class BeanSesionUsuario implements Serializable {
     private ScheduleModel eventModel;
     private MenuModel notificaciones;
     private List<Notificacion> notificacionesNoLeidas;
+    private List<Proyecto> proyectosConTareasPendientes;
 
     @PostConstruct
     public void init() {
@@ -85,6 +92,7 @@ public class BeanSesionUsuario implements Serializable {
 
     }
 // <editor-fold defaultstate="collapsed" desc="Gets y Sets">
+
     public Usuario getUsuarioLoggeado() {
         return usuarioLoggeado;
     }
@@ -99,6 +107,9 @@ public class BeanSesionUsuario implements Serializable {
         this.usuarioLoggeado = usuarioLoggeado;
         if (usuarioLoggeado.getCuentaList() != null && !usuarioLoggeado.getCuentaList().isEmpty()) {
             this.cuentaActual = usuarioLoggeado.getCuentaList().get(0);
+            if (cuentaActual != null) {
+                proyectosConTareasPendientes = seguimientoBeanLocal.obtenerProyectosConTareasPendientes(cuentaActual);
+            }
         }
     }
 
@@ -129,6 +140,7 @@ public class BeanSesionUsuario implements Serializable {
         this.tabSelected = tabSelected;
     }
 // </editor-fold>
+
     private LineChartModel initLinearModel() {
         LineChartModel model = new LineChartModel();
 
@@ -387,6 +399,35 @@ public class BeanSesionUsuario implements Serializable {
      */
     public void setNotificacionBeanLocal(NotificacionBeanLocal notificacionBeanLocal) {
         this.notificacionBeanLocal = notificacionBeanLocal;
+    }
+
+    /**
+     * @return the proyectosConTareasPendientes
+     */
+    public List<Proyecto> getProyectosConTareasPendientes() {
+        return proyectosConTareasPendientes;
+    }
+
+    /**
+     * @param proyectosConTareasPendientes the proyectosConTareasPendientes to
+     * set
+     */
+    public void setProyectosConTareasPendientes(List<Proyecto> proyectosConTareasPendientes) {
+        this.proyectosConTareasPendientes = proyectosConTareasPendientes;
+    }
+
+    /**
+     * @return the seguimientoBeanLocal
+     */
+    public SeguimientoBeanLocal getSeguimientoBeanLocal() {
+        return seguimientoBeanLocal;
+    }
+
+    /**
+     * @param seguimientoBeanLocal the seguimientoBeanLocal to set
+     */
+    public void setSeguimientoBeanLocal(SeguimientoBeanLocal seguimientoBeanLocal) {
+        this.seguimientoBeanLocal = seguimientoBeanLocal;
     }
 
 }

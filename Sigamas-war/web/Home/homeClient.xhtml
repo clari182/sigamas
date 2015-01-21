@@ -6,7 +6,8 @@
                 template="./../Templates/topHeaderTemplate.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 
     <ui:define name="content">
@@ -32,11 +33,25 @@
                                     <h:outputLabel></h:outputLabel>
 
                                     <p:panel style="width:400px;height:400px; display: inline" id="drag-tareas" header="Información sobre sus tareas">
-                                        <p:dataList value="#{beanSeguimiento.cultivosConTareasPendientes}" var="cultivo" type="definition">
-                                            <p:dataList value="#{cultivo.tareasPendientes}">
-                                                
-                                            </p:dataList>
-                                        </p:dataList>
+                                        <p:dataTable var="proyecto" value="#{beanSesionUsuario.proyectosConTareasPendientes}" emptyMessage="Usted no tiene tareas pendientes">
+                                            <f:facet name="header">
+                                                Proyectos con tareas pendientes
+                                            </f:facet>                                            
+
+                                            <p:subTable var="tareaReal" value="#{proyecto.tareaRealList}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{proyecto.nombre}" />
+                                                </f:facet>
+                                                <c:if test="#{tareaReal.validada eq 0}">
+                                                    <p:column>
+                                                        <h:outputText value="#{tareaReal.nombre}" />
+                                                    </p:column>                                                                                                
+                                                    <p:column>
+                                                        <h:outputText value="#{tareaReal.fecha}" />
+                                                    </p:column>     
+                                                </c:if>
+                                            </p:subTable>
+                                        </p:dataTable>
                                     </p:panel>
                                     <p:panel style="width:400px;height:400px;display: inline" id="drag-chart" header="Evolución de costos">
                                       <!--  <p:chart type="line" model="#{beanSesionUsuario.lineModel1}" style="height:300px;"/>-->
@@ -47,7 +62,7 @@
                         </p:tab>
                         <p:tab title="Mis parcelas">
                             <p:commandButton icon="ui-icon-plus" action="crearParcela"/>
-                            <p:dataTable var="parcela" value="#{beanParcela.parcelasHome}" style="width:50%">
+                            <p:dataTable var="parcela" value="#{beanParcela.parcelasHome}" style="width:50%" emptyMessage="Usted todavía no ha creado parcelas">
                                 <p:column headerText="Nombre">
                                     <h:outputText value="#{parcela.nombre}" />                                
                                 </p:column>
@@ -94,7 +109,7 @@
                                 </p:panelGrid>
                             </p:panel>
                             <p:outputPanel>
-                                <p:dataTable value="#{beanSeguimiento.tareas}" var="item" id="detalleTareas">
+                                <p:dataTable value="#{beanSeguimiento.tareas}" var="item" id="detalleTareas" emptyMessage="Usted no tiene ninguna tarea creada">
                                     <p:column headerText="Fecha" width="100px">
                                         <p:calendar disabled="true" value="#{item.fecha}"/>
                                     </p:column>
